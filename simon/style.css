@@ -1,0 +1,37 @@
+body {
+	margin: 5% auto;
+}
+
+main {
+  text-align: center;
+}
+
+.canvases {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+.square {
+	height: 300px;
+	width: 300px;
+	border: 10px solid black;
+}
+
+.green {
+	background-color: #0A0;
+}
+
+.blue {
+	background-color: #00A;
+}
+
+.red {
+	background-color: #A00;
+}
+
+.yellow {
+	background-color: #AA0;
+}
