@@ -1,72 +1,83 @@
-//What a mess.
+//Less of a mess, but nowhere near done.
 
-var btnArr = [
-	["r", "#A00", "#F00", "sound0"], 
-	["g", "#0A0", "#0F0", "sound1"], 
-	["b", "#00A", "#00F", "sound2"], 
-	["y", "#AA0", "#FF0", "sound3"]];
+var buttons = [
+{	id: "r",
+	color1: "#A00",
+	color2: "#F00",
+	sound: "sound0"}, 
+{	id: "g",
+	color1: "#0A0",
+	color2: "#0F0",
+	sound: "sound1"}, 
+{	id: "b",
+	color1: "#00A",
+	color2: "#00F",
+	sound: "sound2"}, 
+{ id: "y",	
+	color1: "#AA0",
+	color2: "#FF0",
+	sound: "sound3"}
+	];
 
-var beeps = document.getElementsByTagName("audio");
-
-function btnPress(id, color1, color2, beep) {
-	var canvas = document.getElementById(id);
-	canvas.style.backgroundColor = color2;
+var yourArr = [];
+var cpuArr = [];
+	
+function btnPress(obj) {
+	var canvas = document.getElementById(obj.id);
+	canvas.style.backgroundColor = obj.color2;
 	setTimeout(function(){
-		canvas.style.backgroundColor = color1;
+		canvas.style.backgroundColor = obj.color1;
 		}, 800);
+	var beep = document.getElementById(obj.sound);
 	beep.play();
 }
 
-function setButtons(i) {
-	var id = btnArr[i][0];
-	var color1 = btnArr[i][1];
-	var color2 = btnArr[i][2];
-	var beep = document.getElementById(btnArr[i][3]);
-  var btn = document.getElementById(id);
+function setButtons(obj) {
+	var id = obj.id;
+	var color1 = obj.color1;
+	var color2 = obj.color2;
+	var beep = document.getElementById(obj.sound);
+ 	var btn = document.getElementById(obj.id);
 	
 	btn.addEventListener("click", function() {
-		btnPress(id, color1, color2, beep);
+		btnPress(obj);
 		setTimeout(function() {
-			randomBeep();
+			cpuMove();
 		}, 1000);
 		yourArr.push(id);
-		console.log(yourArr);
 	});
 }
 
-function randomBeep() {
-	for (i=0; i < gameArr.length; i++){
-		cpuMove(i);
-	}
-	var r = Math.round((Math.random()*300)/100);
-	var id = btnArr[r][0];
-	var color1 = btnArr[r][1];
-	var color2 = btnArr[r][2];
-	var beep = document.getElementById(btnArr[r][3]);
-	btnPress(id, color1, color2, beep);
-	gameArr.push(id);
-	console.log(gameArr);
+
+function randomMove() {
+	var r = Math.round(Math.random() * 3);
+	console.log(r);
+	var obj = buttons[r];
+	setTimeout(function(){
+		btnPress(obj);
+		cpuArr.push(obj.id);
+		console.log(cpuArr);
+	}, 500);	
 }
 
-function cpuMove(i) {
-		setTimeout(function(){
-			var id = btnArr[i][0];
-			var color1 = btnArr[i][1];
-			var color2 = btnArr[i][2];
-			var beep = document.getElementById(btnArr[i][3]);
-			btnPress(id, color1, color2, beep);
-		}, 500);
+function findIndex(val) {
+for (var i=0; i < buttons.length; i++) {
+	if(val === buttons[i].id) {
+		return buttons[i];
+		}
+	}
+}
+
+function cpuMove(id) {
+	for (i=0; i < cpuArr.length; i++){
+		var obj = findIndex(cpuArr[i]);
+    if (obj){
+		btnPress(buttons[i]);
+		}
+	}
+	randomMove();
 }
 	
-
-
-for (var i=0; i < btnArr.length; i++) {
-	setButtons(i);
+for (var i=0; i < 4; i++) {
+	setButtons(buttons[i]);
 }
-
-var gameArr = [];
-var yourArr = [];
-
-setTimeout(function(){
-	randomBeep();
-}, 1000);
