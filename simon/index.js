@@ -1,4 +1,4 @@
-//Less of a mess, but nowhere near done.
+//I think I'm barking up the wrong tree. Looking into game states...
 
 var buttons = [
 {	id: "r",
@@ -21,63 +21,88 @@ var buttons = [
 
 var yourArr = [];
 var cpuArr = [];
-	
+
 function btnPress(obj) {
 	var canvas = document.getElementById(obj.id);
 	canvas.style.backgroundColor = obj.color2;
+	var beep = document.getElementById(obj.sound);
+	beep.play();
 	setTimeout(function(){
 		canvas.style.backgroundColor = obj.color1;
 		}, 800);
-	var beep = document.getElementById(obj.sound);
-	beep.play();
-}
+	console.log(cpuArr.length + " " + yourArr.length);
+	if (cpuArr > 0 && yourArr.length === cpuArr.length) {
+		setTimeout(function() {
+			cpuNextMove();
+			}, 1000);
+		}
+	}
+
 
 function setButtons(obj) {
 	var id = obj.id;
 	var color1 = obj.color1;
 	var color2 = obj.color2;
 	var beep = document.getElementById(obj.sound);
- 	var btn = document.getElementById(obj.id);
-	
+    var btn = document.getElementById(obj.id);
 	btn.addEventListener("click", function() {
 		btnPress(obj);
-		setTimeout(function() {
-			cpuMove();
-		}, 1000);
-		yourArr.push(id);
+		yourArr.push(obj.id);
+		console.log("yourArr: " + yourArr);
 	});
 }
 
+function gameStart(){
+	for (var i=0; i < buttons.length; i++){
+		setButtons(buttons[i]);
+	}
+	cpuNextMove();
+}
 
-function randomMove() {
+function cpuNextMove(){
 	var r = Math.round(Math.random() * 3);
-	console.log(r);
 	var obj = buttons[r];
-	setTimeout(function(){
-		btnPress(obj);
-		cpuArr.push(obj.id);
-		console.log(cpuArr);
-	}, 500);	
-}
-
-function findIndex(val) {
-for (var i=0; i < buttons.length; i++) {
-	if(val === buttons[i].id) {
-		return buttons[i];
-		}
+	btnPress(obj);
+	cpuArr.push(obj.id);
+	console.log("cpuArr: " + cpuArr);
+	if(yourArr.length > 0) {
+		playerMove(yourArr[0], cpuArr[0]);
 	}
 }
 
-function cpuMove(id) {
-	for (i=0; i < cpuArr.length; i++){
-		var obj = findIndex(cpuArr[i]);
-    if (obj){
-		btnPress(buttons[i]);
-		}
+
+function playerMove(x, y) {
+	if (x === y) {
+		console.log("match");
+		playerMove(arr[x+1], arr[y+1]);
+	} else {
+		console.log("error");
 	}
-	randomMove();
 }
-	
-for (var i=0; i < 4; i++) {
-	setButtons(buttons[i]);
-}
+
+//Game starts.
+
+//CPU makes a move, which gets stored.
+
+//Player makes a move. 
+	//If it matches the CPU's move, the game continues.
+	//If it does not, an error is thrown,
+			//and the player tries again in easy mode.
+			//and the game is reset in hard mode.
+
+//CPU makes a second move, which gets stored in a sequence (which can be up to 5 characters long).
+
+
+//Player makes a second move.
+	//If it matches the first move in the CPU's sequence, the player inputs another move.
+		//If it matches the second move, the player inputs another move.
+			//If it matches the third move, etc. etc. until the CPU's sequence has been matched.
+				//If the entire sequence matches, 
+					//a positive message is displayed,
+					//and the CPU makes another random move.
+	//If it does not, an error is thrown...
+
+//Play continues until the player recalls 5 moves successfully.
+	//Then a "YOU WIN" message displays, and all items reset.
+
+gameStart();
