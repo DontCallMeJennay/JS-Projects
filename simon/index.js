@@ -32,15 +32,7 @@ Game states: Start, cpuTurn, yourTurn, End.
 			Reset to Start state.
 */
 
-
-
-/*
-Game states: Start, cpuTurn, yourTurn, End.
-
-	While Start:
-		Select Easy or Hard button.	
-		Go to cpuTurn state.
-*/
+////QUICK! UPLOAD IT WHILE IT STILL WORKS!
 
 function gameStates(){
 
@@ -84,7 +76,7 @@ function gameStates(){
 		canvas.style.backgroundColor = obj.color2;
 		var beep = document.getElementById(obj.sound);
 		beep.play();
-		console.log(obj.id + " beeped.");
+		//console.log(obj.id + " beeped.");
 		setTimeout(function(){
 			canvas.style.backgroundColor = obj.color1;
 			}, 500);
@@ -101,12 +93,12 @@ function gameStates(){
 	function gameStart(){
 		easy.addEventListener("click", function(){
 			//console.log("hardMode: " + hardMode);
-			cpuTurn();
+			return cpuTurn();
 		});
 		hard.addEventListener("click", function(){
 			hardMode = true;
 			//console.log("hardMode: " + hardMode);
-			cpuTurn();
+			return cpuTurn();
 		});	
 	}
 
@@ -116,50 +108,49 @@ function gameStates(){
 		document.getElementById("hard").style.visibility = "hidden";
 		document.getElementById("reset").style.visibility = "hidden";
 
-////Activates memorized button sequence
-		function playList(str){
-			var obj = buttons.filter(function(x){
-				return x.id == str;
-				});	
-			console.log(obj[0]);
-			btnPress(obj[0]);
-			}
-
-////Adds the next button to the sequence
+	////Adds the next button to the sequence
 		function cpuNextMove(){
 			var r = Math.round(Math.random() * 3);
 			var obj = buttons[r];
 			cpuArr.push(obj.id);
 			console.log("cpuArr: " + cpuArr);
-			return obj;
 		}
 
-		for (var i=0; i < buttons.length; i++){
-			clearButtons(buttons[i]);
-		}
+	////Activates memorized button sequence
+		function playList(str, index){
+			console.log("str: " + str);
+			var obj = buttons.filter(function(x){
+				return x.id == str;
+				});	
+			console.log("obj: " + obj[0]);
+			setTimeout(function(){
+				btnPress(obj[0]);
+			}, 700*(index+1));
+			}
 
-////begin turn
+	////begin turn
 
 		if(cpuArr.length === 0){
 			setTimeout(function(){
-				btnPress(cpuNextMove());
+				cpuNextMove();
 				return yourTurn();
 			}, 1000);
 		} else {
+			cpuNextMove();
 			for (var i=0; i < cpuArr.length; i++){
-				console.log(cpuArr[i]);
-				setTimeout(function(){
-					playList(cpuArr[i]);
-					console.log("playList called on " + cpuArr[i]);
-				}, 800*i);
+				var x = cpuArr[i];
+				console.log("cpuArr[i]: " + cpuArr[i]);
+				playList(x, i);
 			}
+			return yourTurn();
 		}
 	}
 
 
+
 	function yourTurn(){
 
-////Sets up the buttons to beep and check for pattern matches when clicked
+	////Sets up the buttons to beep and check for pattern matches when clicked
 		function setButtons(obj) {
 		    var btn = document.getElementById(obj.id);
 			btn.addEventListener("click", function() {
@@ -168,7 +159,7 @@ function gameStates(){
 			});
 		}
 
-////Checks whether your click matches the pattern
+	////Checks whether your click matches the pattern
 		function arrCheck(id){
 			if(id === cpuArr[turnCount]) {
 				//console.log(turnCount + " - Correct");
@@ -180,7 +171,7 @@ function gameStates(){
 					}, 1000);
 				}
 			} else {
-				//console.log("Incorrect, retry");
+				console.log("Incorrect, retry");
 			}
 		}
 
