@@ -36,11 +36,12 @@ Game states: Start, cpuTurn, yourTurn, End.
 
 function gameStates(){
 
-////GLOBAL (sorta) VARIABLES	
+////GLOBAL (sorta) VARIABLES
+	var lose = undefined;	
 	var easy = document.getElementById("easy");
 	var hard = document.getElementById("hard");
-	var resetGame = document.getElementById("reset");
-			resetGame.addEventListener("click", function(){
+	var resetBtn = document.getElementById("reset");
+			resetBtn.addEventListener("click", function(){
 			resetGame();
 		});
 
@@ -76,7 +77,6 @@ function gameStates(){
 		canvas.style.backgroundColor = obj.color2;
 		var beep = document.getElementById(obj.sound);
 		beep.play();
-		//console.log(obj.id + " beeped.");
 		setTimeout(function(){
 			canvas.style.backgroundColor = obj.color1;
 			}, 500);
@@ -92,12 +92,10 @@ function gameStates(){
 
 	function gameStart(){
 		easy.addEventListener("click", function(){
-			//console.log("hardMode: " + hardMode);
 			return cpuTurn();
 		});
 		hard.addEventListener("click", function(){
 			hardMode = true;
-			//console.log("hardMode: " + hardMode);
 			return cpuTurn();
 		});	
 	}
@@ -118,11 +116,9 @@ function gameStates(){
 
 	////Activates memorized button sequence
 		function playList(str, index){
-			console.log("str: " + str);
 			var obj = buttons.filter(function(x){
 				return x.id == str;
 				});	
-			console.log("obj: " + obj[0]);
 			setTimeout(function(){
 				btnPress(obj[0]);
 			}, 700*(index+1));
@@ -130,23 +126,26 @@ function gameStates(){
 
 	////begin turn
 
+		if(cpuArr.length > 5){
+			lose = false;
+			return gameEnd();
+		}
+
 		if(cpuArr.length === 0){
 			setTimeout(function(){
 				cpuNextMove();
+				playList(cpuArr[0],0);
 				return yourTurn();
 			}, 1000);
 		} else {
 			cpuNextMove();
 			for (var i=0; i < cpuArr.length; i++){
 				var x = cpuArr[i];
-				console.log("cpuArr[i]: " + cpuArr[i]);
 				playList(x, i);
 			}
 			return yourTurn();
 		}
 	}
-
-
 
 	function yourTurn(){
 
@@ -161,33 +160,49 @@ function gameStates(){
 
 	////Checks whether your click matches the pattern
 		function arrCheck(id){
+			console.log("id: " + id + " turnCount: " + cpuArr[turnCount]);
 			if(id === cpuArr[turnCount]) {
-				//console.log(turnCount + " - Correct");
+			for (var i=0; i < buttons.length; i++){
+				clearButtons(buttons[i]);
+				}
 				turnCount++;
 				if (turnCount === cpuArr.length) {
 					turnCount = 0;
 					setTimeout(function(){
 						return cpuTurn();						
-					}, 1000);
+					}, 700);
 				}
 			} else {
 				console.log("Incorrect, retry");
+				//if (hardMode = true){
+					//lose = true;
+					//return gameEnd();
+				//if (hardMode = false){
+					//console.log("Incorrect, retry");
+				}
+				
 			}
-		}
-
-
+		
 		for (var i=0; i < buttons.length; i++){
 			setButtons(buttons[i]);
 		}
 	}
 
 	function gameEnd(){
-
+		if (lose === false) {
+			console.log("YOU WIN!");
+			document.getElementById("reset").style.visibility = "visible";
+		}
+		if (lose === true) {
+			console.log("YOU LOSE.");
+			document.getElementById("reset").style.visibility = "visible";
+		}
 	}
 
 	function resetGame(){
-
+		location.reload();
 	}
+
 	gameStart();
 }
 
