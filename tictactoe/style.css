@@ -1,0 +1,43 @@
+html {
+  height: 100%;	
+}
+
+body {
+	background-color: #C38D85;
+	background: linear-gradient(to bottom, #C38D99, #2F1533);
+	font-family: 'Chivo', sans-serif;
+	font-size: 2rem;
+	margin: 3% auto;
+	text-align: center;
+}
+
+main {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	margin: 2% auto;
+	width: 500px;
+}
+
+canvas {
+	background-color: #DB9A64;
+	background: radial-gradient(ellipse, #B6723A, #774308);
+	border: outset 3px #492406;
+	height: 150px;
+	width: 150px;
+}
+
+button {
+	background-color: #C9D;
+	background: radial-gradient(ellipse, #C9D, #96A);
+	border: outset 3px #774308;
+	border-radius: 10px 5px;
+	font-color: #2F1500;
+	padding: 10px;
+}
+
+button,
+.info {
+	font-family: 'Concert One', cursive;
+	margin: 20px;
+}
