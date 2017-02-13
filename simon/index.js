@@ -160,7 +160,7 @@ function gameStates(){
 
 	////Checks whether your click matches the pattern
 		function arrCheck(id){
-			//console.log("id: " + id + " turnCount: " + turnCount + " cpuArr: " + cpuArr[turnCount]);
+			console.log("arrCheck() called on " + id);
 			if(id === cpuArr[turnCount]) {
 				turnCount++;
 				if (turnCount === cpuArr.length) {
@@ -175,10 +175,12 @@ function gameStates(){
 			} 	
 		}
 
+		if(cpuArr.length === 1){
 		for (var i=0; i < buttons.length; i++){
 			setButtons(buttons[i]);
 			//console.log("setButtons triggered on " + buttons[i].id);
 		}
+	}
 	}
 
 	function gameEnd(){
