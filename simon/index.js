@@ -120,7 +120,7 @@ function gameStates(){
 
 	////begin turn
 
-		if(cpuArr.length > 5){
+		if(cpuArr.length > 4){
 			lose = false;
 			return gameEnd();
 		}
@@ -149,7 +149,6 @@ function gameStates(){
 			btn.addEventListener("click", function() {
 				btnPress(obj);
 				arrCheck(obj.id);
-				console.log("arrCheck() triggered for button " + obj.id);
 			}, true);
 		}
 
@@ -157,26 +156,25 @@ function gameStates(){
 		    var btn = document.getElementById(obj.id);
 		    btn.removeEventListener("click", setButtons)
 			btn.removeEventListener("click", arrCheck);
-			//console.log("clearButtons triggered on " + obj.id);
 		}
 
 	////Checks whether your click matches the pattern
 		function arrCheck(id){
 			//console.log("id: " + id + " turnCount: " + turnCount + " cpuArr: " + cpuArr[turnCount]);
 			if(id === cpuArr[turnCount]) {
-			for (var i=0; i < buttons.length; i++){
-				clearButtons(buttons[i]);
-				}
 				turnCount++;
 				if (turnCount === cpuArr.length) {
 					turnCount = 0;
+					for (var i=0; i < buttons.length; i++){
+						clearButtons(buttons[i]);
+						}
 					setTimeout(function(){
 						return cpuTurn();						
 					}, 700);
 				}
 			} 	
 		}
-		
+
 		for (var i=0; i < buttons.length; i++){
 			setButtons(buttons[i]);
 			//console.log("setButtons triggered on " + buttons[i].id);
