@@ -1,36 +1,3 @@
-/*
-Game states: Start, cpuTurn, yourTurn, End.
-
-	While Start:
-		Select Easy or Hard button.	
-		Go to cpuTurn state.
-
-	While cpuTurn:
-		If cpuArray < 10,
-			Pick a random color, play light and sound, and add it to the memory list (array).
-			On the 2nd+ pass, play all the previous colors in sequence before adding a new one.
-			Go to yourTurn state.
-		If cpuArray >=10,
-			Go to End state.
-
-	While yourTurn:
-		Click on a color.
-		Check if it matches the first item in the CPU array.
-			If yes, 
-				let player pick again and check if it matches the second color...
-				and pick again and see if it matches the third color...
-				...as many times as there are items in the CPU array.
-			If no,
-				if Easy, error causes replay of turn.	
-				if Hard, error causes end of game.
-					Go to End state.
-		If all checks are successful, go to cpuTurn state.
-
-	While End:
-		If end caused by error, display "YOU LOSE" and show Play Again button. Reset to Start state.
-		If end caused by cpuArray exceeding 10, display "YOU WIN" and show Play Again button. 
-			Reset to Start state.
-*/
 
 ////GLOBAL (sorta) VARIABLES
 	var lose = undefined;
@@ -39,10 +6,11 @@ Game states: Start, cpuTurn, yourTurn, End.
 	var hard = document.getElementById("hard");
 	var imp = document.getElementById("imp");
 	var cv = document.getElementById("canvases");
-	var resetBtn = document.getElementById("reset");
 	var rn = 5;
-			resetBtn.addEventListener("click", function(){
-			resetGame();
+
+	var resetBtn = document.getElementById("reset");
+	resetBtn.addEventListener("click", function(){
+		resetGame();
 		});
 
 	var hardMode = false;
@@ -80,7 +48,7 @@ Game states: Start, cpuTurn, yourTurn, End.
 
 
 ////GLOBAL FUNCTIONS
-
+	
 	function btnPress(obj) {
 		var canvas = document.getElementById(obj.id);
 		canvas.style.backgroundColor = obj.color2;
@@ -91,7 +59,7 @@ Game states: Start, cpuTurn, yourTurn, End.
 			}, 500);
 	}
 
-	////Activates memorized button sequence
+	////Plays button sequence
 		function playList(str, index){
 			var obj = buttons.filter(function(x){
 				return x.id == str;
@@ -99,7 +67,7 @@ Game states: Start, cpuTurn, yourTurn, End.
 			setTimeout(function(){
 				btnPress(obj[0]);
 			}, 700*(index+1));
-			}
+		}
 
 
 ////STATE FUNCTIONS and sub-functions
@@ -132,18 +100,17 @@ Game states: Start, cpuTurn, yourTurn, End.
 		resetBtn.style.visibility = "hidden";
 	}
 
-	function setDiff() {
+	function setDifficulty() {
 		if(hardMode === false){
 			rn -= 2;
 			var o = document.getElementById("o");
 			cv.removeChild(o);
 			var p = document.getElementById("p");
 			cv.removeChild(p);
-			buttons.pop();
-			buttons.pop();
-			console.log(buttons);
+			buttons.pop(); buttons.pop();
 		}
 	}
+
 
 	function cpuTurn(){
 
@@ -152,13 +119,10 @@ Game states: Start, cpuTurn, yourTurn, End.
 			var r = Math.round(Math.random() * rn);
 			var obj = buttons[r];
 			cpuArr.push(obj.id);
-			console.log("cpuArr: " + cpuArr);
+			//console.log("cpuArr: " + cpuArr);
 		}
 
 	////begin turn
-
-		cv.style.visibility = "visible";
-
 		if(cpuArr.length > 6){
 			lose = false;
 			return gameEnd();
@@ -166,12 +130,14 @@ Game states: Start, cpuTurn, yourTurn, End.
 
 		if(cpuArr.length === 0){
 			setTimeout(function(){
-				setDiff();
+				setDifficulty();
+				cv.style.visibility = "visible";
 				cpuNextMove();
 				playList(cpuArr[0],0);
 				return yourTurn();
 			}, 500);
 		} else {
+			cv.style.visibility = "visible";
 			cpuNextMove();
 			for (var i=0; i < cpuArr.length; i++){
 				var x = cpuArr[i];
@@ -180,6 +146,7 @@ Game states: Start, cpuTurn, yourTurn, End.
 			return yourTurn();
 		}
 	}
+
 
 	function yourTurn(){
 
@@ -192,15 +159,21 @@ Game states: Start, cpuTurn, yourTurn, End.
 			}, true);
 		}
 
+	////Removes extraneous event listeners... I think...
 		function clearButtons(obj) {
 		    var btn = document.getElementById(obj.id);
 		    btn.removeEventListener("click", setButtons)
 			btn.removeEventListener("click", arrCheck);
 		}
 
-	////Checks whether your click matches the pattern
+	////Checks whether your click matches the pattern and changes state accordingly.
+
+		/* If the ID passed in matches the ID at array index [turnCount], the counter
+		increments, and it checks whether you've reached the end of the array. If so,
+		the counter resets, the event listeners are cleared, and it becomes the 
+		computer's turn. */
+
 		function arrCheck(id){
-			console.log("arrCheck() called on " + id);
 			if(id === cpuArr[turnCount]) {
 				turnCount++;
 				if (turnCount === cpuArr.length) {
@@ -212,49 +185,53 @@ Game states: Start, cpuTurn, yourTurn, End.
 						return cpuTurn();						
 					}, 700);
 				}
-			} else {
-				msg.style.visibility = "initial";
-				msg.innerHTML = "Wrong click!";
-				turnCount = 0;
-				if(impMode === true){
-					lose = true;
-					return gameEnd();
+
+		/* If the ID doesn't match, it's try again or game over, depending on difficulty. */
+
 				} else {
-				setTimeout(function(){					
-					for (var i=0; i < cpuArr.length; i++){
-						var x = cpuArr[i];
-						playList(x, i);
-					}
-				msg.style.visibility = "hidden";	
-				msg.innerHTML = "Invisible walrus step on you";
-				return yourTurn();			
-			}, 1000);
-			}	
-		}
+					turnCount = 0;
+					if(impMode === true){
+						lose = true;
+						return gameEnd();
+					} else {
+						msg.style.visibility = "initial";
+						msg.innerHTML = "Try again!";
+						setTimeout(function(){					
+							for (var i=0; i < cpuArr.length; i++){
+								var x = cpuArr[i];
+								playList(x, i);
+							}
+						msg.style.visibility = "hidden";	
+						msg.innerHTML = "Invisible walrus step on you";  //Don't ask.
+						return yourTurn();			
+					}, 1000);
+				}	
+			}
 		}
 
+	////This sets up the buttons for the player after the AI's first turn
 		if(cpuArr.length === 1){
 		for (var i=0; i < buttons.length; i++){
 			setButtons(buttons[i]);
+			}
 		}
 	}
-	}
 
+	////And finally, the end state checks if you won or not and shows the reset button.
 	function gameEnd(){
 
-		if (lose === false) {
+		function showEnd(str){
+			msg.innerHTML = str;
 			msg.style.visibility = "initial";
-			msg.innerHTML = "YOU WIN!";
 			easy.style.visibility = "hidden";
 			hard.style.visibility = "hidden";
 			resetBtn.style.visibility = "visible";
 		}
-		if (lose === true) {
-			msg.style.visibility = "initial";
-			msg.innerHTML = "YOU LOSE.";
-			easy.style.visibility = "hidden";
-			hard.style.visibility = "hidden";
-			resetBtn.style.visibility = "visible";;
+
+		if (lose === false) {
+			showEnd("YOU WIN!");
+		} else {
+			showEnd("YOU LOSE.");
 		}
 	}
 

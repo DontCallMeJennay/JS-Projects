@@ -1,23 +1,19 @@
 body {
-	margin: 5% auto;
-}
-
-main {
-  text-align: center;
+	text-align: center;
 }
 
 .canvases {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
-	max-width: 600px;
-	margin: 2% auto;
-	transform: rotate(-10deg);
+	max-width: 70vh;
+	margin: auto;
 }
 
 .square {
-	height: 250px;
-	width: 250px;
+	height: 20vh;
+	margin: 1vh;
+	width: 20vh;
 	border: 10px solid black;
 	border-radius: 150px;
 }
