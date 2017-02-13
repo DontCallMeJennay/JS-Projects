@@ -32,20 +32,21 @@ Game states: Start, cpuTurn, yourTurn, End.
 			Reset to Start state.
 */
 
-////QUICK! UPLOAD IT WHILE IT STILL WORKS!
-
-function gameStates(){
-
 ////GLOBAL (sorta) VARIABLES
-	var lose = undefined;	
+	var lose = undefined;
+	var msg = document.getElementById("messages");
 	var easy = document.getElementById("easy");
 	var hard = document.getElementById("hard");
+	var imp = document.getElementById("imp");
+	var cv = document.getElementById("canvases");
 	var resetBtn = document.getElementById("reset");
+	var rn = 5;
 			resetBtn.addEventListener("click", function(){
 			resetGame();
 		});
 
 	var hardMode = false;
+	var impMode = false;
 
 	var buttons = [
 {	id: "r",
@@ -63,7 +64,15 @@ function gameStates(){
 { id: "y",	
 	color1: "#AA0",
 	color2: "#FF0",
-	sound: "sound3"}
+	sound: "sound3"},
+{	id: "p",
+	color1: "#A0A",
+	color2: "#F0F",
+	sound: "sound4"},
+{	id: "o",
+	color1: "#FA0",
+	color2: "#FC0",
+	sound: "sound5"}
 	];
 
 	var cpuArr = [];
@@ -82,32 +91,6 @@ function gameStates(){
 			}, 500);
 	}
 
-////STATE FUNCTIONS and sub-functions
-
-	function gameStart(){
-		easy.addEventListener("click", function(){
-			return cpuTurn();
-		});
-		hard.addEventListener("click", function(){
-			hardMode = true;
-			return cpuTurn();
-		});	
-	}
-
-	function cpuTurn(){
-
-		document.getElementById("easy").style.visibility = "hidden";
-		document.getElementById("hard").style.visibility = "hidden";
-		document.getElementById("reset").style.visibility = "hidden";
-
-	////Adds the next button to the sequence
-		function cpuNextMove(){
-			var r = Math.round(Math.random() * 3);
-			var obj = buttons[r];
-			cpuArr.push(obj.id);
-			console.log("cpuArr: " + cpuArr);
-		}
-
 	////Activates memorized button sequence
 		function playList(str, index){
 			var obj = buttons.filter(function(x){
@@ -118,15 +101,72 @@ function gameStates(){
 			}, 700*(index+1));
 			}
 
+
+////STATE FUNCTIONS and sub-functions
+
+	function gameStart(){
+		easy.addEventListener("click", function(){
+			hideBtns();
+			return cpuTurn();
+		});
+		hard.addEventListener("click", function(){
+			hideBtns();
+			hardMode = true;
+			return cpuTurn();
+		});	
+		imp.addEventListener("click", function(){
+			hideBtns();
+			hardMode = true;
+			impMode = true;
+			return cpuTurn();
+		});	
+
+		cv.style.visibility = "hidden";
+		msg.style.visibility = "hidden";
+	}
+
+	function hideBtns(){
+		easy.style.visibility = "hidden";
+		hard.style.visibility = "hidden";
+		imp.style.visibility = "hidden";
+		resetBtn.style.visibility = "hidden";
+	}
+
+	function setDiff() {
+		if(hardMode === false){
+			rn -= 2;
+			var o = document.getElementById("o");
+			cv.removeChild(o);
+			var p = document.getElementById("p");
+			cv.removeChild(p);
+			buttons.pop();
+			buttons.pop();
+			console.log(buttons);
+		}
+	}
+
+	function cpuTurn(){
+
+	////Adds the next button to the sequence
+		function cpuNextMove(){
+			var r = Math.round(Math.random() * rn);
+			var obj = buttons[r];
+			cpuArr.push(obj.id);
+			console.log("cpuArr: " + cpuArr);
+		}
+
 	////begin turn
 
-		if(cpuArr.length > 4){
+		cv.style.visibility = "visible";
+
+		if(cpuArr.length > 6){
 			lose = false;
 			return gameEnd();
 		}
 
 		if(cpuArr.length === 0){
 			setTimeout(function(){
+				setDiff();
 				cpuNextMove();
 				playList(cpuArr[0],0);
 				return yourTurn();
@@ -172,25 +212,49 @@ function gameStates(){
 						return cpuTurn();						
 					}, 700);
 				}
-			} 	
+			} else {
+				msg.style.visibility = "initial";
+				msg.innerHTML = "Wrong click!";
+				turnCount = 0;
+				if(impMode === true){
+					lose = true;
+					return gameEnd();
+				} else {
+				setTimeout(function(){					
+					for (var i=0; i < cpuArr.length; i++){
+						var x = cpuArr[i];
+						playList(x, i);
+					}
+				msg.style.visibility = "hidden";	
+				msg.innerHTML = "Invisible walrus step on you";
+				return yourTurn();			
+			}, 1000);
+			}	
+		}
 		}
 
 		if(cpuArr.length === 1){
 		for (var i=0; i < buttons.length; i++){
 			setButtons(buttons[i]);
-			//console.log("setButtons triggered on " + buttons[i].id);
 		}
 	}
 	}
 
 	function gameEnd(){
+
 		if (lose === false) {
-			console.log("YOU WIN!");
-			document.getElementById("reset").style.visibility = "visible";
+			msg.style.visibility = "initial";
+			msg.innerHTML = "YOU WIN!";
+			easy.style.visibility = "hidden";
+			hard.style.visibility = "hidden";
+			resetBtn.style.visibility = "visible";
 		}
 		if (lose === true) {
-			console.log("YOU LOSE.");
-			document.getElementById("reset").style.visibility = "visible";
+			msg.style.visibility = "initial";
+			msg.innerHTML = "YOU LOSE.";
+			easy.style.visibility = "hidden";
+			hard.style.visibility = "hidden";
+			resetBtn.style.visibility = "visible";;
 		}
 	}
 
@@ -199,6 +263,4 @@ function gameStates(){
 	}
 
 	gameStart();
-}
 
-gameStates();
