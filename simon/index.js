@@ -159,13 +159,6 @@
 			}, true);
 		}
 
-	////Removes extraneous event listeners... I think...
-		function clearButtons(obj) {
-		    var btn = document.getElementById(obj.id);
-		    btn.removeEventListener("click", setButtons)
-			btn.removeEventListener("click", arrCheck);
-		}
-
 	////Checks whether your click matches the pattern and changes state accordingly.
 
 		/* If the ID passed in matches the ID at array index [turnCount], the counter
@@ -178,9 +171,6 @@
 				turnCount++;
 				if (turnCount === cpuArr.length) {
 					turnCount = 0;
-					for (var i=0; i < buttons.length; i++){
-						clearButtons(buttons[i]);
-						}
 					setTimeout(function(){
 						return cpuTurn();						
 					}, 700);
