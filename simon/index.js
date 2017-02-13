@@ -91,6 +91,7 @@
 
 		cv.style.visibility = "hidden";
 		msg.style.visibility = "hidden";
+		resetBtn.style.visibility = "hidden";
 	}
 
 	function hideBtns(){
@@ -220,8 +221,10 @@
 
 		if (lose === false) {
 			showEnd("YOU WIN!");
+			cv.style.visibility = "hidden";
 		} else {
 			showEnd("YOU LOSE.");
+			cv.style.visibility = "hidden";
 		}
 	}
 
