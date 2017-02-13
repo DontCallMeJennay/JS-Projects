@@ -82,12 +82,6 @@ function gameStates(){
 			}, 500);
 	}
 
-	function clearButtons(obj) {
-	    var btn = document.getElementById(obj.id);
-		btn.removeEventListener("click", btn);
-	}
-
-
 ////STATE FUNCTIONS and sub-functions
 
 	function gameStart(){
@@ -136,7 +130,7 @@ function gameStates(){
 				cpuNextMove();
 				playList(cpuArr[0],0);
 				return yourTurn();
-			}, 1000);
+			}, 500);
 		} else {
 			cpuNextMove();
 			for (var i=0; i < cpuArr.length; i++){
@@ -155,12 +149,20 @@ function gameStates(){
 			btn.addEventListener("click", function() {
 				btnPress(obj);
 				arrCheck(obj.id);
-			});
+				console.log("arrCheck() triggered for button " + obj.id);
+			}, true);
+		}
+
+		function clearButtons(obj) {
+		    var btn = document.getElementById(obj.id);
+		    btn.removeEventListener("click", setButtons)
+			btn.removeEventListener("click", arrCheck);
+			//console.log("clearButtons triggered on " + obj.id);
 		}
 
 	////Checks whether your click matches the pattern
 		function arrCheck(id){
-			console.log("id: " + id + " turnCount: " + cpuArr[turnCount]);
+			//console.log("id: " + id + " turnCount: " + turnCount + " cpuArr: " + cpuArr[turnCount]);
 			if(id === cpuArr[turnCount]) {
 			for (var i=0; i < buttons.length; i++){
 				clearButtons(buttons[i]);
@@ -172,19 +174,12 @@ function gameStates(){
 						return cpuTurn();						
 					}, 700);
 				}
-			} else {
-				console.log("Incorrect, retry");
-				//if (hardMode = true){
-					//lose = true;
-					//return gameEnd();
-				//if (hardMode = false){
-					//console.log("Incorrect, retry");
-				}
-				
-			}
+			} 	
+		}
 		
 		for (var i=0; i < buttons.length; i++){
 			setButtons(buttons[i]);
+			//console.log("setButtons triggered on " + buttons[i].id);
 		}
 	}
 
