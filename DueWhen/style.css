@@ -1,0 +1,145 @@
+
+body {
+  background-color: rgb(230, 230, 255);
+  background: url('http://www.jennicorbus.com/exercises/towerclock2.jpg');
+  background-size: cover;
+  margin: 5%;
+  font-family: 'Playfair Display', serif;
+}
+
+main {
+  clear: left;
+  margin: 0 auto;
+}
+
+label {
+  padding: 2px;
+}
+
+.emph {
+  font-weight: bold;
+  text-shadow: 1px 1px grey;
+
+}
+
+input,
+select {
+  font-family: 'Arvo', serif;
+  color: black;
+}
+
+.btn-success,
+.btn-info {
+  margin: 2%;
+}
+
+.btn {
+  color: white;
+  border-color: white;
+  margin: 2%;
+}
+
+.rectangle {
+  color: white;
+  margin: 5% auto;
+  padding: 3vw;
+  border-style: inset;
+  border-radius: 5px;
+  max-width: 800px;
+  box-shadow: 1px 2px gray;
+}
+
+#rect1 {
+  background-color: #B496A6;
+  border-color: #A55B85;
+  border-style: inset;
+}
+
+#rect1 .btn {
+  background-color: #5E1940;
+}
+
+#rect2 {
+  background-color: #AF8380;
+  border-color: #BF9390;
+
+
+}
+
+#rect2 .btn {
+  background-color: #C06767;
+}
+
+#rect3 {
+  
+  background-color: #6D9171;
+  border-color: #96B299;
+}
+#rect3 .btn {
+  background-color: #286D28;
+}
+
+#rect4 {
+  background-color: #6D9171;
+  border-color: #96B299;
+}
+#rect4 .btn {
+  background-color: #286D28;
+}
+
+#rect5, #rect6 {
+  background-color: #777777;
+  border-color: #AAAAAA;
+  font-size: 1.5em;
+}
+
+
+.text1 {
+  height: 3em;
+  width: .5em;
+  line-height: 2em;
+  font-size: 1.3em;
+  float: left;
+  transform: rotate(-90deg);
+}
+
+hr {
+  border: 1px inset;
+}
+
+.text2 {
+  float: left;
+}
+
+header {
+  line-height: 80%;
+  font-family: 'Arvo', serif;
+  font-size: 2rem;
+  padding: 1px;
+
+
+}
+.date {
+  max-width: 5em;
+}
+h1 {
+
+  font-weight: bold;
+}
+
+#itemID {
+  width: 50%;
+}
+
+span {
+  font-weight: bold;
+
+}
+
+#low {
+  color: #286D28;
+}
+
+#high {
+  color: #8F2222;
+}
