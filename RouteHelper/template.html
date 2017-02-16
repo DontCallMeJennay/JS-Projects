@@ -1,0 +1,16 @@
+<div data-ng-repeat="x in stops">
+  <form>
+		<fieldset class='stopList'>
+			<label for="name">Name: </label>
+			<input type="text" data-ng-model="x.name" />
+			<label for='time'>Pickup time: </label>
+			<input type="text" data-ng-model="x.time" />
+			<label for='ctime'>Completion time: </label>
+			<input type="text" data-ng-model="x.ctime" />
+			<label for='lat'> Lat: </label>
+			<input type="text"  data-ng-model="x.lat" />
+			<label for='lon'>Lon: </label>
+			<input type="text"  data-ng-model="x.lon" />
+	</fieldset>
+</form>
+</div>

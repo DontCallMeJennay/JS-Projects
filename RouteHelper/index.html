@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Djikstra test</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+		<link rel="stylesheet" href="style.css" />
+
+	</head>
+	<body>
+		<header>
+		</header>
+		<main>
+			<div data-ng-app="helper" data-ng-controller = "helpController">
+				<h3>Stop list</h3>
+			  <stops></stops>
+				<hr>
+				<div class="addStop">
+				<h3>Enter a new stop</h3>
+				<form data-ng-model="addBox" id="entryForm" data-ng-submit="addEntry()">
+					<fieldset class="stopList">
+						<label for="name">Name: </label>
+						<input type="text" data-ng-model="x.name" ng-blur='editing=false' />
+						<label for='time'>Pickup time: </label>
+						<input type="text" data-ng-model="x.time" ng-blur='editing=false' />
+						<label for='ctime'>Completion time: </label>
+						<input type="text" data-ng-model="x.ctime" ng-blur='editing=false' />
+						<label for='lat'> Lat: </label>
+						<input type="text"  data-ng-model="x.lat" ng-blur='editing=false' />
+						<label for='lon'>Lon: </label>
+						<input type="text"  data-ng-model="x.lon" ng-blur='editing=false' />
+					</fieldset>
+					<input type="submit" value="save">
+				</form>
+				</div>
+				
+			</div>
+		</main>
+		<footer>
+		</footer>
+  <script src="index.js"></script>
+	</body>
+</html>
