@@ -5,6 +5,7 @@
 	var easy = document.getElementById("easy");
 	var hard = document.getElementById("hard");
 	var imp = document.getElementById("imp");
+	var strict = document.getElementById("strict");
 	var cv = document.getElementById("canvases");
 	var title = document.getElementById("simone");
 	var rn = 5;
@@ -16,6 +17,7 @@
 
 	var hardMode = false;
 	var impMode = false;
+	var strictMode = false;
 
 	var buttons = [
 {	id: "r",
@@ -70,6 +72,9 @@
 			}, 700*(index+1));
 		}
 
+
+////In theory, this is to draw the rest of the background.
+////Not sure what I'm going to do with it, because it looks awful in practice.
 	function drawNecklace(){
 		var canvas = document.getElementById("main");
 		var ctx = canvas.getContext("2d", {antialias: true});
@@ -99,31 +104,41 @@
 			hardMode = true;
 			impMode = true;
 			return cpuTurn();
-		});	
+		});
+		strict.addEventListener("click", function(){
+			strictMode = !strictMode;
+			strict.classList.toggle("litUp");
+			console.log("strictMode: " + strictMode);
+		});
 
 		cv.style.visibility = "hidden";
 		msg.style.visibility = "hidden";
-		resetBtn.style.visibility = "hidden";
+
 	}
 
 	function hideBtns(){
 		easy.style.display = "none";
 		hard.style.display = "none";
 		imp.style.display = "none";
-		resetBtn.style.visibility = "hidden";
+		
+		strict.style.visibility = "hidden";
 		title.style.visibility = "hidden";
 	}
 
 	function setDifficulty() {
-		if(hardMode === false){
-			rn -= 2;
+		if(impMode === false){
+			rn -= 1;
 			var o = document.getElementById("o");
 			o.style.backgroundColor = "#FA8";
+			buttons.pop();
+
+		}
+		if(hardMode === false){
+			rn -= 1;
 			var p = document.getElementById("p");
 			p.style.backgroundColor = "#A8A";
-			buttons.pop(); buttons.pop();
+			buttons.pop(); 
 		}
-
 	}
 
 
@@ -134,7 +149,6 @@
 			var r = Math.round(Math.random() * rn);
 			var obj = buttons[r];
 			cpuArr.push(obj.id);
-			//console.log("cpuArr: " + cpuArr);
 		}
 
 	////begin turn
@@ -163,6 +177,7 @@
 	}
 
 
+
 	function yourTurn(){
 
 	////Sets up the buttons to beep and check for pattern matches when clicked
@@ -182,6 +197,9 @@
 		computer's turn. */
 
 		function arrCheck(id){
+			console.log("CPU Arr: " + cpuArr);
+			console.log("Your move: " + id);
+			console.log("turnCount: " + turnCount);
 			if(id === cpuArr[turnCount]) {
 				turnCount++;
 				if (turnCount === cpuArr.length) {
@@ -191,14 +209,14 @@
 					}, 700);
 				}
 
-		/* If the ID doesn't match, it's try again or game over, depending on difficulty. */
+		/* If the ID doesn't match, it's try again or game over, depending on strict mode. */
 
 				} else {
-					turnCount = 0;
-					if(impMode === true){
+					if(strictMode === true){
 						lose = true;
 						return gameEnd();
 					} else {
+						turnCount = 0;
 						msg.style.visibility = "initial";
 						msg.innerHTML = "Try again!";
 						setTimeout(function(){					
@@ -230,7 +248,6 @@
 			msg.style.visibility = "initial";
 			easy.style.display = "none";
 			hard.style.display = "none";
-			resetBtn.style.visibility = "visible";
 		}
 
 		if (lose === false) {

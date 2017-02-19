@@ -1,9 +1,18 @@
 body {
 	background: url("img/65.jpg");
 	background-size: cover;
+	box-sizing: border-box;
 	color: white;
 	font-family: 'Kaushan Script', cursive;
 	font-size: 3em;
+	margin: 2%;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	text-align: center;
+	padding: 0;
 }
 
 h1 {
@@ -11,19 +20,37 @@ h1 {
 }
 
 button {
-	font-family: 'Yellowtail', cursive;
 	font-size: 1em;
 	margin: 20px;
-	padding: 20px
 }
 
+main {
+	flex-flow: column;
+}
+
+.btn-strict {
+	border-radius: 50px;
+	border: 5px double #999;
+	font-size: .75em;
+
+}
+
+.litUp {
+	color: rgba(255,100,100,.5);
+	box-shadow: 3px 3px 10px red;
+	text-shadow: 1px 1px 5px red;
+}
+
+/*
 .mainCanvas {
 	position: absolute;
 	top: 0;
-	height: 90vh;
-	width: 90vw;
+	height: 100vh;
+	width: 100vw;
 	z-index: -1;
 }
+
+*/
 
 #gameSelect, 
 #messages {
@@ -36,6 +63,7 @@ button {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+
 }
 
 .square {
@@ -98,6 +126,10 @@ button {
 }
 
 @media only screen and (max-width: 1199px) {
+
+#gameSelect {
+	text-align: center;
+}
 
 .canvases {
 	display: flex;
