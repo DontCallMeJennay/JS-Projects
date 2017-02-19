@@ -6,6 +6,7 @@
 	var hard = document.getElementById("hard");
 	var imp = document.getElementById("imp");
 	var cv = document.getElementById("canvases");
+	var title = document.getElementById("simone");
 	var rn = 5;
 
 	var resetBtn = document.getElementById("reset");
@@ -18,27 +19,27 @@
 
 	var buttons = [
 {	id: "r",
-	color1: "#A00",
+	color1: "#800",
 	color2: "#F00",
 	sound: "sound0"}, 
 {	id: "g",
-	color1: "#0A0",
+	color1: "#080",
 	color2: "#0F0",
 	sound: "sound1"}, 
 {	id: "b",
-	color1: "#00A",
+	color1: "#008",
 	color2: "#00F",
 	sound: "sound2"}, 
 { id: "y",	
-	color1: "#AA0",
+	color1: "#880",
 	color2: "#FF0",
 	sound: "sound3"},
 {	id: "p",
-	color1: "#A0A",
+	color1: "#808",
 	color2: "#F0F",
 	sound: "sound4"},
 {	id: "o",
-	color1: "#FA0",
+	color1: "#F80",
 	color2: "#FC0",
 	sound: "sound5"}
 	];
@@ -69,6 +70,17 @@
 			}, 700*(index+1));
 		}
 
+	function drawNecklace(){
+		var canvas = document.getElementById("main");
+		var ctx = canvas.getContext("2d", {antialias: true});
+		ctx.beginPath();
+		ctx.translate(0.5,0.5);
+		ctx.moveTo(40,0);
+		ctx.bezierCurveTo(20,100,240,240,270,0);
+		ctx.strokeStyle = "gold";
+		ctx.lineWidth=2;
+		ctx.stroke();
+	}
 
 ////STATE FUNCTIONS and sub-functions
 
@@ -95,21 +107,23 @@
 	}
 
 	function hideBtns(){
-		easy.style.visibility = "hidden";
-		hard.style.visibility = "hidden";
-		imp.style.visibility = "hidden";
+		easy.style.display = "none";
+		hard.style.display = "none";
+		imp.style.display = "none";
 		resetBtn.style.visibility = "hidden";
+		title.style.visibility = "hidden";
 	}
 
 	function setDifficulty() {
 		if(hardMode === false){
 			rn -= 2;
 			var o = document.getElementById("o");
-			cv.removeChild(o);
+			o.style.backgroundColor = "#FA8";
 			var p = document.getElementById("p");
-			cv.removeChild(p);
+			p.style.backgroundColor = "#A8A";
 			buttons.pop(); buttons.pop();
 		}
+
 	}
 
 
@@ -214,8 +228,8 @@
 		function showEnd(str){
 			msg.innerHTML = str;
 			msg.style.visibility = "initial";
-			easy.style.visibility = "hidden";
-			hard.style.visibility = "hidden";
+			easy.style.display = "none";
+			hard.style.display = "none";
 			resetBtn.style.visibility = "visible";
 		}
 
