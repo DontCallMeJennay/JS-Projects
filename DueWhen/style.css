@@ -8,6 +8,10 @@ body {
   font-family: 'Playfair Display', serif;
 }
 
+header {
+	margin: 5%;
+}
+
 main {
   clear: left;
   margin: 0 auto;
@@ -43,16 +47,13 @@ select {
   color: white;
   margin: 5% auto;
   padding: 3vw;
-  border-style: inset;
-  border-radius: 5px;
   max-width: 800px;
   box-shadow: 1px 2px gray;
 }
 
 #rect1 {
   background-color: #B496A6;
-  border-color: #A55B85;
-  border-style: inset;
+  border: 5px inset #A55B85;
 }
 
 #rect1 .btn {
@@ -61,9 +62,7 @@ select {
 
 #rect2 {
   background-color: #AF8380;
-  border-color: #BF9390;
-
-
+  border: 5px inset #BF9390;
 }
 
 #rect2 .btn {
@@ -71,17 +70,17 @@ select {
 }
 
 #rect3 {
-  
   background-color: #6D9171;
-  border-color: #96B299;
+  border: 5px inset #96B299;
 }
+
 #rect3 .btn {
   background-color: #286D28;
 }
 
 #rect4 {
   background-color: #6D9171;
-  border-color: #96B299;
+  border: 5px inset #96B299;
 }
 #rect4 .btn {
   background-color: #286D28;
@@ -89,7 +88,7 @@ select {
 
 #rect5, #rect6 {
   background-color: #777777;
-  border-color: #AAAAAA;
+  border: 5px inset #AAAAAA;
   font-size: 1.5em;
 }
 
