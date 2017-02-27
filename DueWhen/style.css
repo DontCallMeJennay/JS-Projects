@@ -1,9 +1,10 @@
 
 body {
   background-color: rgb(230, 230, 255);
-  background: url('http://www.jennicorbus.com/exercises/towerclock2.jpg');
+  background: url('towerclock2.jpg');
   background-size: cover;
-  margin: 5%;
+  margin: 5% auto;
+  max-width: 1000px;
   font-family: 'Playfair Display', serif;
 }
 
@@ -19,7 +20,6 @@ label {
 .emph {
   font-weight: bold;
   text-shadow: 1px 1px grey;
-
 }
 
 input,

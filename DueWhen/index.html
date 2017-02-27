@@ -5,8 +5,7 @@
     <title>It's Due When? (with Moment.js)</title>
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Arvo:400,700|Playfair+Display'>
-
-        <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="style.css">
   </head>
 
   <body>
@@ -33,7 +32,7 @@
           <hr>
           <div class="row">
             <div class="col-xs-12">
-              <input type="radio" name="dateType" id="specific" checked="checked">
+              <input type="radio" name="dateType" id="specific">
               <label for="specific">A specific date: &nbsp</label><br>
             </div>
           </div>
@@ -48,11 +47,11 @@
 
 
             <label for="year">YYYY</label>
-            <input class="date input-sm" type="text" id="year" value="2016"><br>
+            <input class="date input-sm" type="text" id="year"><br>
 
           </div>
           <hr>
-          <input type="radio" name="dateType" id="range">
+          <input type="radio" name="dateType" id="range" checked="checked">
           <label for="range">I was given a date range...</label><br>
           <hr>
           <button class="btn btn-lg" id="step2">Go on</button>
