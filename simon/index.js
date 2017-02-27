@@ -8,7 +8,12 @@
 	var strict = document.getElementById("strict");
 	var cv = document.getElementById("canvases");
 	var title = document.getElementById("simone");
+	var attrib = document.getElementById("attrib");
+	
 	var rn = 5;
+	var turnCount = 0;
+	var cpuMax = 19;
+	var cpuArr = [];
 
 	var resetBtn = document.getElementById("reset");
 	resetBtn.addEventListener("click", function(){
@@ -46,10 +51,7 @@
 	sound: "sound5"}
 	];
 
-	var cpuArr = [];
-	var turnCount = 0;
-
-
+var thanks = "Special thanks to Freesound.org users Juskiddink and CMUSoundDesign for the 'boing' and 'glass breaking' sound effects.";
 ////GLOBAL FUNCTIONS
 	
 	function btnPress(obj) {
@@ -73,8 +75,9 @@
 		}
 
 
-////In theory, this is to draw the rest of the background.
-////Not sure what I'm going to do with it, because it looks awful in practice.
+/*In theory, this is to draw the rest of the background. 
+Not sure what I'm going to do with it in practice, because curved Canvas lines look awful.
+
 	function drawNecklace(){
 		var canvas = document.getElementById("main");
 		var ctx = canvas.getContext("2d", {antialias: true});
@@ -86,8 +89,9 @@
 		ctx.lineWidth=2;
 		ctx.stroke();
 	}
+*/
 
-////STATE FUNCTIONS and sub-functions
+////"STATE" FUNCTIONS and sub-functions
 
 	function gameStart(){
 		easy.addEventListener("click", function(){
@@ -108,7 +112,6 @@
 		strict.addEventListener("click", function(){
 			strictMode = !strictMode;
 			strict.classList.toggle("litUp");
-			console.log("strictMode: " + strictMode);
 		});
 
 		cv.style.visibility = "hidden";
@@ -121,8 +124,9 @@
 		hard.style.display = "none";
 		imp.style.display = "none";
 		
-		strict.style.visibility = "hidden";
+		strict.style.display = "none";
 		title.style.visibility = "hidden";
+		attrib.style.visibility = "hidden";
 	}
 
 	function setDifficulty() {
@@ -152,7 +156,9 @@
 		}
 
 	////begin turn
-		if(cpuArr.length > 6){
+		
+		msg.style.visibility = "initial";
+		if(cpuArr.length > cpuMax){
 			lose = false;
 			return gameEnd();
 		}
@@ -172,10 +178,10 @@
 				var x = cpuArr[i];
 				playList(x, i);
 			}
+			msg.innerHTML = "Turn: " + cpuArr.length;
 			return yourTurn();
 		}
 	}
-
 
 
 	function yourTurn(){
@@ -189,6 +195,8 @@
 			}, true);
 		}
 
+		console.log("Move list: " + cpuArr);
+
 	////Checks whether your click matches the pattern and changes state accordingly.
 
 		/* If the ID passed in matches the ID at array index [turnCount], the counter
@@ -197,9 +205,7 @@
 		computer's turn. */
 
 		function arrCheck(id){
-			console.log("CPU Arr: " + cpuArr);
-			console.log("Your move: " + id);
-			console.log("turnCount: " + turnCount);
+
 			if(id === cpuArr[turnCount]) {
 				turnCount++;
 				if (turnCount === cpuArr.length) {
@@ -209,23 +215,23 @@
 					}, 700);
 				}
 
-		/* If the ID doesn't match, it's try again or game over, depending on strict mode. */
+		/* If the ID doesn't match, it's try again or game over, depending on strictness. */
 
 				} else {
+					turnCount = 0;
 					if(strictMode === true){
 						lose = true;
 						return gameEnd();
 					} else {
-						turnCount = 0;
-						msg.style.visibility = "initial";
+						//msg.style.visibility = "initial";
 						msg.innerHTML = "Try again!";
 						setTimeout(function(){					
 							for (var i=0; i < cpuArr.length; i++){
 								var x = cpuArr[i];
 								playList(x, i);
 							}
-						msg.style.visibility = "hidden";	
-						msg.innerHTML = "Invisible walrus step on you";  //Don't ask.
+						//msg.style.visibility = "hidden";	
+						msg.innerHTML = "Turn: " + cpuArr.length;
 						return yourTurn();			
 					}, 1000);
 				}	

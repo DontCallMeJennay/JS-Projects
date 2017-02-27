@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Wikipedia Viewer, Take 2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=IM+Fell+Great+Primer|Alegreya+Sans'>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <section class="text-center">
+      <h1 class="text-center">Wikipedia Viewer</h1>
+      <input type="text" id="searchterm" placeholder="Search for an article"></input>
+      <button id="go">Go <i class="fa fa-play-circle-o"></i></button>
+    </section>
+
+    <hr>
+
+    <section id="about" class="text-center">
+      <p>This page is an exercise in making API queries and displaying the results in a human-friendly way. (I also accidentally learned quite a bit about cross-origin resource sharing.) As you may have guessed, all search results and random articles are retrieved
+        from Wikipedia under a Creative Commons Attribution-ShareAlike 3.0 Unported License. Click "License" for more info.
+      </p>
+      <div class="container-fluid">
+        <button id="rand">Random Article <i class="fa fa-external-link"></i></button>
+        <button id="license">License <i class="fa fa-external-link"></i></button>
+      </div>
+      <hr>
+    </section>
+
+    <section id="article">
+    </section>
+    
+    <footer class="text-center">
+      <hr>
+      <p>Design by Jenni Corbus. Last updated February 2017.</p>
+    </footer>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+    <script src="index.js"></script>
+  </body>
+</html>

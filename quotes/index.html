@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html >
+  <head>
+  <meta charset="UTF-8">
+  <title>Totally Awesome Quote Generator</title>
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Rye'>
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+  <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+    <HEADER>
+     <h1 class="text-center">Totally Awesome Quote Generator</h1>
+    </HEADER>
+
+    <MAIN>
+      <div class="quotebox" id="quotebox">
+      </div>
+      <button class="btn btn-danger btn-lg btn-block" id="macho">Next quote</button>
+      <hr>
+      <p class="text-center">Share the badassery!</p>
+
+    <div class="container-fluid">
+      <div class="row text-center">
+        <div class="col-xs-6">
+        <button class="btn btn-primary" id="reddit" href="http://www.reddit.com"><i class="fa fa-reddit"/></i>&nbspReddit</button>
+        </div>
+        <div class="col-xs-6">
+          <button class="btn btn-primary" id="tweet" href="http://www.twitter.com"><i class="fa fa-twitter"></i>&nbsp Twitter</button>
+        </div>        
+      </div>
+    </MAIN>
+
+    <FOOTER class="text-center">
+      <p>Quotes provided by the <a href="https://www.icndb.com/">Internet Chuck Norris Database</a>.</p>
+      <p>Page design by Jenni Corbus. Last updated February 2017.</p>
+    </FOOTER>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+      $( document ).ready(function() {
+        $.get("https://api.icndb.com/jokes/random?exclude=[explicit]", function(json) {
+          $(".quotebox").html(JSON.stringify(json.value.joke));
+        });
+
+        $("#macho").on("click", function() {
+          $.get("https://api.icndb.com/jokes/random?exclude=[explicit]", function(json) {
+            $(".quotebox").html(JSON.stringify(json.value.joke));
+            });
+          });
+
+        $("#tweet").on("click", function() {
+           var tweety = encodeURI("https://twitter.com/intent/tweet?text="+document.getElementById("quotebox").innerHTML+"&hashtags=ChuckNorris");
+           window.open(tweety, '_blank');
+          });
+
+        $("#reddit").on("click", function() {
+           var snoo = encodeURI("https://www.reddit.com/submit?selftext=true&title="+document.getElementById("quotebox").innerHTML)
+           window.open(snoo, '_blank');
+          });
+        });
+     </script>
+    </div>
+  </body>
+</html>

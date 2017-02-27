@@ -1,0 +1,64 @@
+body {
+  background-color: #9BF;
+  background: url("sky.jpg");
+  background-attachment: fixed;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  font-family: 'Montserrat', Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+
+.box {
+  background-color: #555;
+  background-color: rgba(90,75,105,.5);
+  border: 1px inset white;
+  font-size: 1.2em;
+  margin: 2vw;
+  min-width: 20vw;
+  padding: 10px;
+}
+
+.btn {
+  background-color: #5B4961;
+  border-color: white;
+  font-size: 150%;
+  margin: 0 1%;
+}
+
+.emph {
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.entry, header {
+  background-color:#306;
+  background-color: rgba(20,0,30,.5);
+  border: solid 1px #333;
+  border-bottom: solid 2px #333;
+  margin-left: -10px;
+  margin-right: -10px;
+  padding: 2vh;
+  }
+  
+.weather, .forecast {
+text-shadow: 1px 1px black;
+}
+  
+.wrapper {
+display: flex;
+flex-flow: column;
+justify-content: space-around;
+margin-bottom: -5vh;
+}
+
+.wrapper::after {
+content: "";
+display: block;
+}
+
+footer, .wrapper::after {
+height: 5vh;
+}

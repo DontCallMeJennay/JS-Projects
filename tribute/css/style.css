@@ -1,0 +1,38 @@
+body {
+  background: linear-gradient(to bottom right, #FFFFFF, #F5F5A2);
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 200%;
+  margin: 5% 20% 5% 20%;
+}
+
+h1 {
+  color: blue;
+  font-size: 56px;
+  font-weight: bold;
+}
+
+img {
+  border-color: lightgray black gray darkgray;
+  border-style: ridge;
+  border-width: 10px;
+  margin-bottom: 5%;
+  padding: 5px;
+}
+
+h3 {
+  color: blue;
+  font-weight: bold;
+}
+
+.trans {
+  color: #000000;
+  color: rgba(0, 0, 0, .3);
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:active {
+  color: gold;
+}

@@ -1,0 +1,74 @@
+a {
+  font-weight: bold;
+}
+
+a:link {
+  color: #4E908E;
+}
+
+a:visited {
+  color: #347E7B;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #CF8C56;
+}
+
+a:active {
+  color: #ECB080;
+}
+
+body {
+  background-color: #FFDEC4;
+  background: url('https://jennicorbus.com/exercises/paper.jpg');
+  font-family: 'Alegreya Sans', sans-serif;
+  font-weight: 500;
+  font-size: 225%;
+  margin: 2% auto;
+  max-width: 1200px;
+}
+
+button {
+  background: linear-gradient(-5deg, #808E8D, #EEEEEE, #CFD6D6, #94A09F);
+}
+
+button,
+input {
+  border-radius: 5px;
+  box-shadow: 1px 2px #AAAAAA;
+  margin: 5px;
+  padding: 5px 10px;
+  text-align: center;
+  font-family: 'IM Fell Great Primer', serif;
+  font-weight: bold;
+}
+
+footer {
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+h1 {
+  font-family: 'IM Fell Great Primer', serif;
+  text-shadow: 1px 1px #226764;
+  font-size: 10vh;
+  font-weight: 600;
+}
+
+hr {
+  border-color: #679B99;;
+  border-style: ridge;
+  border-width: 2px;
+}
+
+.hlink {
+  font-family: 'IM Fell Great Primer', serif;
+}
+
+.result {
+  background-color: #FFECDD;
+  padding: 1em;
+  margin: 1vh 1vw;
+}

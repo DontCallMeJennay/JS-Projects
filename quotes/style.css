@@ -1,0 +1,64 @@
+body {
+  background: linear-gradient(lightgray, black);
+  background-color: #333333;
+  background-size: contain;
+  box-sizing: border-box;
+  max-width: 1200px;
+  min-height: 98vh;
+  margin: 1% auto;
+
+  font-family: "Georgia", serif;
+}
+
+h1 {
+  font-family: 'Rye', cursive;
+  font-size: 5rem;
+  font-variant: small-caps;
+  padding: .5em;
+  text-shadow: 1px 2px 2px red;
+}
+
+p {
+  color: white;
+  font-family: 'Rye', cursive;
+  font-size: 3rem;
+  letter-spacing: .1em;
+  line-height: 3em;
+}
+
+main {
+	margin: auto 5%;
+}
+
+.quotebox {
+  background-color: white;
+  border-left: .1em solid red;
+  border-right: .7em solid blue;
+  box-shadow: 2px 2px .7em rgba(0, 0, 0, .5);
+  font-family: Georgia, sans-serif;
+  font-size: 3rem;
+  min-height: 25vh;
+  padding: 1em;
+}
+
+.btn {
+	font-size: 3rem;
+	margin: 2% auto;
+  	text-align: center;
+}
+
+.btn-primary {
+  width: 100%;
+}
+
+hr {
+	margin-top: 5%;
+	margin-bottom: 1%;
+}
+
+footer p {
+	line-height: initial;
+	font-size: 1em;
+	font-family: initial;
+	margin: 0 auto;
+}

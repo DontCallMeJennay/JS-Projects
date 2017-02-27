@@ -1,0 +1,66 @@
+@import url(https://fonts.googleapis.com/css?family=Dosis:500,700);
+body {
+  background: url('http://www.jennicorbus.com/img/INGmato.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Dosis', sans-serif;
+  min-height: 100vh;
+  padding: 1vw;
+}
+
+p {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.big {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.stripe {
+  background-color: white;
+  border-radius: 50px;
+  margin: 2vw 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.clock {
+  background-color: white;
+  background-color: rgba(255, 255, 255, .7);
+  border-color: red;
+  border-radius: 50vw;
+  border-style: solid;
+  border-width: 5px;
+  margin: 0 auto;
+  padding: 5%;
+  min-height: 35vh;
+  width: 40vw;
+}
+
+
+.btn {
+  border-radius: 50px;
+  margin: 1vh;
+  padding: 0 1vw;
+  font-size: 1.5em;
+}
+
+.smbtn {
+  height: 2em;
+  width: 2em;
+  border-style: solid;
+  border-radius: 50px;
+}
+
+.session {
+  color: red;
+  font-size: 120%;
+}
+
+footer {
+  bottom: 0;
+  color: green;
+  position: fixed;
+}

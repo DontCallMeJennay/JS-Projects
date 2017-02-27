@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=Monda|Press+Start+2P');
+
+body {
+  background-color: brown;
+  display: flex;
+  margin: 5%;
+}
+
+main {
+  background: linear-gradient(#CCC, #666 20%, #999 22%, #CCC);
+  background-color: #CCC;
+  border-style: outset;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+#buttons {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
+
+#operators {
+  flex-direction: column;
+  max-width: 60px;
+}
+
+#numbers {
+  max-width: 200px;
+}
+
+button {
+  color: white;
+  cursor: pointer;
+  border: 1px 2px solid #444;
+  border-radius: 5px;
+  font-family: 'Monda', sans-serif;
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+}
+
+#numbers button {
+  background: radial-gradient(ellipse, #736186, #594271, #381B55);
+}
+
+#operators button {
+  background: radial-gradient(ellipse, #596F9F, #385592, #082A71);
+}
+
+#display {
+  display: flex;
+  justify-content: center;
+}
+
+.displayBox {
+  background: linear-gradient(to bottom right, #AAB, #CCD, #EEF);
+  border-color: #555555 #BBBBBB #999999 #BBBBBB;
+  border-style: ridge;
+  border-width: 3px;
+  color: black;
+  font-family: 'Press Start 2P', cursive;
+  font-weight: bold;
+  height: 50px;
+  margin: 15px auto;
+  padding: 5px;
+  text-align: right;
+  width: 80%;
+}

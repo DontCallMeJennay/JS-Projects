@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Practice Weather App</title>
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat'>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  
+<body>
+<div class="wrapper text-center">
+  <header role="banner">
+    <h1>Practice Weather App</h1>
+    <h5>powered by Weather Underground API</h5>
+
+  </header>
+  <main class="text-center">
+    <section class="weather">
+      <h2>Current weather in <span id="city">[acquiring...]</span></h2>
+
+      <div id="weathericon">
+      </div>
+
+      <p class="emph"><span id="temp">[acquiring...]</span>&deg</p>
+      <p>
+        <button class="btn btn-info" id="F">F</button>
+        <button class="btn btn-info" id="C">C</button></p>
+
+      <p id="conditions">[acquiring...]</p>
+    </section>
+    
+    <section class="entry">
+      <label for="zipbox">Not your location? Enter your zip code:</label>
+
+      <input type="text" id="zipbox">
+      <button class="btn-default" id="search">Go</button>
+    </section>
+ 
+    <section class="forecast text-center">
+      <h2>Your extended forecast:</h2>
+      <div class="box" id="box0">
+      </div>
+      <div class="box" id="box1">
+      </div>
+      <div class="box" id="box2">
+      </div>
+    </section>
+    </div>
+  </main>
+
+  <footer class="text-center" role="contentinfo">
+
+  </footer>
+  
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+    <script src="index.js"></script>
+
+  </body>
+</html>

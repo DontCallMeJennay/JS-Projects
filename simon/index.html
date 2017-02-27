@@ -5,21 +5,21 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
 		<link rel="stylesheet" href="style.css" />
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script|Yellowtail">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script|Engagement">
 	</head>
 	<body>
 		<header>
-			<h1 id = "simone">Simone</h1>
+			<h1 id="simone">Simone</h1>
 			
 			<div>
-				<button class="btn-strict" id="strict">Strict</button>
-				<button class="btn-strict" id="reset">Reset</button>
+				<button id="reset">Reset</button>
+				<button class="btn-strict" id="attrib" onclick="alert(thanks)">&copy;</button>
 			</div>
 		</header>
 		<main>
 
 			<div id="messages">
-				Invisible walrus step on you
+				Turn: 1
 			</div>
 
 			<div id="gameSelect">
@@ -27,6 +27,7 @@
 				<button id="hard">5 colors</button>
 				<button id="imp">6 colors</button>
 			</div>	
+				<button class="centerme" id="strict">Strict</button>
 
 				<canvas class="mainCanvas" id="main"></canvas>
 
