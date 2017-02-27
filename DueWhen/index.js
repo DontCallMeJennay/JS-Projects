@@ -8,8 +8,6 @@ $('document').ready(function() {
 
 	$('.today').html(rightNow);
 	$('#rect2, #rect3, #rect4, #rect5, #rect6').hide();
-	$('#itemID').focus();
-
 
 ////Assembles the date from #rect2 inputs
 	function assembleDate() {
@@ -131,9 +129,6 @@ $('document').ready(function() {
     var issue = $('#itemID').val();
     $('.results').html(issue);
     $('#rect2').show();
-    $('#month').focus().on('focus', function() {
-          document.body.scrollTop = $(this).offset().top;
-        });
   });
   
   $('#step2').on('click', function() {
@@ -147,15 +142,9 @@ $('document').ready(function() {
     if (numCheck(m) && numCheck(d) && numCheck(y)) {
       if ($('#specific').is(':checked')) {
         $('#rect4').show();
-        $('#dueByH').focus().on('focus', function() {
-          document.body.scrollTop = $(this).offset().top;
-        });
         
       } else if ($('#range').is(':checked')) {
         $('#rect3').show();
-        $('#minDays').focus().on('focus', function() {
-          document.body.scrollTop = $(this).offset().top;
-        });
       } else {
         alert('Please select an option.');
       }

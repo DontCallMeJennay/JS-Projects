@@ -3,13 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <title>It's Due When? (with Moment.js)</title>
-    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Arvo:400,700|Playfair+Display'>
 	<link rel="stylesheet" href="style.css">
   </head>
 
   <body>
-    <div class="container-fluid">
       <header>
         <span class="text1">It's</span>
         <span class="text2">due</span>
@@ -17,26 +16,23 @@
         </h1>
         <h4> a due-date calculator</h4>
         <hr>
-        <h4>It is now <br><span class="today emph">[date]</span></h4>
+        <h4>It is now <span class="today emph">[date]</span></h4>
       </header>
+
       <main>
-        <div class="rectangle text-center" id="rect1">
+        <div class="rectangle" id="rect1">
           <h4>What bill, assignment, or other issue are you tracking?</h4>
           <hr>
           <input type="text" id="itemID"></input>
           <button class="btn btn-lg" id="step1">Continue</button>
         </div>
 
-        <div class="rectangle text-center" id="rect2">
+        <div class="rectangle" id="rect2">
           <h4>What's the due date?</h4>
           <hr>
-          <div class="row">
-            <div class="col-xs-12">
+
               <input type="radio" name="dateType" id="specific">
               <label for="specific">A specific date: &nbsp</label><br>
-            </div>
-          </div>
-          <div class="row text-center">
 
             <label for="month">MM</label>
             <input class="date input-sm" type="text" id="month">
@@ -49,16 +45,14 @@
             <label for="year">YYYY</label>
             <input class="date input-sm" type="text" id="year"><br>
 
-          </div>
           <hr>
           <input type="radio" name="dateType" id="range" checked="checked">
           <label for="range">I was given a date range...</label><br>
           <hr>
           <button class="btn btn-lg" id="step2">Go on</button>
+          </div>
 
-        </div>
-
-        <div class="rectangle text-center" id="rect3">
+        <div class="rectangle" id="rect3">
           <h4>Oh, okay. What is the time frame?</h4>
           <hr>
 
@@ -72,7 +66,7 @@
           <button class="btn btn-lg" id="timeFrame">Calculate</button>
         </div>
 
-        <div class="rectangle text-center" id="rect4">
+        <div class="rectangle" id="rect4">
           <h4>Is it due by a specific time, e.g., close of business?</h4>
           <hr>
           <input type="radio" name="time1" id="noTime" checked="checked">
@@ -92,20 +86,19 @@
         </div>
 
 
-        <div class="rectangle text-center" id="rect5">
+        <div class="rectangle" id="rect5">
           <p class="range" id="rangeResults">I can expect my <span class="results">[issue]</span> to be resolved between <br><span id="low">[minDate]</span> <br>and <br><span id="high">[maxDate]</span>.</p>
-          <button id='tweet1' class='btn-info'>Tweet</button><br>
-          <button class='btn-success' id="reset1">Reset</button>
+          <button class="btn" id='tweet1' class='btn-info'>Tweet</button><br>
+          <button class="btn" id="reset1">Reset</button>
         </div>
 
-        <div class="rectangle text-center" id="rect6">
+        <div class="rectangle" id="rect6">
           <p id="dueResults"> My <span class="results emph">[issue]</span> is due 
             <span class="emph" id="limit">[time]</span>.</p><br>
-          <button id='tweet2' class='btn-info'>Tweet</button><br>
-          <button class='btn-success' id="reset2">Reset</button>
+          <button class="btn" id='tweet2' class='btn-info'>Tweet</button><br>
+          <button class="btn" id="reset2">Reset</button>
         </div>
-  </div>
-  </div>
+  	</div>
   </main>
   <footer>
   </footer>
