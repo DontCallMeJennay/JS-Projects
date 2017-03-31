@@ -1,0 +1,9 @@
+main {
+	display: flex;
+	flex-flow: row;
+}
+
+div {
+	margin: 1% auto;
+	padding: auto 2%;
+}
