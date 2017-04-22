@@ -1,6 +1,6 @@
 
 ////GLOBAL (sorta) VARIABLES
-	var lose = undefined;
+	var lose;
 	var msg = document.getElementById("messages");
 	var easy = document.getElementById("easy");
 	var hard = document.getElementById("hard");
@@ -51,7 +51,7 @@
 	sound: "sound5"}
 	];
 
-var thanks = "Special thanks to Freesound.org users Juskiddink and CMUSoundDesign for the 'boing' and 'glass breaking' sound effects.";
+var thanks = "Special thanks to Freesound.org user InspectorJ for the sound effects.";
 ////GLOBAL FUNCTIONS
 	
 	function btnPress(obj) {
@@ -195,7 +195,7 @@ Not sure what I'm going to do with it in practice, because curved Canvas lines l
 			}, true);
 		}
 
-		console.log("Move list: " + cpuArr);
+		//console.log("Move list: " + cpuArr);
 
 	////Checks whether your click matches the pattern and changes state accordingly.
 

@@ -69,7 +69,7 @@ main {
 .square {
 	height: 20vw;
 	width: 20vw;
-	border: 15px solid #C2931B;
+	border: 5px solid #C2931B;
 	border-radius: 500px;
 	background: radial-gradient(rgba(255,255,255,.4), rgba(255,230,230,.2));
 }
@@ -77,19 +77,18 @@ main {
 .medium {
 	height: 16vw;
 	width: 16vw;
-	border-width: 16px;
+
 }
 
 .small {
 	height: 12vw;
 	width: 12vw;
-	border-width: 12px;
 }
 
 .xs {
 	height: 8vw;
 	width: 8vw;
-	border-width: 8px;
+
 }
 
 .centerme {
