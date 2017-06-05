@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Jenni's Portfolio v2</title>
+		<meta charset="etf-8">
+		<meta name="description" content="Jenni Corbus's webdev portfolio">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono|Roboto|Satisfy" rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+		<script src="https://use.fontawesome.com/59c976fd61.js"></script>
+	</head>
+	<div id="bg-wrapper">
+	<body>
+		<header>
+		</header>
+		<nav>
+			<div class="nav-left">
+				<a href="#about">About</a>
+				<a href="#skills">Skills</a>
+				<a href="#projects">Projects</a>
+				<a href="#blog">Blog</a>
+				<a href="#contact">Contact</a>
+			</div>
+			<div class="nav-right">
+				<a href="#">FB</a>
+				<a href="#">GH</a>
+				<a href="#">Tw</a>
+			</div>
+		</nav>
+		<main>
+			<div id="about">
+				<h1 class="textfade">Hi, I'm Jenni.</h1>
+				<h2 class="textfade" id="msg1">I make websites.</h2>
+				<div class="centerBtns" id="artSelect">
+				<button class="styleBtn btnfade" id="artsy"><i class="fa fa-paint-brush"></i></button>
+				<button class="styleBtn btnfade" id="formal"><i class="fa fa-pencil"></i></button>
+				<div id="beebox">
+				<img id="bee" src="uglybee.gif" height="30px" width="30px">
+				</div>
+				</div>
+			</div>
+			<hr>
+			<div id="skills">
+				<h2>Skills</h2>
+				<ul>
+					<li class="topic">HTML5</li>
+					<li class="topic">CSS3</li>
+					<li class="topic">JavaScript</li>
+					<li class="topic">jQuery</li>
+					<li class="topic">WordPress</li>
+					<ul>
+						<li>Customizing pre-made themes and creating child themes</li>
+						<li>Organizing and categorizing content</li>
+						<li>Selecting, installing and configuring plugins</li>
+					</ul>
+					<li class="topic">Other Libraries</li>
+					<ul>
+						<li>Bootstrap 3</li>
+						<li>Dragula.js - allows drag-and-drop elements</li>
+						<li>Moment.js - simplifies the Javascript Date object</li>
+					</ul>
+					<li class="topic">Accessible design</li>
+					<li class="topic">Responsive design</li>
+				</ul>
+				<button id="nextBtn"><i class="fa fa-arrow-down"></i></button>
+			</div>
+
+			<h2 class="category">Projects</h2>
+				<ul class="category">
+					<li class="category right" id="htmlc">HTML5 & CSS3</i></li>
+					<li class="category right" id="jsc">JavaScript & jQuery</li>
+					<li class="category right" id="wpc">WordPress & PHP</li>
+					<li class="category right" id="apic">Libraries & APIs</li>
+					<li class="category right" id="rdc">Responsive Design</li>
+				</li>
+			<div class="showbox" id="projects">
+					<div class="box" id="sushi">
+						<h4>Sushi Finder</h4>
+						<a href="https://jennicorbus.com/sushi/">
+						<img src="t-sushi.jpg" class="thumbnail" alt="'sushi finder' app"></a> 
+						<p class="boxText">A geolocator that uses Google Places to find nearby sushi restaurants. Gives ratings, hours, and whether the restaurant is currently open.</p>
+					</div>
+					<div class="box" id="due">
+						<h4>It's Due When?</h4>
+						<a href="https://jennicorbus.com/duewhen/">
+						<img src="t-duewhen.jpg" class="thumbnail" alt="'it's due when?' due date calculator"></a> 
+						<p class="boxText">Calculates the number of days before a due date (for a fixed date) or estimates the delivery date (for a date range).</p>
+					</div>
+					<div class="box" id="mbg">
+						<h4>Message Bank Generator</h4>
+						<a href="https://www.jennicorbus.com/mb4">
+						<img src="t-mb.jpg" class="thumbnail" alt="message bank generator"></a> 
+						<p class="boxText">A rudimentary speech-assistance app that generates a soundboard from a directory of pre-recorded phrases. The user can also input and "speak" new phrases using the keyboard.</p>
+					</div>
+					<div class="box" id="wapp">
+						<h4>Weather App</h4>
+						<a href="https://www.jennicorbus.com/weather/">
+						<img src="t-weather.jpg" class="thumbnail" alt="practice weather app"></a> 
+						<p class="boxText">Basic geolocation and API app that displays the weather.</p>
+					</div>
+					<div class="box" id="wiki">
+						<h4>Wikipedia Viewer</h4>
+						<a href="https://www.jennicorbus.com/wikiview/">
+						<img src="t-wiki.jpg" class="thumbnail" alt="wikipedia viewer"></a> 
+						<p class="boxText">Retrieves and displays Wikipedia search results.</p>
+					</div>
+					<div class="box" id="coffee">
+						<h4>Coffee Stop Scheduler</h4>
+						<a href="https://www.jennicorbus.com/coffee-demo/">
+						<img src="t-coffee.jpg" class="thumbnail" alt="coffee stop router"></a> 
+						<p class="boxText">A solution for scheduling issues with my delivery-route job. I have manually entered the location and visit time window for each stop. This uses the time of day and your current location (determined by input, not geolocated) and suggests the best location to visit next.</p>
+					</div>
+			</div>
+			<hr>
+			<div id="contact">
+				<h2>Contact me</h2>
+					<div class="centerBtns">
+					<form action="mailto:me@jennicorbus.com" method="GET" enctype="text/plain">
+						<input type="submit" value="Email" class="contactBtn" id="emailMe"></button></a>
+					</form>
+					<button class="contactBtn" id="tweetMe">Twitter</button>
+					<button class="contactBtn" id="gitHubMe">GitHub</button>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<p>This is a footer.</p>
+
+		</footer>
+		<script
+	      src="https://code.jquery.com/jquery-3.2.1.js"
+	      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+	      crossorigin="anonymous">
+	    </script>
+		<script src="index.js"></script>
+	</body>
+	</div>
+</html>
