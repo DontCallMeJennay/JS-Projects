@@ -11,6 +11,7 @@
     margin: 1% 0;
     margin-left: -10px;
     width: 50px;
+    z-index: 2;
 }
 
 .yourHand div:nth-child(1n) {
@@ -31,7 +32,7 @@
 
 .yourHand {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row;
     justify-content: center;
     margin: 0 auto;
     max-width: 75vw;
@@ -69,4 +70,9 @@
     justify-content: center;
     flex-direction: row;
     margin: 0 auto;
+}
+
+.selected {
+    transform: translateY(-10px);
+    border: 5px solid rgba(0,0,255,0.7);
 }
