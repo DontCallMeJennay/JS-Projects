@@ -1,14 +1,28 @@
 .card {
     background-color: #FFE;
     border: 1px solid black;
+    border-radius: 5px;
     box-shadow: 2px 2px gray;
     color: black;
     display: flex;
     font-size: 1.5em;
     height: 80px;
     justify-content: center;
-    margin: -10px;
+    margin: 1% 0;
+    margin-left: -10px;
     width: 50px;
+}
+
+.yourHand div:nth-child(1n) {
+    margin-top: -1px;
+}
+
+.yourHand div:nth-child(2n) {
+    margin-top: 0px;
+}
+
+.yourHand div:nth-child(3n) {
+    margin-top: 1px;
 }
 
 .red {
@@ -20,18 +34,39 @@
     flex-flow: row wrap;
     justify-content: center;
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 75vw;
 }
 
 .people {
-	margin: 0 auto;
-	min-height: 30vh;
+    margin: 0 auto;
+    min-height: 30vh;
 }
 
 .cardPile {
-	background-color: red;
-	border: 2px solid white;
-	margin: 50px auto;
-	height: 80px;
-	width: 50px;
+    background-color: red;
+    border: 2px solid white;
+    height: 80px;
+    margin: 50px auto;
+    width: 50px;
+}
+
+.cardPile div:nth-child(1n) {
+    margin-top: -1px;
+}
+
+.cardPile div:nth-child(2n) {
+    margin-top: 0px;
+    transform: rotate(1deg);
+}
+
+.cardPile div:nth-child(3n) {
+    margin-top: 1px;
+    transform: rotate(-1deg);
+}
+
+.panel {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 0 auto;
 }

@@ -12,8 +12,6 @@ let players = [];
 const gameBox = document.getElementById("game");
 const p0 = document.getElementById("hand0");
 const p1 = document.getElementById("hand1");
-const p2 = document.getElementById("hand2");
-const p3 = document.getElementById("hand3");
 
 // Player will be able to change number of opponents 
 var player0 = new Player("Bob", p0);
@@ -34,6 +32,12 @@ const hearts = ("2H,3H,4H,5H,6H,7H,8H,9H,10H,JH,QH,KH,AH,");
 const spades = ("2S,3S,4S,5S,6S,7S,8S,9S,10S,JS,QS,KS,AS");
 
 let deck = (clubs + diamonds + hearts + spades).split(",");
+
+var card0 = "<div class='red card' id='"
+var card1 = "<div class='card' id='";
+var card2 = "'><p>";
+var card3 = "";
+var card4 = "</p></div>";
 
 
 function shuffle(deck) {
@@ -57,21 +61,14 @@ function dealCards(players) {
 		}
 	}
 	for (let j=0; j < a; j++) {
-		console.log(players[j].name + " has the following hand: " + players[j].hand + ".\n");
+		//console.log(players[j].name + " has the following hand: " + players[j].hand + ".\n");
 		players[j].hand = sortHandBySuit(players[j]);
 	}
 }
 
-var card0 = "<div class='red card' id='"
-var card1 = "<div class='card' id='";
-var card2 = "'><p>";
-var card3 = "";
-var card4 = "</p></div>";
-
-
 function displayCards(player) {
     let hand = player.hand;
-    console.log(hand.length);
+    //console.log(hand.length);
     var divs = "";
     var card = "";
     for (var i = 0; i < hand.length; i++) {
@@ -98,10 +95,39 @@ function displayCards(player) {
         }
         divs += card;
     }
-    console.log(hand);
+    //console.log(hand);
     return divs;
 }
 
+function sortCourt(hand, suit) {
+    ///Sorting 10s and court cards into non-standard order
+    court = [];
+    for (var j = hand.length-1; j >= 0; j--) {
+        var num = hand[j].charAt(0);
+        if (num === "Q") {
+            court.push(hand[j]);
+            hand.pop();
+        }
+        if (num === "K") {
+            court.push(hand[j]);
+            hand.pop();
+        }
+        if (num === "A") {
+            court.push(hand[j]);
+            hand.pop();
+        }
+        if (num === "J") {
+            court.unshift(hand[j]);
+            hand.pop();
+        }
+        if (num === "1" && hand[j].charAt(1) === "0") {
+            court.unshift(hand[j]);
+            hand.shift();
+        }
+    }
+    return hand.concat(court);
+}
+    
 function sortHandBySuit(player) {
     var newHand = [];
     var tempHand = [];
@@ -111,47 +137,56 @@ function sortHandBySuit(player) {
 
     function sortOneSuit(hand, suit) {
         tempHand = [];
-        console.log("Sorting " + player.name + "'s suit " + suit + "...");
+        //console.log("Sorting " + player.name + "'s suit " + suit + "...");
         for (var i = 0; i < hand.length; i++) {
             var card = hand[i].charAt(hand[i].length - 1);
             if (card === suit) {
                 tempHand.push(hand[i]);
             }
         }
-
-        tempHand.sort();
-
-        ///Sorting 10s and court cards into non-standard order
-        court = [];
-        for (var j = tempHand.length-1; j >= 0; j--) {
-            var num = tempHand[j].charAt(0);
-            if (num === "Q") {
-            	court.push(tempHand[j]);
-                tempHand.pop();
-            }
-            if (num === "K") {
-            	court.push(tempHand[j]);
-                tempHand.pop();
-            }
-            if (num === "A") {
-            	court.push(tempHand[j]);
-                tempHand.pop();
-            }
-            if (num === "J") {
-            	court.unshift(tempHand[j]);
-                tempHand.pop();
-            }
-            if (num === "1" && tempHand[j].charAt(1) === "0") {
-            	court.unshift(tempHand[j]);
-                tempHand.shift();
-            }
-        }
-        return tempHand.concat(court);
+        tempHand = tempHand.sort();
+        return sortCourt(tempHand, suit);
     }
     newHand = sortOneSuit(hand, "C").concat(sortOneSuit(hand, "D")).concat(sortOneSuit(hand, "H"));
     newHand = newHand.concat(sortOneSuit(hand, "S"));
-    console.log("new Hand: " + newHand + " " + newHand.length);
+    console.log(player.name + "'s hand: " + newHand + " " + newHand.length);
     return newHand;
+}
+
+function sortHandByNumber(player) {
+    var hand = player.hand;
+    var court = [];
+    var newHand = [];
+    var Js = []; var Qs = []; var Ks = []; var As = [];
+    var a = /[A-Z]/g;
+    var n = /[0-9]/g;
+
+    function sortHighCards(hand, char) {
+        var tmp = [];
+        for (var i=0; i < hand.length; i++) {
+            var num = hand[i].substring(0, hand[i].length-1);   
+            if(num === char) {
+                tmp.push(hand[i]);
+            }
+        }
+        return tmp;
+    }
+
+    for (var i=2; i < 10; i++) {
+        for (var j=0; j < hand.length; j++) {
+            var num = hand[j].charAt(0);
+            if(num.match(i)) {
+                newHand.push(hand[j]);
+            }
+        }
+    }
+
+    court = court.concat(sortHighCards(hand, "10")).concat(sortHighCards(hand, "J"));
+    court = court.concat(sortHighCards(hand, "Q")).concat(sortHighCards(hand, "K"));
+    court = court.concat(sortHighCards(hand, "A"));
+    //console.log("Cards: " + newHand + ", " + newHand.length);
+    //console.log("Court: " + court + ", " + court.length);
+    return newHand.concat(court);
 }
 
 function gameStart() {
@@ -159,7 +194,10 @@ function gameStart() {
 	dealCards(players);
 	p0.innerHTML = displayCards(players[0]);
 	//while(!gameOver) {
+       player0.hand = sortHandByNumber(player0);
+       p1.innerHTML = displayCards(player0);
 		for(let i=0; i < players.length; i++) {
+
 			//checkBS();
 			//checkWin();
 			//p0.innerHTML = players[0].name + "'s hand: " + players[0].hand;

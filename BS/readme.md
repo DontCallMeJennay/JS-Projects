@@ -9,6 +9,8 @@ START
 *shuffle() deck
 *Player and opponent are each dealt() half the deck into their HANDS
 *Print what cards the player has 	...and for debugging purposes, what the opponent has
+	*Sort hand by suit
+	*Sort hand by numbers
 *Display your hand in an interact-able (?) fashion
 
 TURN
