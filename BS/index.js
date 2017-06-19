@@ -2,7 +2,6 @@ $(document).ready(function() {
 
     function Player(name) {
         this.name = name;
-        this.div = undefined;
         this.bluff = [];
         this.currentPlayer = false;
         this.drop = {};
@@ -10,14 +9,18 @@ $(document).ready(function() {
     }
 
     let players = [];
+    let discardPile = [];
+    let discard = [];
 
     const suitBtn = document.getElementById("sSort");
     const numBtn = document.getElementById("nSort");
     const playBtn = document.getElementById("play");
+    const bsBtn = document.getElementById("bs");
 
     const gameBox = document.getElementById("game");
     const p0 = document.getElementById("hand0");
     const p1 = document.getElementById("hand1");
+    const bsBox = document.getElementById("bsPile");
 
     // Player will be able to change number of opponents 
     var player0 = new Player("Bob", p0);
@@ -25,7 +28,7 @@ $(document).ready(function() {
     var player1 = new Player("Jane", p1);
     players.push(player1);
 
-    let discardPile = [];
+
 
     var card0 = "<div class='red card' id='#"
     var card1 = "<div class='card' id='#";
@@ -39,6 +42,7 @@ $(document).ready(function() {
 
     let deck = (clubs + diamonds + hearts + spades).split(",");
 
+    var cardR = "<div class='ocard' id='"
     var card0 = "<div class='red card' id='"
     var card1 = "<div class='card' id='";
     var card2 = "'><p>";
@@ -72,35 +76,43 @@ $(document).ready(function() {
         }
     }
 
-    function displayCards(player) {
-        let hand = player.hand;
-        var divs = "";
+    function generateCards(arr) {
         var card = "";
-        for (var i = 0; i < hand.length; i++) {
-            let suit = hand[i].charAt(hand[i].length - 1);
+        var divs = "";
+        for (var i = 0; i < arr.length; i++) {
+            let suit = arr[i].charAt(arr[i].length - 1);
             if (suit === "C") {
-                card = card1 + hand[i] + card2;
-                card3 = hand[i].slice(0, -1) + "&clubs;"
+                card = card1 + arr[i] + card2;
+                card3 = arr[i].slice(0, -1) + "&clubs;"
                 card += card3 + card4;
             }
             if (suit === "D") {
-                card = card0 + hand[i] + card2;
-                card3 = hand[i].slice(0, -1) + "&diams;"
+                card = card0 + arr[i] + card2;
+                card3 = arr[i].slice(0, -1) + "&diams;"
                 card += card3 + card4;
             }
             if (suit === "H") {
-                card = card0 + hand[i] + card2;
-                card3 = hand[i].slice(0, -1) + "&hearts;"
+                card = card0 + arr[i] + card2;
+                card3 = arr[i].slice(0, -1) + "&hearts;"
                 card += card3 + card4;
             }
             if (suit === "S") {
-                card = card1 + hand[i] + card2;
-                card3 = hand[i].slice(0, -1) + "&spades;"
+                card = card1 + arr[i] + card2;
+                card3 = arr[i].slice(0, -1) + "&spades;"
                 card += card3 + card4;
             }
             divs += card;
         }
-        //console.log(hand);
+        return divs;
+    }
+
+    function displayOpponentCards(player) {
+        let hand = player.hand;
+        var divs = "";
+        hand.forEach(function(obj) {
+            card = cardR + obj + card2 + card4;
+            divs += card;
+        });
         return divs;
     }
 
@@ -143,12 +155,12 @@ $(document).ready(function() {
     }
 
     function sortHandBySuit(player) {
-        console.log("sortHandBySuit for " + player.name);
+        //console.log("sortHandBySuit for " + player.name);
         var newHand = [];
         var tempHand = [];
         var court = [];
         var hand = player.hand;
-        console.log("Sorting " + player.name + "'s hand...");
+        //console.log("Sorting " + player.name + "'s hand...");
 
         function sortOneSuit(hand, suit) {
             tempHand = [];
@@ -164,12 +176,12 @@ $(document).ready(function() {
         }
         newHand = sortOneSuit(hand, "C").concat(sortOneSuit(hand, "D")).concat(sortOneSuit(hand, "H"));
         newHand = newHand.concat(sortOneSuit(hand, "S"));
-        console.log(player.name + "'s hand: " + newHand + " " + newHand.length);
+        //console.log(player.name + "'s hand: " + newHand + " " + newHand.length);
         return newHand;
     }
 
     function sortHandByNumber(player) {
-        console.log("sortHandByNumber for " + player.name);
+        //console.log("sortHandByNumber for " + player.name);
         var hand = player.hand;
         var court = [];
         var newHand = [];
@@ -203,13 +215,10 @@ $(document).ready(function() {
         court = court.concat(sortHighCards(hand, "10")).concat(sortHighCards(hand, "J"));
         court = court.concat(sortHighCards(hand, "Q")).concat(sortHighCards(hand, "K"));
         court = court.concat(sortHighCards(hand, "A"));
-        console.log("Cards: " + newHand + ", " + newHand.length);
-        console.log("Court: " + court + ", " + court.length);
         return newHand.concat(court);
     }
 
     function discardFromHand(player, index) {
-        var discard = [];
         for (var i = 0; i < player.hand.length; i++) {
             if (index.id === player.hand[i]) {
                 player.hand[i] = false;
@@ -218,33 +227,67 @@ $(document).ready(function() {
         }
     }
 
+    function opponentTurn(player) {
+        //choose discard
+        discard = player.hand.slice(0, 3);
+        let hand = player.hand;
+        //transfer cards to pile
+        for (var i = 0; i < discard.length; i++) {
+            for (var j = 0; j < hand.length; j++) {
+                if (discard[i] === hand[j]) {
+                    discardPile.push(hand[j]);
+                    hand[j] = false;
+                }
+            }
+        }
+        //announce discard and update hand
+        $("#msg1").html(player.name + " discards " + discard.length + " cards.");
+        player1.hand = player1.hand.filter(function(val) {
+            return Boolean(val) });
+        p1.innerHTML = displayOpponentCards(player1);
+        //cleanup
+        console.log("Player1 cards left: " + player1.hand.length);
+        console.log(discardPile);
+    }
+
+
+
+    function callBS(caller, callee) {
+        //show discards
+        bsBox.innerHTML = generateCards(discard);
+        //compare to bluff
+        //if match, transfer to caller's hand
+        //if not match, transfer to callee's hand
+        //clear discard pile
+        //continue play
+    }
+
+
+
     function gameStart() {
         shuffle(deck);
         dealCards(players);
-        p0.innerHTML = displayCards(players[0]);
+        p0.innerHTML = generateCards(player0.hand)
+        p1.innerHTML = displayOpponentCards(players[1]);
         selectCards();
         //while(!gameOver) {
         player0.hand = sortHandByNumber(player0);
-        for (let i = 0; i < players.length; i++) {
-
-                //checkBS();
-                //checkWin();
-                //p0.innerHTML = players[0].name + "'s hand: " + players[0].hand;
-            }
+        //checkForBS();
+        //checkWin();
         //}
     }
 
 
-////Buttons
+    ////Buttons
     $(suitBtn).on("click", function() {
         player0.hand = sortHandBySuit(player0);
-        p0.innerHTML = displayCards(player0);
+        p0.innerHTML = generateCards(player0.hand);
         selectCards();
     });
 
     $(numBtn).on("click", function() {
         player0.hand = sortHandByNumber(player0);
-        p0.innerHTML = displayCards(player0);
+        p0.innerHTML = generateCards(player0.hand);
         selectCards();
     });
 
@@ -253,10 +296,16 @@ $(document).ready(function() {
         selection.forEach(function(index) {
             discardFromHand(player0, index);
         });
-        player0.hand = player0.hand.filter(function(val) { return Boolean(val) } );
-        p0.innerHTML = displayCards(player0);
+        player0.hand = player0.hand.filter(function(val) {
+            return Boolean(val) });
+        p0.innerHTML = generateCards(player0.hand);
+        console.log("Player0 cards left: " + player0.hand.length);
         selectCards();
-        console.log(discardPile);
+        opponentTurn(player1);
+    });
+
+    $(bsBtn).on("click", function() {
+        callBS(player0, player1);
     });
 
     gameStart();

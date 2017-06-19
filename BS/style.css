@@ -1,7 +1,7 @@
 .card {
     background-color: #FFE;
-    border: 1px solid black;
     border-radius: 5px;
+    border: 1px solid black;
     box-shadow: 2px 2px gray;
     color: black;
     display: flex;
@@ -11,7 +11,6 @@
     margin: 1% 0;
     margin-left: -10px;
     width: 50px;
-    z-index: 2;
 }
 
 .yourHand div:nth-child(1n) {
@@ -40,7 +39,8 @@
 
 .people {
     margin: 0 auto;
-    min-height: 30vh;
+    min-height: 25vh;
+    vertical-align: middle;
 }
 
 .cardPile {
@@ -75,4 +75,30 @@
 .selected {
     transform: translateY(-10px);
     border: 5px solid rgba(0,0,255,0.7);
+}
+
+.ocard {
+    background-color: red;
+    border-radius: 5px;
+    border: 1px solid white;
+    box-shadow: 2px 2px gray;
+    color: red;
+    display: flex;
+    font-size: 1.5em;
+    height: 80px;
+    justify-content: center;
+    margin: 1% 0;
+    margin-left: -10px;
+    width: 50px;
+    z-index: 2;
+}
+
+.center {
+    text-align: center;
+    margin: 0;
+}
+
+.check {
+    height: 20vh;
+    width: 20vh;
 }
