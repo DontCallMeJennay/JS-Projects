@@ -14,18 +14,17 @@ START
 *Display your hand in an interact-able (?) fashion
 
 TURN
--Count and print how many cards are in DISCARD (but not which ones)
--Display which cards are in CURRENT_PLAYER'S hand
--Choose up to 4 cards to DROP in discard pile
--State BLUFF (quantity and value) of cards being discard()ed
--Discard()
--All players have option to callBS(this_PLAYER, CURRENT_PLAYER) or pass()
+*-Display which cards are in CURRENT_PLAYER'S hand
+?-Choose up to 4 cards to DROP in discard pile
+?-State BLUFF (quantity and value) of cards being discard()ed
+*-Discard()
+?-All players have option to callBS(this_PLAYER, CURRENT_PLAYER) or pass()
 
 BS
--PLAYER callBS() on most recent CURRENT_PLAYER
--If BLUFF matches DROP, DISCARD pile goes into PLAYER's HAND
--If BLUFF !matches DROP, DISCARD pile goes into CURRENT_PLAYER's HAND
--DISCARD pile goes to 0
+*PLAYER callBS() on most recent CURRENT_PLAYER
+*If BLUFF matches DROP, DISCARD pile goes into PLAYER's HAND
+*If BLUFF !matches DROP, DISCARD pile goes into CURRENT_PLAYER's HAND
+*DISCARD pile goes to 0
 
 WIN
-The PLAYER who discards all cards without being called out is the winner.
+?-The PLAYER who discards all cards without being called out is the winner.
