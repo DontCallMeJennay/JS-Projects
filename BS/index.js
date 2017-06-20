@@ -11,6 +11,7 @@ $(document).ready(function() {
     let players = [];
     let discardPile = [];
     let discard = [];
+    let bluff = { "num": 0, "type": "3", "suit": "S" };
 
     const suitBtn = document.getElementById("sSort");
     const numBtn = document.getElementById("nSort");
@@ -228,9 +229,14 @@ $(document).ready(function() {
     }
 
     function opponentTurn(player) {
+
         //choose discard
         discard = player.hand.slice(0, 3);
         let hand = player.hand;
+        bluff.num = 3;
+        bluff.type = "A";
+        bluff.suit = "C";
+
         //transfer cards to pile
         for (var i = 0; i < discard.length; i++) {
             for (var j = 0; j < hand.length; j++) {
@@ -241,12 +247,12 @@ $(document).ready(function() {
             }
         }
         //announce discard and update hand
-        $("#msg1").html(player.name + " discards " + discard.length + " cards.");
+        $("#msg1").html(player.name + " is discarding " + bluff.num + " " + bluff.type + ".");
         player1.hand = player1.hand.filter(function(val) {
-            return Boolean(val) });
+            return Boolean(val)
+        });
         p1.innerHTML = displayOpponentCards(player1);
-        //cleanup
-        console.log("Player1 cards left: " + player1.hand.length);
+
         console.log(discardPile);
     }
 
@@ -256,13 +262,40 @@ $(document).ready(function() {
         //show discards
         bsBox.innerHTML = generateCards(discard);
         //compare to bluff
-        //if match, transfer to caller's hand
-        //if not match, transfer to callee's hand
-        //clear discard pile
-        //continue play
+        for (var i = 0; i < discard.length; i++) {
+            let suit = discard[i].charAt(discard[i].length - 1);
+            if (suit !== bluff.suit) {
+                console.log("BS!");
+                callee.hand = callee.hand.concat(discardPile);
+                p1.innerHTML = displayOpponentCards(callee);
+                discard = [];
+                discardPile = [];
+                console.log("Player0 cards left: " + caller.hand.length);
+                console.log("Player1 cards left: " + callee.hand.length);
+                return;
+            }
+        }
+        console.log("No BS!");
+        checkWin(callee);
+        caller.hand = caller.hand.concat(discardPile);
+        console.log("Player0 cards left: " + caller.hand.length);
+        console.log("Player1 cards left: " + callee.hand.length);
+        p0.innerHTML = generateCards(caller.hand);
+        selectCards();
+        discard = [];
+        discardPile = [];
     }
 
-
+    function checkWin(player) {
+        console.log(player.hand.length);
+        if(player.hand.length < 1) {
+            p0.innerhTML = "";
+            p1.innerHTML = "";
+            console.log(player.name + " WINS!");
+        } else {
+            console.log(player + " is not a winner yet");
+        }
+    }
 
     function gameStart() {
         shuffle(deck);
@@ -270,11 +303,6 @@ $(document).ready(function() {
         p0.innerHTML = generateCards(player0.hand)
         p1.innerHTML = displayOpponentCards(players[1]);
         selectCards();
-        //while(!gameOver) {
-        player0.hand = sortHandByNumber(player0);
-        //checkForBS();
-        //checkWin();
-        //}
     }
 
 
@@ -297,11 +325,15 @@ $(document).ready(function() {
             discardFromHand(player0, index);
         });
         player0.hand = player0.hand.filter(function(val) {
-            return Boolean(val) });
+            return Boolean(val);
+        });
+        checkWin(player0);
         p0.innerHTML = generateCards(player0.hand);
         console.log("Player0 cards left: " + player0.hand.length);
         selectCards();
-        opponentTurn(player1);
+        setTimeout(function() {
+            opponentTurn(player1);
+        }, 1000);
     });
 
     $(bsBtn).on("click", function() {
