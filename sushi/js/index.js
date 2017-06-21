@@ -61,7 +61,7 @@ getLocation();
     if (true) {
       var str = address + city + zipcode;
       str = str.replace(/ /gm, '+');
-      $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + str + [KEY], function (data) {
+      $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + str + '[KEY]', function (data) {
           console.log(data);
           var data = {
           lat: data.results[0].geometry.location.lat,
