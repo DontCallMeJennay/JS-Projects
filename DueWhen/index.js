@@ -128,8 +128,7 @@ $('document').ready(function() {
   $('#step1').on('click', function() {
     var issue = $('#itemID').val();
     $('.results').html(issue);
-    $('#rect1').slideUp(400);
-    $('#rect2').delay(500).slideDown();
+    $('#rect2').show();
   });
   
   $('#step2').on('click', function() {
@@ -142,12 +141,10 @@ $('document').ready(function() {
     
     if (numCheck(m) && numCheck(d) && numCheck(y)) {
       if ($('#specific').is(':checked')) {
-        $('#rect2').slideUp(400);
-        $('#rect4').delay(500).slideDown();
+        $('#rect4').show();
         
       } else if ($('#range').is(':checked')) {
-        $('#rect2').slideUp(400);
-        $('#rect3').delay(500).slideDown();
+        $('#rect3').show();
       } else {
         alert('Please select an option.');
       }
@@ -158,14 +155,14 @@ $('document').ready(function() {
   $('#step3').on('click', function() {
     var deadline = assembleDate();
     if ($('#noTime').is(':checked')) {
-      $('.rectangle:not(#rect6)').slideUp(400);
-      $('#rect6').delay(500).slideDown();
+      $('#rect6').show();
+      $('#rect1, #rect2, #rect3, #rect4').hide();
       $('#limit').html(calcTimeLeft(deadline));
 
     } else if ($('#yesTime').is(':checked')) {
       if (numCheck($('#dueByH').val()) && (numCheck($('#dueByM').val()))) {
-      $('.rectangle:not(#rect6)').slideUp(400);
-      $('#rect6').delay(500).slideDown();
+        $('#rect1, #rect2, #rect3, #rect4').hide();
+        $('#rect6').show();
         $('#limit').html(calcTimeLeft(deadline));
       }
     }
@@ -194,14 +191,16 @@ $('document').ready(function() {
     	}
 		highEst = highEst.format(shortf);
         
-        $('.rectangle:not(#rect5)').slideUp(400);
-        $('#rect5').delay(500).slideDown();
+        
+
+        $('#rect4, #rect3, #rect2, #rect1').hide();
+        $('#rect5').show();
         $('#low').html(lowEst);
         $('#high').html(highEst);
 
       } else {
-        $('.rectangle:not(#rect5)').slideUp(400);
-        $('#rect5').delay(500).slideDown();
+        $('#rect4, #rect3, #rect2, #rect1').hide();
+        $('#rect5').show();
         $('#low').html(lowEst);
         $('#high').html(highEst);
       }
@@ -211,9 +210,20 @@ $('document').ready(function() {
   $('#reset1, #reset2').on('click', function() {
     $('.today').html(rightNow);
     $('#limit, #low, #high').html('');
-    $('.rectangle:not(#rect1)').slideUp(400);
-    $('#rect1').delay(500).slideDown();
+    $('#rect1').show();
+    $('#rect2, #rect3, #rect4, #rect5, #rect6').hide();
+  });
 
+  $("#tweet1").on("click", function() {
+    var text = $('#rangeResults').text();
+    var tweety = encodeURI("https://twitter.com/intent/tweet?text=" + 'Note: ' + text + "&hashtags=ItsDueWhen");
+    window.open(tweety, '_blank');
+  });
+
+  $("#tweet2").on("click", function() {
+    var text = $('#dueResults').text();
+    var tweety = encodeURI("https://twitter.com/intent/tweet?text=" + 'Note: ' + text + "&hashtags=ItsDueWhen");
+    window.open(tweety, '_blank');
   });
 
 	$('#month').val(moment().month()+1);

@@ -1,90 +1,153 @@
-html {
-    background-color: rgb(230, 230, 255);
-    background: url('towerclock2.jpg');
-    background-position: top left;
-    background-size: cover;
-    background-attachment: fixed;
-}
 
 body {
-    font-family: 'Playfair Display', serif;
-    margin: 5% auto;
-    max-width: 800px;
-    position: relative;
-    width: 90%;
+  background-color: rgb(230, 230, 255);
+  background: url('towerclock2.jpg');
+  background-size: cover;
+  margin: 5% auto;
+  max-width: 1000px;
+  font-family: 'Playfair Display', serif;
 }
 
 header {
-    line-height: 75%;
-    font-family: 'Arvo', serif;
+  line-height: 80%;
+  font-family: 'Arvo', serif;
+  font-size: 1.5rem;
 }
 
-header p {
-    font-weight: bold;
+main h4 {
+	text-align: center;
+}
+
+div {
+	margin: 0 auto;
 }
 
 main {
-    padding-top: 2%;
+  clear: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
-button,
-input {
-    color: black;
-    font-family: 'Playfair Display', serif;
-    font-weight: bold;
-    margin: 5px;
-    padding: 5px;
+label {
 }
 
-h4 {
-    margin-top: 0;
-    padding-top: 0;
+input,
+select {
+	color: black;
+	font-family: 'Arvo', serif;
+	margin: 0.5em;
 }
 
-input[type=radio] {
-    height: 1.25em;
-    margin-right: 2px;
-    width: 1.25em;
-    vertical-align: middle;
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
+.btn {
+	  border-color: white;
+  color: white;
+  font-family: 'Arvo', serif;
   margin: 2% auto;
 }
 
-footer a {
-  color: black;
-  font-family: "Playfair Display", serif;
-  font-size: 80%;
+.emph {
+	font-size: 1.2em;
   font-weight: bold;
+  text-shadow: 1px 1px grey;
 }
 
 .rectangle {
-    background-color: #644;
-    background-color: rgba(50, 30, 30, 0.7);
-    border: 3px inset grey;
-    box-shadow: 2px 2px 5px gray;
-    color: white;
-    font-weight: 400;
-    letter-spacing: 1px;
-    margin: 0 auto;
-    max-width: 80vw;
-    padding: 1em;
-    text-align: center;
+  box-shadow: 1px 2px gray;
+  color: white;
+  font-size: 1.5em;
+  padding: 1vw;
+  margin: 1% auto;
+  max-width: 800px;
 }
 
-table {
-    margin: 0 auto;
-    text-align: left;
+#rect1 {
+  background-color: #B496A6;
+  border: 5px inset #A55B85;
+  text-align: center;
+}
+
+#rect1 .btn {
+  background-color: #5E1940;
+}
+
+#rect2 {
+  background-color: #AF8380;
+  border: 5px inset #BF9390;
+  border-radius: 20px;
+}
+
+#rect2 .btn {
+  background-color: #C06767;
+}
+
+#rect3 {
+  background-color: #6D9171;
+  border: 5px inset #96B299;
+  border-radius: 5px;
+}
+
+#rect3 .btn {
+  background-color: #286D28;
+}
+
+#rect4 {
+  background-color: #6D9171;
+  border: 5px inset #96B299;
+  border-radius: 40px;
+}
+}
+#rect4 .btn {
+  background-color: #286D28;
+}
+
+#rect5, #rect6 {
+  background-color: #777777;
+  border: 5px inset #AAAAAA;
+  font-size: 1.5em;
+  border-radius: 0;
+  text-align: center;
+}
+
+span {
+  font-weight: bold;
+}
+
+h1 {
+	font-weight: bold;
+}
+
+hr {
+  border: 1px inset;
+}
+
+.text1 {
+  height: 3em;
+  width: .5em;
+  line-height: 2em;
+  font-size: 1.3em;
+  float: left;
+  transform: rotate(-90deg);
+}
+
+.text2 {
+  float: left;
 }
 
 .date {
-    max-width: 2em;
+  max-width: 5em;
 }
 
-.emph {
-    font-size: 1.2em;
-    font-weight: bold;
+#itemID {
+  width: 50%;
+}
+
+#low {
+  color: #286D28;
+}
+
+#high {
+  color: #8F2222;
 }
