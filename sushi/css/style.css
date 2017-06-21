@@ -1,0 +1,145 @@
+a {
+text-decoration: none;
+font-family: 'Joti One', cursive;
+color: #093B51;
+}
+
+a:visited {
+color: #4C7F95;
+}
+
+body {
+	display: flex;
+	flex-flow: column;
+	font-family: 'Amethysta', serif;
+	max-width: 95vw;
+	min-height: 100vh;
+	overflow-x: hidden;
+}
+
+main {
+flex-flow: row;
+}
+
+.circle {
+  border-radius: 50px;
+  border: double 10px white;
+  height: 3em;
+  margin: 1em;
+  margin-top: 3em;
+  width: 3em;
+}
+
+header {
+	align-items: center;
+	align-self: flex-start;
+	background-color: #030;
+	color: white;
+	display: flex;
+	flex-flow: row wrap;
+	font-family: 'Joti One', cursive;
+	justify-content: center;
+	max-height: 25vh;
+	margin-left: -5%;
+	transform: rotate(5deg);
+	width: 110%;
+}
+
+.rotate {
+  transform: rotate(-5deg);
+}
+
+h1 {
+margin-bottom: 0;
+}
+
+#map {
+	background-color: #AAA;
+	border: 3px outset #2F667D;
+	height: 300px;
+	margin: 20px auto;
+	width: 400px;
+}
+
+#searchForm {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+  }
+	
+input { 
+        border: 2px inset black;
+        border-radius: 10px;
+        box-shadow: 1px -2px #7BA5B7;
+        margin: 10px;
+	padding: 10px;
+	width: 280px;
+}
+
+button {
+  background-color: #D85E45;
+  background: linear-gradient(#7BA5B7, #4C7F95, #7BA5B7);
+  border-radius: 10px;
+  border: 1px inset #333;
+  color: black;
+  font-family: 'Joti One', cursive;
+  padding: 5px;
+  width: 300px;
+}
+
+.wrapper {
+	display: flex;
+	flex-basis: 300px;
+	flex-flow: row wrap;
+	flex: 1;
+	justify-content: center;
+        margin: 3% auto;
+	max-width: 1200px;
+}
+
+.col {
+    align-items: center;
+    display: inline;
+    flex-grow: 1;
+    min-width: 30vw; 
+
+    }
+
+footer {
+  background-color: #040;
+  color: white;
+  font-size: .75em;
+  text-align: center;
+  width: 100%;
+}
+
+footer a {
+color: white;
+}
+
+.target {
+display: flex;
+align-items: stretch;
+justify-content: center;
+line-height: 105%;
+flex-flow: row wrap;
+align-content: flex-end;
+}
+
+.result {
+border: 1px solid black;
+box-shadow: 2px 2px #FFB8A7;
+flex-grow: 1;
+margin: 10px;
+padding: .5em;
+
+}
+
+span {
+color: #802009;
+font-weight: 500;
+}
+
+.addy {
+color: #447509;
+}
