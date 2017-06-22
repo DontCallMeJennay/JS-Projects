@@ -1,0 +1,143 @@
+body {
+    display: flex;
+    flex-flow: column;
+    font-family: 'Amethysta', serif;
+    margin: 2% auto;
+    max-width: 95vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+header {
+    align-items: center;
+    align-self: flex-start;
+    background-color: #030;
+    background: linear-gradient(to right, #030, #010, #030);
+    color: white;
+    display: flex;
+    flex-flow: row wrap;
+    font-family: 'Merienda', cursive;
+    justify-content: center;
+    max-height: 25vh;
+    margin-left: -5%;
+    transform: rotate(5deg);
+    width: 110%;
+}
+
+.circle {
+    border-radius: 50px;
+    border: double 10px white;
+    height: 3em;
+    margin: 1em;
+    margin-top: 3em;
+    width: 3em;
+}
+
+#map {
+    background-color: #AAA;
+    border: 3px outset #2F667D;
+    height: 300px;
+    margin: 2% auto;
+    width: 400px;
+}
+
+button {
+    background-color: #1C526A;
+    background: linear-gradient(#4C7F95, #1C526A, #4C7F95);
+    box-shadow: 1px 2px 5px #4C7F95;
+    border-radius: 5px;
+    border: 1px inset #333;
+    color: black;
+    font-family: 'Merienda', cursive;
+    margin: 5px auto;
+    padding: 5px 0;
+    width: 400px;
+}
+
+input {
+    border: 2px inset black;
+    box-shadow: 1px 2px 5px #7BA5B7;
+    margin: 5px auto;
+    padding: 5px 0;
+    width: 400px;
+}
+
+section {
+  margin: 0 auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+legend {
+  background-color: #030;
+  background: linear-gradient(to right, #030, #010, #030);
+  box-shadow: 1px 2px 3px #040;
+  color: white;
+  font-family: 'Merienda', cursive;
+  font-size: 1.25em;
+  font-weight: bold;
+  margin: 5px auto;
+  padding: 1em 0;
+  text-align: center;
+  width: 400px;
+}
+
+legend span {
+  background-color: #030;
+  box-shadow: 2px 2px 5px black;
+  float: right;
+  margin: 0 auto;
+  margin-right: 20px;
+  padding: 5px;
+}
+
+footer {
+    background-color: #040;
+    background: linear-gradient(to top, #020, #040);
+    color: white;
+    font-size: .75em;
+    margin-top: 50px;
+    text-align: center;
+    width: 105%;
+}
+
+footer a {
+  color: white;
+}
+
+a {
+    font-family: 'Merienda', cursive;
+    font-size: 1.2em;
+    color: #093B51;
+}
+
+a:visited {
+    color: #4C7F95;
+}
+
+.target {
+    display: flex;
+    align-content: flex-end;
+    flex-flow: row wrap;
+    flex: auto;
+    justify-content: center;
+    line-height: 105%;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+.result {
+    border: 1px solid black;
+    box-shadow: 2px 2px #FFB8A7;
+    flex-grow: 1;
+    margin: 10px;
+    padding: .5em;
+}
+

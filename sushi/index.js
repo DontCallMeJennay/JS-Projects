@@ -28,6 +28,8 @@ function getLocation() {
 
    if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success, error, options);
+  } else {
+    $("#map").html("Geolocation disabled. Manual search required.")
   }
 }
 
@@ -61,7 +63,7 @@ getLocation();
     if (true) {
       var str = address + city + zipcode;
       str = str.replace(/ /gm, '+');
-      $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + str + 'KEY', function (data) {
+      $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + str + '&key=AIzaSyAqVmW0IH-42cxUSLIvynm8tx-N3VVD50Q', function (data) {
           console.log(data);
           var data = {
           lat: data.results[0].geometry.location.lat,
@@ -132,3 +134,25 @@ getLocation();
     myMap.fitBounds(bounds);
     }
 }
+
+function slideItems(obj) {
+    $(obj).toggleClass("show");
+    if ($(obj).hasClass("show")) {
+        $(obj).slideDown(300);
+    } else {
+        $(obj).slideUp(300);
+    }
+}
+
+
+
+var formFields = $("form > input, form > button");
+$(formFields).hide();
+
+$("#searchForm > legend").on("click", function() {
+  slideItems(formFields);
+});
+
+$("#results").on("click", function() {
+  slideItems($(".target"));
+});
