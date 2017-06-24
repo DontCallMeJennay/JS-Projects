@@ -22,13 +22,9 @@ What are we doing, exactly?
 
 
 function initMap() {
-    var myKey;
     var bounds;
     var coords;
     var markArr = [];
-    $.getJSON("test.json", function(data) {
-        myKey = JSON.stringify(data.snippet1);
-    });
 
     function getLocation() {
         var options = {
@@ -74,7 +70,6 @@ function initMap() {
     }
 
     function drawMap(coords) {
-
         if (coords) {
             var mapDiv = document.getElementById('map');
             myMap = new google.maps.Map(mapDiv, {
@@ -113,8 +108,7 @@ function initMap() {
     }
 
     function sortData(response, status) {
-        console.log("sortData() called");
-        console.log(response);
+        $(".target").html("");
         for (var i = 0; i < response.length; i++) {
             var x = response[i];
             if (x.types !== "gas station") {
@@ -145,32 +139,33 @@ function initMap() {
 
     }
     //getDirections();
-}
-
-$('#findRestaurants').on('click', function() {
+$('#findRestaurants').on('click', function(e) {
+    e.preventDefault();
+    bounds = ""; coords = "";
     var address = $('#address').val() + ' ';
     var city = $('#city').val();
     var zipcode = $('#zip').val();
-    if (true) {
-        var str = (address + city + zipcode).replace(/ /gm, '+');
-        console.log(str);
-        $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + str + '&key=' + myKey, function(data) {
-            var newCoords = {
-                lat: data.response[0].geometry.location.lat,
-                lng: data.response[0].geometry.location.lng
-            };
-            console.log("Search coords: " + newCoords);
-            if (markArr[0]) {
-                for (i = 0; i < markArr.length; i++) {
-                    markArr[i].setMap(null);
-                }
-                markArr = [];
-                $('.target').html("");
+    var str = (address + city + zipcode).replace(/ /gm, '+');
+    console.log(str);
+    $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + str, function(data) {
+      console.log(data);
+        var newCoords = {
+            lat: data.results[0].geometry.location.lat,
+            lng: data.results[0].geometry.location.lng
+        };
+        console.log("Search coords: " + newCoords);
+        if (markArr[0]) {
+            for (i = 0; i < markArr.length; i++) {
+                markArr[i].setMap(null);
             }
-            myMap.setCenter(newCoords);
-            //getSushi(newCoords, myMap);
-        });
-    }
+            markArr = [];
+            $('.target').html("");
+        }
+        myMap.setCenter(newCoords);
+        console.log("setCenter to " + newCoords);
+        bounds = new google.maps.LatLngBounds(newCoords);
+        getSushi(newCoords, myMap);
+    });
 });
 
 function slideItems(obj) {
@@ -182,7 +177,6 @@ function slideItems(obj) {
         $(obj).slideUp(300);
     }
 }
-
 
 var formFields = $("form > input, form > button");
 $(formFields).hide();
@@ -196,31 +190,5 @@ $("#results").on("click", function() {
 });
 
 
-/* ------
-        for (var i = 0; i < response.length; i++) {
-            var x = response[i];
-            if (x.types !== "gas station") {
-                //addMarker(response[i]);
-                $('.target').append('<div class="result" id="listing' + i + '"><a href="#">' + response[i].name + '</a><br>');
-                if (x.vicinity) {
-                    $('#listing' + i).append('<span class="addy">' + response[i].vicinity + '</span><br>');
-                }
-                if (x.rating) {
-                    $('#listing' + i).append('Rating: <span>' + response[i].rating + '</span><br>');
-                }
-                if (x.price_level) {
-                    $('#listing' + i).append('Price: <span>' + response[i].price_level + '</span><br>');
-                }
-                if (x.opening_hours) {
-                    var isOpen = response[i].opening_hours.open_now;
-                    if (isOpen) {
-                        $('#listing' + i).append('Open now? <span> Yes </span><br>');
-                    } else {
-                        $('#listing' + i).append('Open now? <span> No </span><br>');
-                    }
-                }
-                $('#listing' + i).append('</div>');
-            }
-        }
+}
 
------- */
