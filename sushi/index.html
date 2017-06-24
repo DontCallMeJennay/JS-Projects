@@ -20,23 +20,29 @@
             <p>powered by Google Places API</p>
         </div>
     </header>
+
     <main>
-        <section class="col">
+        <section class="col" id="msg">
             <div id="map">
             </div>
         </section>
+
         <section class="col">
-            <legend id="results"><span>&#x25B2</span>Results</legend>
+            <form id="searchForm">
+                <legend class="show"><span>&#x25BC</span>Search for a restaurant</legend>
+                <input type='text' id='address' placeholder='business name and/or address'></input>
+                <input type='text' id='city' placeholder='city, state'></input>
+                <input type='text' id='zip' placeholder='zip code'></input>
+                <button id='findRestaurants'>Search</button>
+            </form>
+        </section>
+
+        <section class="col">
+            <legend class="show" id="results"><span>&#x25BC</span>Results</legend>
             <div class='target'>
             </div>
         </section>
-        <form id="searchForm">
-            <legend><span>&#x25BC</span>Search for a restaurant</legend>
-            <input type='text' id='address' placeholder='business name and/or address'></input>
-            <input type='text' id='city' placeholder='city, state'></input>
-            <input type='text' id='zip' placeholder='zip code'></input>
-            <button id='search'>Search</button>
-        </section>
+
     </main>
     <footer>
         <p> Last updated June 2017.
@@ -47,7 +53,7 @@
     </footer>
     <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
     <script src="index.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATEk55_lj1BwF0YtTXOpJCqE6SyfK9oWo&libraries=places&callback=heyWaitAMinute"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYBZT1nfJeSXQQ7HMBD7AvygvJnsKBBos&libraries=places&callback=initMap"></script>
     </script>
 </body>
 

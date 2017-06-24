@@ -92,6 +92,7 @@ legend {
 legend span {
   background-color: #030;
   box-shadow: 2px 2px 5px black;
+  cursor: pointer;
   float: right;
   margin: 0 auto;
   margin-right: 20px;
