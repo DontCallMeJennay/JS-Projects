@@ -1,95 +1,111 @@
-$( document ).ready(function(){
-	const artsyB = document.getElementById("artsy");
-	const formalB = document.getElementById("formal");
+$(document).ready(function() {
+    const artBtn = document.getElementById("artsy");
+    const formalBtn = document.getElementById("formal");
 
-	const emailB = document.getElementById("emailMe");
-	const tweetB = document.getElementById("tweetMe");
-	const gitHubB = document.getElementById("gitHubMe");
+    const emailBtn = document.getElementById("emailMe");
+    const tweetBtn = document.getElementById("tweetMe");
+    const gitBtn = document.getElementById("gitHubMe");
 
-	const jsC = document.getElementById("jsc");
-	const htmlC = document.getElementById("htmlc");
-	const wpC = document.getElementById("wpc");
-	const apiC = document.getElementById("apic");
-	const rdC = document.getElementById("rdc");
+    const jsCat = document.getElementById("jsc");
+    const htmlCat = document.getElementById("htmlc");
+    const wpCat = document.getElementById("wpc");
+    const apiCat = document.getElementById("apic");
+    const respCat = document.getElementById("rdc");
 
-////Just kidding, I'm using jQuery.
+    const msg = document.getElementById("msg1");
+    const nextBtn = document.getElementById("arrow1");
+    const lastBtn = document.getElementById("arrow2");
 
-	$("#artsy, #formal").hover(function(){
-		$("#msg1").css({"opacity": "0"});
-	}, function(){
-		$("#msg1").css({"opacity": "1"});
-	})
-		.click(function(){
-			$("#artsy, #formal")
-			.css({"opacity": "0", "visibility": "hidden"})
-			.delay(2000).animate({opacity: 1
-		}, 400, function() {
-			$(this).css({"visibility": "visible"});
-		});
-		});
+    ////Just kidding, I'm using jQuery.
 
-	$("#formal").on("click", function(){
-		$("#msg1").text("(Just the facts, please.)")
-		.css({"opacity": "1"});
-		$("body").delay(1200).animate({
-        	scrollTop: $("#skills").offset().top -100
-   		}, 1000);
-	});
+    $(artBtn, formalBtn).hover(function() {
+            $(msg).css({ "opacity": "0" });
+        }, function() {
+            $(msg).css({ "opacity": "1" });
+        })
+        .click(function() {
+            $(artBtn, formalBtn)
+                .delay(1000).animate({
+                    opacity: 0
+                }, 400, function() {
+                    $(this).css({ "visibility": "visible" });
+                });
+            $("nav a").css({"opacity": "1"});
+        });
 
-	$("#artsy").on("click", function(){
-		$("#msg1").text("(Sometimes I pretend I'm a designer.)")
-		.css({"opacity": "1"});
-		$("body").delay(3000).animate({
-        	scrollTop: $("#skills").offset().top -100
-   		}, 1000);
-   		//move bee down to skills section
-   		//land on down button
-	});
+    $(formalBtn).on("click", function() {
+        $(msg).text("(Just the facts, please.)")
+            .css({ "opacity": "1" });
+        $("body").delay(1000).animate({
+            scrollTop: $("#skills").offset().top - 100
+        }, 500);
+    });
 
-	$("#nextBtn").click(function(){
-		$("body").delay(1000).animate({
-			scrollTop: $("#projects").offset().top -175
-		}, 1000);
-	});
+    $(artBtn).on("click", function() {
+        $(msg).text("(Sometimes I pretend I'm a designer, too.)")
+            .css({ "opacity": "1" });
+        $(this).html('<img id="bee" src="darkbee.gif">')
+        		.css({ "opacity": "1", "z-level": "-1" });
+        $("body").delay(1000).animate({
+            scrollTop: $("#skills").offset().top - 100
+        }, 500);
+        //move bee down to skills section
+        //land on down button
+    });
 
-	$("#jsc").hover(function(){
-		$("#jsc, #coffee, #sushi, #due").toggleClass("orange");
-	}, function(){
-		$("#jsc, #coffee, #sushi, #due").toggleClass("orange");
-	});
 
-	$("#wpc").hover(function(){
-		$("#wpc, #mbg").toggleClass("lavender");
-	}, function(){
-		$("#wpc, #mbg").toggleClass("lavender");
-	});
+    $(nextBtn).click(function() {
+        $("body").delay(1000).animate({
+            scrollTop: $("#projects").offset().top - 100
+        }, 500);
+    });
 
-	$("#apic").hover(function(){
-		$("#apic, #sushi, #wapp, #wiki").toggleClass("blue");
-	}, function(){
-		$("#apic, #sushi, #wapp, #wiki").toggleClass("blue");
-	});
+    $(lastBtn).click(function() {
+        $("body").delay(1000).animate({
+            scrollTop: $("#contact").offset().top - 100
+        }, 500);
+    });
 
-	$("#htmlc").hover(function(){
-		$("#htmlc, #coffee, #wiki, #mbg").toggleClass("green");
-	}, function(){
-		$("#htmlc, #coffee, #wiki, #mbg").toggleClass("green");
-	});
 
-	$("#rdc").hover(function(){
-		$("#rdc, #coffee, #wiki, #mbg, #wapp").toggleClass("yellow");
-	}, function(){
-		$("#rdc, #coffee, #wiki, #mbg, #wapp").toggleClass("yellow");
-	});
 
-	$(".box").hover(function(){
-		$(this).focus();
-		$("img",this).css({"height": "200px"});
-		$("p",this).css({"font-size": "1em", "opacity": "1"});
-	}, function(){
-		$("img",this).css({"height": "0"});
-		$("p",this).css({"font-size": "0", "opacity": "0"});
+    $(jsCat).hover(function() {
+        $("#jsc, #coffee, #sushi, #due").toggleClass("orange");
+    }, function() {
+        $("#jsc, #coffee, #sushi, #due").toggleClass("orange");
+    });
 
-	});
+    $(wpCat).hover(function() {
+        $("#wpc, #mbg").toggleClass("lavender");
+    }, function() {
+        $("#wpc, #mbg").toggleClass("lavender");
+    });
+
+    $(apiCat).hover(function() {
+        $("#apic, #sushi, #wapp, #wiki").toggleClass("blue");
+    }, function() {
+        $("#apic, #sushi, #wapp, #wiki").toggleClass("blue");
+    });
+
+    $(htmlCat).hover(function() {
+        $("#htmlc, #coffee, #wiki, #mbg").toggleClass("green");
+    }, function() {
+        $("#htmlc, #coffee, #wiki, #mbg").toggleClass("green");
+    });
+
+    $(respCat).hover(function() {
+        $("#rdc, #coffee, #wiki, #mbg, #wapp").toggleClass("yellow");
+    }, function() {
+        $("#rdc, #coffee, #wiki, #mbg, #wapp").toggleClass("yellow");
+    });
+
+    $(".box").hover(function() {
+        $(this).focus();
+        $("img", this).css({ "height": "200px" });
+        $("p", this).css({ "font-size": "1em", "opacity": "1" });
+    }, function() {
+        $("img", this).css({ "height": "0" });
+        $("p", this).css({ "font-size": "0", "opacity": "0" });
+
+    });
 
 });
