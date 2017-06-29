@@ -1,24 +1,23 @@
 $('document').ready(function() {
 
-	function checkInput(val) {
-		var reg = /\D/g;
-		if(val.match(reg) || val === "" || !val) {
-			alert(val + " is not a valid input.");
-			return false;
-		}
-		return true;
-	}
+    function checkInput(val) {
+        var reg = /\D/g;
+        if (val.match(reg) || val === "" || !val) {
+            alert(val + " is not a valid input.");
+            return false;
+        }
+        return true;
+    }
 
     function calculateDueDate() {
-    	var y = $('#year').val();
-    	var m = $("#month").val()
-    	var d =  $('#day').val();
-        var dueDate = y + m + d;
-        	if(checkInput(y) && checkInput(m) && checkInput(d)) {
-        dueDate = moment(dueDate).format('MM DD YYYY');
-        console.log("dueDate: " + dueDate);
-        return dueDate;
-    }
+        var m = $("#month").val();
+        var d = $('#day').val();
+        var y = $('#year').val();
+        var dueDate = y + " " + m + " " + d;
+        if (checkInput(y) && checkInput(m) && checkInput(d)) {
+            dueDate = moment(dueDate).format('MM DD YYYY');
+            return dueDate;
+        }
     }
 
     function calculateDueTime() {
@@ -33,6 +32,7 @@ $('document').ready(function() {
         var dateTime = dueDate + " " + dueTime;
         var difference = [
             //Bugfix: there's a deprecation and/or formatting issue on the line just below.
+            moment(dateTime).year() - moment().year(),
             moment(dateTime).month() - moment().month(),
             moment(dateTime).date() - moment().date(),
             moment(dateTime).hour() - moment().hour(),
@@ -57,13 +57,17 @@ $('document').ready(function() {
             }
         }
 
-        rollUnder(arr, 3, 60);
-        rollUnder(arr, 2, 24);
-        rollUnder(arr, 1, 31);
+        
+        rollUnder(arr, 4, 60);
+        rollUnder(arr, 3, 24);
+        rollUnder(arr, 2, 31);
+        rollUnder(arr, 1, 12);
 
-        rollOver(arr, 1, 30);
-        rollOver(arr, 2, 23);
-        rollOver(arr, 3, 59);
+        rollOver(arr, 1, 11);
+        rollOver(arr, 2, 30);
+        rollOver(arr, 3, 23);
+        rollOver(arr, 4, 59);
+ 
 
         return arr;
     }
@@ -83,6 +87,14 @@ $('document').ready(function() {
             }
         }
         return num;
+    }
+
+    function checkIfValidAnswer(arr) {
+    	for (var i=0; i < arr.length; i++) {
+    		if (arr[i] < 0) {
+    			$("#dueResults").html("You have missed the deadline!");
+    		}
+    	}
     }
 
     $("input[type=submit]").click(function(e) { e.preventDefault(); });
@@ -114,10 +126,12 @@ $('document').ready(function() {
             $('.rectangle:not(#rect6)').slideUp(400);
             $('#rect6').delay(500).slideDown();
             $("#limit").html(final[0] + " months and " + final[1] + " days");
+            checkIfValidAnswer(final);
         } else {
             $('.rectangle:not(#rect6)').slideUp(400);
             $('#rect6').delay(500).slideDown();
             $("#limit").html(final[0] + " months, " + final[1] + " days, " + final[2] + " hours, and " + final[3] + " minutes");
+            checkIfValidAnswer(final);
         }
     });
 
