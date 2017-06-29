@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>It's Due When? (with Moment.js)</title>
+    <title>It's Due When? </title>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Arvo:400,700|Playfair+Display'>
     <link rel="stylesheet" href="style.css">
@@ -16,13 +16,13 @@
         <h1>WHEN?
         </h1>
         <hr>
-        <p>It is now <span class="today emph">[date]</span></p>
+        <p>It is now <br><span class="today emph">[date]</span></p>
     </header>
     <main>
         <div class="rectangle" id="rect1">
             <h4>What bill, assignment, or other issue are you tracking?</h4>
             <hr>
-            <input type="text" id="itemID"></input>
+            <input type="text" id="itemID" value="Cable bill"></input>
             <button class="btn btn-lg" id="step1">Continue</button>
         </div>
 
@@ -35,15 +35,15 @@
             <table>
               <tr>
                 <td><label for="month">MM</label></td>
-                <td><input class="date" type="text" id="month"></td>
+                <td><input class="date" type="number" id="month" value="07"></td>
               </tr>
               <tr>
                 <td><label for="day">DD</label></td>
-                <td><input class="date" type="text" id="day"></td>
+                <td><input class="date" type="number" id="day" value="05"></td>
               </tr>
               <tr>
                 <td><label for="year">YYYY</label></td>
-                <td><input class="date" type="text" id="year"></td>
+                <td><input class="date" type="number" id="year" value="2017"></td>
               </tr>
             </table>
             <br>
@@ -60,8 +60,8 @@
             <hr>
             <label for="minDays">Enter the number of days:</label>
             <br>
-            <input type="text" class="date" id="minDays"> to
-            <input type="text" class="date" id="maxDays">
+            <input type="number" class="date" id="minDays" value="5"> to
+            <input type="number" class="date" id="maxDays" value="7">
             <br>
             <input type="radio" name="whichDays" id="business" checked="checked">
             <label for="business">business days</label>
@@ -69,7 +69,7 @@
             <input type="radio" name="whichDays" id="calendar">
             <label for="calendar">calendar days</label>
             <br>
-            <button class="btn btn-lg" id="timeFrame">Calculate</button>
+            <button class="btn btn-lg" id="step4">Calculate</button>
         </div>
 
         <div class="rectangle" id="rect4">
@@ -83,8 +83,8 @@
             <tr>
               <td><input type="radio" name="time1" id="yesTime"></td>
               <td><label for="yesTime">Yes, it's due by</label></td>
-               <td><input type="text" class="date" id="dueByH" placeholder="12" value=5> :
-                  <input type="text" class="date" id="dueByM" placeholder="00" value=00>
+               <td><input type="number" class="date" id="dueByH" placeholder="12" value=5> :
+                  <input type="number" class="date" id="dueByM" placeholder="00" value=00>
                   <input type="radio" name="AMPM" id="AM"> <label for="AM">AM</label>
                   <input type="radio" name="AMPM" id="PM" checked="checked"> <label for="PM">PM</label>
                 </td>
@@ -94,17 +94,17 @@
         </div>
 
         <div class="rectangle" id="rect5">
-            <p class="range" id="rangeResults">You can expect the <span class="results">[issue]</span> to be resolved between
-                <br><span id="low">[minDate]</span>
+            <p class="range" id="rangeResults">You can expect the <span class="emph results">[issue]</span> to be resolved between
+                <br><span class="emph" id="low">[minDate]</span>
                 <br>and
-                <br><span id="high">[maxDate]</span>.</p>
-            <button class="btn" id="reset1">Reset</button>
+                <br><span class="emph" id="high">[maxDate]</span>.</p>
+            <button class="btn reset">Reset</button>
         </div>
         <div class="rectangle" id="rect6">
-            <p id="dueResults"> Your <span class="results emph">[issue]</span> is due
+            <p id="dueResults"> Your <span class="results emph">[issue]</span> is due in 
                 <span class="emph" id="limit">[time]</span>.</p>
             <br>
-            <button class="btn" id="reset2">Reset</button>
+            <button class="btn reset">Reset</button>
         </div>
 
         </div>
