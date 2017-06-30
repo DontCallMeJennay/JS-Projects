@@ -1,3 +1,4 @@
+
 $('document').ready(function() {
 
     function checkInput(val) {
@@ -16,9 +17,30 @@ $('document').ready(function() {
         var dueDate = y + " " + m + " " + d;
         if (checkInput(y) && checkInput(m) && checkInput(d)) {
             dueDate = moment(dueDate).format('MM DD YYYY');
-            console.log(dueDate);
+            if (moment().month() !== moment(dueDate).month()) {
+                dueDate = adjustDate(dueDate);
+            }
+            //console.log(dueDate);
             return dueDate;
         }
+    }
+
+    function adjustDate(date) {
+        var thisMonth = moment().month();
+        var endMonth = moment(date).month()
+        //Default month length is 31.
+        for (var i = thisMonth; i < endMonth; i++) {
+            if (i === 1) {
+                moment(date).subtract(3, "days");
+                //console.log("subtracted 3 days");
+            }
+            //thirty days has September...
+            if (i === 8 || i === 3 || i === 5 || i === 10) {
+                moment(date).subtract(1, "days");
+                //console.log("subtracted 1 day for " + (i + 1));
+            }
+        }
+        return date;
     }
 
     function calculateDueTime() {
@@ -26,21 +48,21 @@ $('document').ready(function() {
         if (!(dueTime)) { dueTime = "1200"; }
         $('#PM').is(':checked') ? dueTime += "p" : dueTime += "a";
         dueTime = moment(dueTime, "hmm A").format("HH:mm");
-        console.log("dueTime: " + dueTime);
+        //console.log("dueTime: " + dueTime);
         return dueTime;
     }
 
     function calculateTimeLeft(dueDate, dueTime) {
         var dateTime = dueDate + " " + dueTime;
-        var difference = [
-            //Bugfix: there's a deprecation and/or formatting issue on the line just below.
+        var difference = [            
             moment(dateTime).year() - moment().year(),
+            //Bugfix needed: there's a deprecation and/or formatting issue on line 60.
             moment(dateTime).month() - moment().month(),
             moment(dateTime).date() - moment().date(),
             moment(dateTime).hour() - moment().hour(),
             moment(dateTime).minute() - moment().minute()
         ];
-        console.log("rawTimeLeft: " + difference);
+        //console.log("rawTimeLeft: " + difference);
         return fixTimeCalc(difference);
     }
 
@@ -70,7 +92,7 @@ $('document').ready(function() {
         rollOver(arr, 3, 23);
         rollOver(arr, 4, 59);
 
-        console.log("fixed difference: " + arr);
+        //console.log("fixed difference: " + arr);
         return arr;
     }
 
@@ -124,7 +146,7 @@ $('document').ready(function() {
         var dueDate = calculateDueDate();
         var dueTime = calculateDueTime();
         var final = calculateTimeLeft(dueDate, dueTime);
-        console.log(final);
+        //console.log(final);
         if ($('#noTime').is(':checked')) {
             $('.rectangle:not(#rect6)').slideUp(400);
             $('#rect6').delay(500).slideDown();
