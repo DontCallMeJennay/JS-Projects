@@ -22,7 +22,7 @@
         <div class="rectangle" id="rect1">
             <h4>What bill, assignment, or other issue are you tracking?</h4>
             <hr>
-            <input type="text" id="itemID" value="Cable bill"></input>
+            <input type="text" id="itemID" placeholder="E.g., cable bill"></input>
             <button class="btn btn-lg" id="step1">Continue</button>
         </div>
 
@@ -35,11 +35,11 @@
             <table>
               <tr>
                 <td><label for="month">MM</label></td>
-                <td><input class="date" type="number" id="month" value="07"></td>
+                <td><input class="date" type="number" id="month" placeholder="07"></td>
               </tr>
               <tr>
                 <td><label for="day">DD</label></td>
-                <td><input class="date" type="number" id="day" value="05"></td>
+                <td><input class="date" type="number" id="day" placeholder="04"></td>
               </tr>
               <tr>
                 <td><label for="year">YYYY</label></td>
@@ -60,8 +60,8 @@
             <hr>
             <label for="minDays">Enter the number of days:</label>
             <br>
-            <input type="number" class="date" id="minDays" value="5"> to
-            <input type="number" class="date" id="maxDays" value="7">
+            <input type="number" class="date" id="minDays" > to
+            <input type="number" class="date" id="maxDays" >
             <br>
             <input type="radio" name="whichDays" id="business" checked="checked">
             <label for="business">business days</label>
@@ -83,8 +83,8 @@
             <tr>
               <td><input type="radio" name="time1" id="yesTime"></td>
               <td><label for="yesTime">Yes, it's due by</label></td>
-               <td><input type="number" class="date" id="dueByH" placeholder="12" value=5> :
-                  <input type="number" class="date" id="dueByM" placeholder="00" value=00>
+               <td><input type="number" class="date" id="dueByH" placeholder="12"> :
+                  <input type="number" class="date" id="dueByM" placeholder="00">
                   <input type="radio" name="AMPM" id="AM"> <label for="AM">AM</label>
                   <input type="radio" name="AMPM" id="PM" checked="checked"> <label for="PM">PM</label>
                 </td>
@@ -110,7 +110,7 @@
         </div>
     </main>
     <footer>
-      <a href="">View source on GitHub</a>
+      <a href="https://github.com/silverrain64/JS-Projects/tree/master/DueWhen">View source on GitHub</a>
     </footer>
     </div>
     <script

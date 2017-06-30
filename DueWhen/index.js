@@ -16,12 +16,14 @@ $('document').ready(function() {
         var dueDate = y + " " + m + " " + d;
         if (checkInput(y) && checkInput(m) && checkInput(d)) {
             dueDate = moment(dueDate).format('MM DD YYYY');
+            console.log(dueDate);
             return dueDate;
         }
     }
 
     function calculateDueTime() {
         var dueTime = $('#dueByH').val() + $("#dueByM").val();
+        if (!(dueTime)) { dueTime = "1200"; }
         $('#PM').is(':checked') ? dueTime += "p" : dueTime += "a";
         dueTime = moment(dueTime, "hmm A").format("HH:mm");
         console.log("dueTime: " + dueTime);
@@ -38,6 +40,7 @@ $('document').ready(function() {
             moment(dateTime).hour() - moment().hour(),
             moment(dateTime).minute() - moment().minute()
         ];
+        console.log("rawTimeLeft: " + difference);
         return fixTimeCalc(difference);
     }
 
@@ -57,7 +60,6 @@ $('document').ready(function() {
             }
         }
 
-        
         rollUnder(arr, 4, 60);
         rollUnder(arr, 3, 24);
         rollUnder(arr, 2, 31);
@@ -67,8 +69,8 @@ $('document').ready(function() {
         rollOver(arr, 2, 30);
         rollOver(arr, 3, 23);
         rollOver(arr, 4, 59);
- 
 
+        console.log("fixed difference: " + arr);
         return arr;
     }
 
@@ -90,11 +92,11 @@ $('document').ready(function() {
     }
 
     function checkIfValidAnswer(arr) {
-    	for (var i=0; i < arr.length; i++) {
-    		if (arr[i] < 0) {
-    			$("#dueResults").html("You have missed the deadline!");
-    		}
-    	}
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] < 0) {
+                $("#dueResults").html("You have missed the deadline!");
+            }
+        }
     }
 
     $("input[type=submit]").click(function(e) { e.preventDefault(); });
@@ -122,15 +124,16 @@ $('document').ready(function() {
         var dueDate = calculateDueDate();
         var dueTime = calculateDueTime();
         var final = calculateTimeLeft(dueDate, dueTime);
+        console.log(final);
         if ($('#noTime').is(':checked')) {
             $('.rectangle:not(#rect6)').slideUp(400);
             $('#rect6').delay(500).slideDown();
-            $("#limit").html(final[0] + " months and " + final[1] + " days");
+            $("#limit").html(final[1] + " months and " + final[2] + " days");
             checkIfValidAnswer(final);
         } else {
             $('.rectangle:not(#rect6)').slideUp(400);
             $('#rect6').delay(500).slideDown();
-            $("#limit").html(final[0] + " months, " + final[1] + " days, " + final[2] + " hours, and " + final[3] + " minutes");
+            $("#limit").html(final[1] + " months, " + final[2] + " days, " + final[3] + " hours, and " + final[4] + " minutes");
             checkIfValidAnswer(final);
         }
     });
