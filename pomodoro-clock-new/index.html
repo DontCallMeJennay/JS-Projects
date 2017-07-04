@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="etf-8">
+    <title> </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Fresca|Lato" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <main class="flex">
+        <section class="quadrant small left">
+            <h1>Productivity Clock</h1>
+            <p>Maximize your productivity by alternating short breaks with longer working periods.</p>
+            <hr>
+            <p>Right now you should be</p>
+              <h2><span id="activity">Setting the timer</span></h2>
+        </section>
+        <section class="quadrant right">
+            <div class="ToDo" id="todo">
+                <h2>Future site of ToDo app</h2>
+                <h4>(Vue or React?)</h4>
+            </div>
+        </section>
+        <section class="quadrant tall flex left">
+            <div class="cpanel ">
+                <h2>Work time</h2>
+                <button class="brown timeBtn" id="subW"> - </button>
+                <span class="time" id="workTime"> [25] </span>
+                <button class="green timeBtn" id="addW"> + </button>
+            </div>
+            <div class="cpanel">
+                <h2>Break time</h2>
+                <button class="brown timeBtn" id="subB"> - </button>
+                <span class="time" id="breakTime"> [5] </span>
+                <button class="green timeBtn" id="addB"> + </button>
+            </div>
+            <div class="cpanel center small col">
+                <button class="green" id="start">Start</button>
+                <button class="red" id="stop">Stop</button>
+                <button class="brown" id="reset">Reset</button>
+            </div>
+        </section>
+        <section class="quadrant right">
+            <div class="clock">
+            <h2><span id="session">Task</span></h2> 
+            <h3>Time Left:</h3>
+            <h1 class="" id="clockTime">00:00 </h1>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <audio id="soundW" src="snd/isteak_bell.mp3" type="audio/mp3"></audio>
+        <audio id="soundB" src="snd/herbertboland_piano3.mp3" type="audio/mp3"></audio>
+        Last updated June 2017.
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>

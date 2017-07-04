@@ -1,0 +1,169 @@
+html {
+    min-height: 100vh;
+}
+
+body {
+    background-color: white;
+    background: url('img/ingmato.jpg');
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: 75%;
+    font-family: 'Lato', sans-serif;
+    margin: 5%;
+}
+
+h1, h2, h3, h4, button {
+  font-family: "Fresca", sans-serif;
+}
+
+hr {
+  border: 2px outset green;
+  width: 75%;
+}
+
+footer {
+    bottom: 0;
+    color: green;
+    position: fixed;
+}
+
+h2 {
+    padding-top: 5%;
+    margin-bottom: 0;
+}
+
+span {
+    color: #AA1F18;
+}
+
+button {
+  font-size: 1.5em;
+}
+
+.flex {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.quadrant {
+    height: 40vh;
+    justify-content: center;
+    text-align: center;
+    width: 40vw;
+}
+
+.small {
+    height: 30vh;
+    margin-bottom: -10vh;
+}
+
+.tall {
+    height: 50vh;
+    margin: -10vh 0;
+}
+
+.cpanel {
+  background-color: rgb(230,255,230);
+    background: rgba(230,255,230,.7);
+    border: 2px inset #CFC;
+    flex-flow: row;
+    flex: 1;
+    margin: 0 auto;
+    min-width: 40%;
+}
+
+.time {
+    background-color: white;
+    font-size: 2em;
+    padding: 0 10px;
+    border: 1px inset #CFC;
+}
+
+.timeBtn {
+    border-radius: 20px 0px 20px 10px;
+    color: white;
+    padding: 3px 9px;
+}
+
+.center {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    padding: 1em;
+}
+
+.center button {
+    border-radius: 0 40px 0 40px;
+    box-shadow: 2px 2px 5px #2D1A08;
+    color: white;
+    flex: 1;
+    margin: 20px;
+
+  }
+
+.clock {
+    background-color: white;
+    background: rgba(255, 255, 255, .8);
+    box-shadow: 1px 1px 5px #050;
+    font-size: 2em;
+    height: 75%;
+    margin: 5% auto;
+    width: 60%;
+}
+
+.ToDo {
+    background-color: #080;
+    background: rgba(0, 80, 0, .9);
+    box-shadow: 2px 2px 5px #46321F;
+    color: white;
+    height: 75%;
+    margin: 5% auto;
+    width: 60%;
+}
+
+.green {
+    background-color: #080;
+    background: linear-gradient(to bottom right, #0A0, #060 75%);
+    border: 2px solid #020;
+}
+
+.green:hover,
+.green:active {
+  background-color: #0A0;
+  background: linear-gradient(to bottom right, #0C0, #080 75%);
+  border: 2px solid transparent;
+  box-shadow: 2px 2px 10px #0A0;
+}
+
+.brown {
+    background-color: #744D28;
+    background: linear-gradient(to bottom right, #845D38, #3D2015 75%);
+    border: 2px solid #2D1A08;
+}
+
+.brown:hover,
+.brown:active {
+  background-color: #845D38;
+  background: linear-gradient(to bottom right, #B58558, #845D38 75%);
+  border: 2px solid transparent;
+  box-shadow: 2px 2px 10px #46321F;
+}
+
+.red {
+    background-color: #FF6347;
+    background: linear-gradient(to bottom right, #FF6347, #B04427 75%);
+    border: 2px solid #AA1F18;
+}
+
+.red:hover,
+.red:active {
+  background-color: #FF6347;
+  background: linear-gradient(to bottom right, #FF9F60, #FF6347 75%);
+  border: 2px solid transparent;
+  box-shadow: 2px 2px 10px #AA1F18;
+}
+
+.gray {
+  background-color: gray;
+}
