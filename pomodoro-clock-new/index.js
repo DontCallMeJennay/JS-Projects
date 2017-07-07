@@ -91,7 +91,6 @@ $(document).ready(function() {
             $("#activity").html("Paused");
             $("#start").one("click", () => {
                 $(".timeBtn").prop("disabled", true);
-                console.log("Working? " + working);
                 working === true ? workTime(mainTimer) : breakTime(mainTimer);
             });
         });

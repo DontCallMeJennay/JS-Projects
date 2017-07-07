@@ -15,12 +15,14 @@
 
 <body>
     <main class="flex">
-        <section class="quadrant small left">
-            <h1>Productivity Clock</h1>
-            <p>Maximize your productivity by alternating short breaks with longer working periods.</p>
-            <hr>
-            <p>Right now you should be</p>
-              <h2><span id="activity">Setting the timer</span></h2>
+        <section class="quadrant left info">
+            <div class="center" id="info">
+                <h1>Productivity Clock</h1>
+                <p>Maximize your productivity by alternating short breaks with longer working periods.</p>
+                <hr>
+                <p>Right now you should be</p>
+                <h2><span id="activity">Setting the timer</span></h2>
+            </div>
         </section>
         <section class="quadrant right">
             <div class="ToDo" id="todo">
@@ -28,20 +30,22 @@
                 <h4>(Vue or React?)</h4>
             </div>
         </section>
-        <section class="quadrant tall flex left">
+        <section class="quadrant flex left">
             <div class="cpanel ">
                 <h2>Work time</h2>
-                <button class="brown timeBtn" id="subW"> - </button>
                 <span class="time" id="workTime"> [25] </span>
-                <button class="green timeBtn" id="addW"> + </button>
+                <br>
+                <button class="brown sub-time" id="subW"> - </button>                
+                <button class="green add-time" id="addW"> + </button>
             </div>
             <div class="cpanel">
                 <h2>Break time</h2>
-                <button class="brown timeBtn" id="subB"> - </button>
                 <span class="time" id="breakTime"> [5] </span>
-                <button class="green timeBtn" id="addB"> + </button>
+                <br>
+                <button class="brown sub-time" id="subB"> - </button>                
+                <button class="green add-time" id="addB"> + </button>
             </div>
-            <div class="cpanel center small col">
+            <div class="cpanel center">
                 <button class="green" id="start">Start</button>
                 <button class="red" id="stop">Stop</button>
                 <button class="brown" id="reset">Reset</button>
@@ -49,9 +53,9 @@
         </section>
         <section class="quadrant right">
             <div class="clock">
-            <h2><span id="session">Task</span></h2> 
-            <h3>Time Left:</h3>
-            <h1 class="" id="clockTime">00:00 </h1>
+                <h2><span id="session">Task</span></h2>
+                <h3>Time Left:</h3>
+                <h1 class="" id="clockTime">00:00 </h1>
             </div>
         </section>
     </main>

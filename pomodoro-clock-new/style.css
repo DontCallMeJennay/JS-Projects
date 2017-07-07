@@ -3,22 +3,26 @@ html {
 }
 
 body {
-    background-color: white;
-    background: url('img/ingmato.jpg');
+    background-color: #FCFCFF;
+    background: url('img/ingmato.jpg'), #FCFCFF;
     background-position: bottom right;
     background-repeat: no-repeat;
     background-size: 75%;
     font-family: 'Lato', sans-serif;
-    margin: 5%;
+    margin: 5% auto;
 }
 
-h1, h2, h3, h4, button {
-  font-family: "Fresca", sans-serif;
+h1,
+h2,
+h3,
+h4,
+button {
+    font-family: "Fresca", sans-serif;
 }
 
 hr {
-  border: 2px outset green;
-  width: 75%;
+    border: 2px outset green;
+    width: 75%;
 }
 
 footer {
@@ -27,9 +31,13 @@ footer {
     position: fixed;
 }
 
+h1 {
+    font-size: 1.75em;
+}
+
 h2 {
     padding-top: 5%;
-    margin-bottom: 0;
+    margin-bottom: 5px;
 }
 
 span {
@@ -37,7 +45,8 @@ span {
 }
 
 button {
-  font-size: 1.5em;
+    font-size: 1.5em;
+    cursor: pointer;
 }
 
 .flex {
@@ -47,15 +56,11 @@ button {
 }
 
 .quadrant {
+    //border: 5px solid green;
     height: 40vh;
     justify-content: center;
     text-align: center;
-    width: 40vw;
-}
-
-.small {
-    height: 30vh;
-    margin-bottom: -10vh;
+    width: 55vw;
 }
 
 .tall {
@@ -64,11 +69,12 @@ button {
 }
 
 .cpanel {
-  background-color: rgb(230,255,230);
-    background: rgba(230,255,230,.7);
+    background-color: rgb(230, 255, 230);
+    background: rgba(230, 255, 230, .7);
     border: 2px inset #CFC;
-    flex-flow: row;
+    flex-flow: column;
     flex: 1;
+    vertical-align: middle;
     margin: 0 auto;
     min-width: 40%;
 }
@@ -76,14 +82,26 @@ button {
 .time {
     background-color: white;
     font-size: 2em;
-    padding: 0 10px;
+    padding: 0px 5px;
     border: 1px inset #CFC;
 }
 
-.timeBtn {
+.add-time {
     border-radius: 20px 0px 20px 10px;
     color: white;
-    padding: 3px 9px;
+    padding: 3px 8px;
+    margin: 3px;
+}
+
+.sub-time {
+    border-radius: 0px 20px 10px 20px;
+    color: white;
+    padding: 3px 8px;
+    margin: 3px;
+}
+
+.left {
+    max-width: 25vw;
 }
 
 .center {
@@ -98,9 +116,12 @@ button {
     box-shadow: 2px 2px 5px #2D1A08;
     color: white;
     flex: 1;
-    margin: 20px;
+    margin: 5px;
+}
 
-  }
+.info {
+    background-color: #FCFCFF;
+}
 
 .clock {
     background-color: white;
@@ -109,7 +130,11 @@ button {
     font-size: 2em;
     height: 75%;
     margin: 5% auto;
-    width: 60%;
+    width: 75%;
+}
+
+.clock h3 {
+    margin: 0;
 }
 
 .ToDo {
@@ -119,7 +144,7 @@ button {
     color: white;
     height: 75%;
     margin: 5% auto;
-    width: 60%;
+    width: 75%;
 }
 
 .green {
@@ -130,10 +155,10 @@ button {
 
 .green:hover,
 .green:active {
-  background-color: #0A0;
-  background: linear-gradient(to bottom right, #0C0, #080 75%);
-  border: 2px solid transparent;
-  box-shadow: 2px 2px 10px #0A0;
+    background-color: #0A0;
+    background: linear-gradient(to bottom right, #0C0, #080 75%);
+    border: 2px solid transparent;
+    box-shadow: 2px 2px 10px #0A0;
 }
 
 .brown {
@@ -144,10 +169,10 @@ button {
 
 .brown:hover,
 .brown:active {
-  background-color: #845D38;
-  background: linear-gradient(to bottom right, #B58558, #845D38 75%);
-  border: 2px solid transparent;
-  box-shadow: 2px 2px 10px #46321F;
+    background-color: #845D38;
+    background: linear-gradient(to bottom right, #B58558, #845D38 75%);
+    border: 2px solid transparent;
+    box-shadow: 2px 2px 10px #46321F;
 }
 
 .red {
@@ -158,12 +183,39 @@ button {
 
 .red:hover,
 .red:active {
-  background-color: #FF6347;
-  background: linear-gradient(to bottom right, #FF9F60, #FF6347 75%);
-  border: 2px solid transparent;
-  box-shadow: 2px 2px 10px #AA1F18;
+    background-color: #FF6347;
+    background: linear-gradient(to bottom right, #FF9F60, #FF6347 75%);
+    border: 2px solid transparent;
+    box-shadow: 2px 2px 10px #AA1F18;
 }
 
 .gray {
-  background-color: gray;
+    background-color: gray;
+}
+
+@media screen and (max-width: 800px) {
+    h1 {
+        font-size: 1.5em;
+    }
+    .info p {
+        display: none;
+    }
+    .time {
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (max-width: 450px) {
+  body {
+    margin: 2% auto;
+  }
+
+  .flex {
+    flex-flow: column;
+    margin: 0 auto;
+  }
+  .quadrant {
+    width: 75vw;
+  }
+
 }
