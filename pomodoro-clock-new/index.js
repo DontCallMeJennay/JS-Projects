@@ -25,8 +25,10 @@ Reset button returns to setup state. All buttons enabled, times reset to 25 and 
 $(document).ready(function() {
 
     var tickTock;
-    var workTimer = initTimer(25);
+    var workTimer = initTimer(1);
     var breakTimer = initTimer(5);
+    var mainTimer;
+    var working = true;
     var worksnd = document.getElementById("soundW");
     var breaksnd = document.getElementById("soundB");
 
@@ -34,7 +36,7 @@ $(document).ready(function() {
 
         $("#workTime").html(workTimer);
         $("#breakTime").html(breakTimer);
-        $("#clockTime").html(workTimer);
+        $("#clockTime").html("--:--");
         $(".timeBtn").prop("disabled", false);
 
 
@@ -58,14 +60,18 @@ $(document).ready(function() {
             $("#breakTime").html(breakTimer);
         });
 
-        $("#start").on("click", () => {
-            workTime(workTimer);
+        $("#start").one("click", () => {
+            console.log("Start clicked");
+            $(".timeBtn").prop("disabled", true);
+            mainTimer = workTimer;
+            workTime(mainTimer);
         });
     }
 
     function workTime(timer) {
+        working = true;
+        $("#start").off();
         soundW.play();
-        $(".timeBtn").prop("disabled", true);
         $("#activity").html("Working!");
         $("#session").html("Work");
         tickTock = setInterval(() => {
@@ -73,34 +79,32 @@ $(document).ready(function() {
             $("#clockTime").html(timer);
             if (checkIfTimeUp(timer)) {
                 clearInterval(tickTock);
-                return breakTime(breakTimer);
+                mainTimer = breakTimer;
+                breakTime(mainTimer);
             }
         }, 1000);
 
-        $("#stop").click(() => {
+        $("#stop").one("click", function() {
+            console.log("Stop clicked");
             clearInterval(tickTock);
             $(".timeBtn").prop("disabled", false);
             $("#activity").html("Paused");
+            $("#start").one("click", () => {
+                $(".timeBtn").prop("disabled", true);
+                console.log("Working? " + working);
+                working === true ? workTime(mainTimer) : breakTime(mainTimer);
+            });
         });
 
 
         $("#reset").click(() => {
-            //location.reload();
-            clearInterval(tickTock);
-            workTimer = initTimer(25);
-            breakTimer = initTimer(5);
-            $("#workTime").html(workTimer);
-            $("#breakTime").html(breakTimer);
-            $("#clockTime").html(workTimer);
-            $(".timeBtn").prop("disabled", false);
-            $("#activity").html("Setting the timer");
-            $("#session").html("[Task]");
-
-
+            location.reload();
         });
     }
 
     function breakTime(timer) {
+        working = false;
+        $("#start").off();
         soundB.play();
         $("#activity").html("Taking a break!");
         $("#session").html("Break");
@@ -109,9 +113,22 @@ $(document).ready(function() {
             $("#clockTime").html(timer);
             if (checkIfTimeUp(timer)) {
                 clearInterval(tickTock);
-                return workTime(workTimer);
+                workTime(workTimer);
             }
         }, 1000);
+
+        $("#stop").one("click", function() {
+            $("#start").off();
+            clearInterval(tickTock);
+            $(".timeBtn").prop("disabled", false);
+            $("#activity").html("Paused");
+            $("#start").one("click", () => {
+                $(".timeBtn").prop("disabled", true);
+                console.log("Start clicked");
+                console.log("Working? " + working);
+                working === true ? workTime(mainTimer) : breakTime(mainTimer);
+            });
+        })
     }
 
 
@@ -129,7 +146,9 @@ $(document).ready(function() {
     }
 
     function runClock(timer) {
-        return subtractTime(timer, "s");
+        timer = subtractTime(timer, "s");
+        mainTimer = timer;
+        return timer;
     }
 
     function checkIfTimeUp(timer) {
