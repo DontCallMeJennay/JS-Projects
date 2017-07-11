@@ -93,6 +93,9 @@ legend {
     z-index: 3;
 }
 
+legend span {
+  cursor: pointer;
+}
 
 .right {
   float: right;

@@ -131,12 +131,11 @@ function initMap() {
         var y = dataObj.sort(function(a,b) {
         	return b.rating - a.rating;
         });
-        console.log(y);
-        console.log(status);
+
         var textBlock = "";
 
         var resultLimit = 5;
-        function printResults(data, limit) {
+
         for (var i = 0; i < resultLimit; i++) {
             var x = response[i];
             if (x["types"].includes("restaurant")) {
@@ -166,9 +165,9 @@ function initMap() {
             }
 
         }
-    }
+    
 
-        $(".target").slideUp(1);
+        $(".target").slideUp(0);
         slideItems($(".target"));
         myMap.fitBounds(bounds);
     }
@@ -213,6 +212,7 @@ function initMap() {
 
     var formFields = $("form > input, form > button");
     $(formFields).hide();
+    $(".submenu").hide();
 
     $("#searchForm > legend").on("click", function() {
         slideItems(formFields);
@@ -220,7 +220,7 @@ function initMap() {
 
      slideItems($(".target"));
     $("#results").on("click", function() {
-        slideItems($(".target"));
+        slideItems($(".target, .submenu"));
     });
 
     /*  Debugging function and variables for constructing driving direction GETs
