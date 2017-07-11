@@ -1,17 +1,12 @@
 /*
-DONE:
-Get API keys v/
-Geolocation enabled ? Get location and draw map : Display error, slideDown manual search; v/
-return coordinates; v/
-Query API for local restaurants v/
-return data set; v/
-For each data point
-  Construct list item; v/
-  Make map marker; v/
-  Display updated map v/
 
 TODO:
 1.  Make markers clickable
+
+-->	Markers are being placed on the map and stored as discrete objects, 
+	but their position isn't being stored in the marker object. Why?
+
+
 2.  Make map zoom and center on clicked/touched marker
 3.  Make results more relevant; default sort by rating.
 4.  Let user choose how many results are displayed
@@ -24,12 +19,13 @@ function initMap() {
     var bounds;
     var coords;
     var myKey;
-    var markArr = [];
+    var markers = [];
 
     $.getJSON("test.json", function(data) {
-      myKey = data.snippet1;
+        myKey = data.snippet1;
     });
 
+    //This is OK.
     function getLocation() {
         var options = {
             enableHighAccuracy: true,
@@ -60,25 +56,15 @@ function initMap() {
             slideItems(formFields);
         }
     }
-
     coords = getLocation();
 
-    function createMarker(hit, i) {
-        let loc = hit.geometry.location;
-        return new google.maps.Marker({
-            clickable: true,
-            position: loc,
-            map: myMap,
-            title: hit.name + '\n' + hit.vicinity
-        });
-    }
-
+    //This is OK.
     function drawMap(coords) {
         if (coords) {
             var mapDiv = document.getElementById('map');
             myMap = new google.maps.Map(mapDiv, {
                 center: coords,
-                zoom: 14
+                zoom: 12
             });
             var marker = new google.maps.Marker({
                 clickable: true,
@@ -96,6 +82,7 @@ function initMap() {
         }
     }
 
+    //Some work needed here, but it works.
     function getSushi(coords, map) {
         var service = new google.maps.places.PlacesService(map);
         var request = {
@@ -106,25 +93,55 @@ function initMap() {
         service.nearbySearch(request, sortData);
     }
 
-    function setClick(marker) {
-        $(marker).on("click", function() {
-            console.log("click");
-            myMap.panTo(marker.position);
+
+    /* (sigh) TIL that the map API's .addListener() is NOT the same thing as jQuery .on() or 
+       vanilla addEventListener(). This didn't work because I was trying to play inside the sandbox with outside-
+       the-box commands. */
+
+    function createMarker(hit) {
+
+        function limitZoom(map) {
+        	var z;
+            map.zoom <= 16 ? z = map.zoom + 2: z = 12;
+            return z;
+        }
+
+        var pos = hit.geometry.location;
+        var marker = new google.maps.Marker({
+            clickable: true,
+            position: pos,
+            map: myMap,
+            title: hit.name + '\n' + hit.vicinity
         });
+
+        marker.addListener("click", function() {
+            myMap.panTo(pos);
+            var z = limitZoom(myMap);
+            myMap.setZoom(z);
+        });
+
+        return marker;
     }
 
+
+    //This is a mess...
     function sortData(response, status) {
         $(".target").html("");
-        dataObj = {};
-
+        dataObj = response;
+        var y = dataObj.sort(function(a,b) {
+        	return b.rating - a.rating;
+        });
+        console.log(y);
+        console.log(status);
         var textBlock = "";
-        for (var i = 0; i < response.length; i++) {
+
+        var resultLimit = 5;
+
+        for (var i = 0; i < resultLimit; i++) {
             var x = response[i];
-            //console.log(x.types);
             if (x["types"].includes("restaurant")) {
-                
-                setClick(createMarker(response[i]));
-                bounds.extend(response[i].geometry.location);
+                markers.push(createMarker(x));
+                bounds.extend(x.geometry.location);
 
                 $('.target').append('<div class="result" id="listing' + i + '"><a href="https://www.google.com/maps/dir/' + response[i].name + '">' + response[i].name + '</a><br>');
 
@@ -150,9 +167,8 @@ function initMap() {
 
         }
 
-        google.maps.event.trigger(myMap, 'resize');
+        $(".target").slideUp(1);
         myMap.fitBounds(bounds);
-
     }
     //getDirections();
 
@@ -170,11 +186,11 @@ function initMap() {
                 lat: data.results[0].geometry.location.lat,
                 lng: data.results[0].geometry.location.lng
             };
-            if (markArr[0]) {
-                for (i = 0; i < markArr.length; i++) {
-                    markArr[i].setMap(null);
+            if (markers[0]) {
+                for (i = 0; i < markers.length; i++) {
+                    markers[i].setMap(null);
                 }
-                markArr = [];
+                markers = [];
                 $('.target').html("");
             }
             myMap.setCenter(newCoords);
@@ -200,21 +216,22 @@ function initMap() {
         slideItems(formFields);
     });
 
+     slideItems($(".target"));
     $("#results").on("click", function() {
         slideItems($(".target"));
     });
 
-/*  Debugging function and variables for constructing driving direction GETs
+    /*  Debugging function and variables for constructing driving direction GETs
 
-$("*").on('click', function() {
-  alert(this + "clicked");
-});
+    $("*").on('click', function() {
+      alert(this + "clicked");
+    });
 
-  var directionsURL1 = "https://maps.googleapis.com/maps/api/directions/json?origin=";
-  var directionsURL2 = coords.lat + "," + coords.lng;
-  var destination = response[i].place_id;
-  var directionsURL3 = "&destination=" + response[i].geometry.location.lat + "," + response[i].geometry.location.lng;
-          
-*/
+      var directionsURL1 = "https://maps.googleapis.com/maps/api/directions/json?origin=";
+      var directionsURL2 = coords.lat + "," + coords.lng;
+      var destination = response[i].place_id;
+      var directionsURL3 = "&destination=" + response[i].geometry.location.lat + "," + response[i].geometry.location.lng;
+              
+    */
 
 }

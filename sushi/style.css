@@ -1,12 +1,13 @@
 body {
     display: flex;
     flex-flow: column;
+    flex: 1 0 auto;
     font-family: 'Amethysta', serif;
-    margin: 2% auto;
+    height: 100%;
+    margin: 0 auto;
     max-width: 95vw;
     min-height: 100vh;
     overflow-x: hidden;
-    position: relative;
 }
 
 header {
@@ -37,9 +38,10 @@ header {
 #map {
     background-color: #AAA;
     border: 3px outset #2F667D;
-    height: 300px;
-    margin: 2% auto;
-    width: 400px;
+    height: 50vh;
+    margin: 5% auto;
+    margin-bottom: 2%;
+    width: 50vw;
 }
 
 button {
@@ -52,7 +54,7 @@ button {
     font-family: 'Merienda', cursive;
     margin: 5px auto;
     padding: 5px 0;
-    width: 400px;
+    width: 50vw;
 }
 
 input {
@@ -60,7 +62,7 @@ input {
     box-shadow: 1px 2px 5px #7BA5B7;
     margin: 5px auto;
     padding: 5px 0;
-    width: 400px;
+    width: 50vw;
 }
 
 section {
@@ -80,23 +82,32 @@ legend {
   background: linear-gradient(to right, #030, #010, #030);
   box-shadow: 1px 2px 3px #040;
   color: white;
+  display: table-cell;
+  
   font-family: 'Merienda', cursive;
   font-size: 1.25em;
   font-weight: bold;
   margin: 5px auto;
-  padding: 1em 0;
-  text-align: center;
-  width: 400px;
+  padding: 1em;
+  text-align: left;
+  width: 50vw;
 }
 
 legend span {
-  background-color: #030;
+    background-color: #040;
   box-shadow: 2px 2px 5px black;
   cursor: pointer;
-  float: right;
-  margin: 0 auto;
-  margin-right: 20px;
+
+  margin: 0 5px;
   padding: 5px;
+}
+
+.sort {
+  border-radius: 50px;
+  box-shadow: 2px 2px 5px black;
+  padding: 5px 9px;
+  vertical-align: middle;
+  float: right;
 }
 
 footer {
@@ -104,9 +115,10 @@ footer {
     background: linear-gradient(to top, #020, #040);
     color: white;
     font-size: .75em;
-    margin-top: 50px;
+    margin: 0 -5%;
+    margin-top: 5%;
     text-align: center;
-    width: 105%;
+
 }
 
 footer a {
@@ -116,6 +128,7 @@ footer a {
 a {
     font-family: 'Merienda', cursive;
     font-size: 1.2em;
+    font-weight: bold;
     color: #093B51;
 }
 
@@ -129,9 +142,8 @@ a:visited {
     flex-flow: row wrap;
     flex: auto;
     justify-content: center;
-    line-height: 105%;
     margin: 0 auto;
-    max-width: 400px;
+    width: 50vw;
 }
 
 .result {
@@ -142,3 +154,35 @@ a:visited {
     padding: .5em;
 }
 
+@media screen and (max-width: 768px) {
+	header {
+		max-height: 15vh;
+	}
+	.hide-small {
+		display: none;
+	}
+
+	h1 {
+		font-size: 1.5em;
+		margin-bottom: 0;
+	}
+
+	legend {
+		font-size: 1em;
+	}
+
+  legend span {
+    margin: 0 5px;
+  }
+
+	input,
+	legend,
+	button,
+  .results,
+	.target,
+	#map {
+		width: 80vw;	
+    line-height: 1.15;
+  }
+
+}

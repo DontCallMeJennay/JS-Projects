@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Sushi Finder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://use.fontawesome.com/59c976fd61.js"></script>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.css'>
     <link href="https://fonts.googleapis.com/css?family=Amethysta|Merienda" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -13,7 +14,7 @@
 <body>
     <header>
         <div class='rotate'>
-            <img src="https://i.imgur.com/2vSm272.jpg" class="circle" alt="Sashimi. Modified photo. Original credit Lachlan Hardy/Flickr">
+            <img class="circle hide-small" src="https://i.imgur.com/2vSm272.jpg" class="circle" alt="Sashimi. Modified photo. Original credit Lachlan Hardy/Flickr">
         </div>
         <div class='rotate'>
             <h1>Sushi Finder!</h1>
@@ -22,30 +23,40 @@
     </header>
 
     <main>
-        <section class="col" id="msg">
+        <section id="msg">
             <div id="map">
             </div>
         </section>
 
-        <section class="col">
+        <section>
             <form id="searchForm">
-                <legend class="show"><span>&#x25BC</span>Search for a restaurant</legend>
-                <input type='text' id='address' placeholder='business name and/or address'></input>
-                <input type='text' id='city' placeholder='city, state'></input>
-                <input type='text' id='zip' placeholder='zip code'></input>
+                <legend class="show">                
+                <span>&#x25BC</span>
+                Enter a location</legend>
+                <input type='text' id='address' placeholder=' address or place name'></input>
+                <input type='text' id='city' placeholder=' search by city, state'></input>
+                <input type='text' id='zip' placeholder=' search by zip code'></input>
                 <button type="submit" id='findRestaurants'>Search</button>
             </form>
         </section>
 
-        <section class="col">
-            <legend class="show" id="results"><span>&#x25BC</span>Results</legend>
+        <section>
+            <legend class="show" id="results">
+            <span>&#x25BC</span>
+            Results
+            <span class="sort"><i class="fa fa-usd" aria-hidden="true"></i></span>
+            <span class="sort"><i class="fa fa-star" aria-hidden="true"></i></span>
+            <span class="sort"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+            </legend>
+            
             <div class='target'>
             </div>
         </section>
 
     </main>
     <footer>
-        <p> Last updated June 2017.
+        <p> Last updated June 2017.</p>
+        <p class="hide-small">
             <br> Photos used under a <a href="https://creativecommons.org/licenses/by/2.0/">Creative Commons Attribution License:</a>
             <br> Sashimi, modified from original by Lachlan Hardy/Flickr
             <br>
@@ -55,6 +66,7 @@
     <script src="index.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCin3wtZK_eAJLwgvXL1QZeH6LTtVLMsGo&libraries=places&callback=initMap"></script>
     </script>
+
 </body>
 
 </html>
