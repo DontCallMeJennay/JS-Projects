@@ -1,23 +1,12 @@
-/*
+/* TODO
 
-TODO:
-1.  Make markers clickable
-
--->	Markers are being placed on the map and stored as discrete objects, 
-	but their position isn't being stored in the marker object. Why?
-
-
-2.  Make map zoom and center on clicked/touched marker
-3.  Make results more relevant; default sort by rating.
-4.  Let user choose how many results are displayed
-5.  Let user filter results by price, rating, and hours
-6.  Let user set range
+1. Rewrite showResults() with template literals and make the output more sort-friendly
 
 */
 
 function initMap() {
     var bounds;
-    var coords;
+    var coords = getLocation();
     var myKey;
     var markers = [];
 
@@ -25,7 +14,7 @@ function initMap() {
         myKey = data.snippet1;
     });
 
-    //This is OK.
+
     function getLocation() {
         var options = {
             enableHighAccuracy: true,
@@ -56,9 +45,7 @@ function initMap() {
             slideItems(formFields);
         }
     }
-    coords = getLocation();
 
-    //This is OK.
     function drawMap(coords) {
         if (coords) {
             var mapDiv = document.getElementById('map');
@@ -67,11 +54,10 @@ function initMap() {
                 zoom: 12
             });
             var marker = new google.maps.Marker({
-                clickable: true,
                 position: coords,
                 map: myMap,
                 title: 'You Are Here'
-            });
+            }).setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png');
             myMap.setCenter(coords);
             bounds.extend(coords);
             getSushi(coords, myMap);
@@ -82,7 +68,6 @@ function initMap() {
         }
     }
 
-    //Some work needed here, but it works.
     function getSushi(coords, map) {
         var service = new google.maps.places.PlacesService(map);
         var request = {
@@ -94,24 +79,108 @@ function initMap() {
     }
 
 
-    /* (sigh) TIL that the map API's .addListener() is NOT the same thing as jQuery .on() or 
-       vanilla addEventListener(). This didn't work because I was trying to play inside the sandbox with outside-
-       the-box commands. */
+    function sortData(response, status) {
+        //make the Results bar flash when it's ready
+        $(".target").html("");
 
-    function createMarker(hit) {
+        dataObj = response;
+        var sortedData = response;
+        var resultLimit = response.length;
+
+        showResults(response, resultLimit);
+
+        $("#more").click(function() {
+            resultLimit < response.length ? resultLimit++ : resultLimit = result.length;
+            showResults(sortedData, resultLimit);
+        });
+
+        $("#less").click(function() {
+            resultLimit > 1 ? resultLimit-- : resultLimit = 1;
+            removeMarkers(myMap);
+            showResults(sortedData, resultLimit);
+        });
+
+        $("#price").click(function() {
+            console.log("$");
+            let sort = dataObj.sort(function(a, b) {
+                return b.price_level - a.price_level;
+            });
+            sortedData = sort;
+            showResults(sortedData, resultLimit);
+        });
+
+        $("#rating").click(function() {
+            let sort = dataObj.sort(function(a, b) {
+                return b.rating - a.rating;
+            });
+            sortedData = sort;
+            showResults(sortedData, resultLimit);
+        });
+
+        $("#open").click(function() {
+            let sort = dataObj.sort(function(a, b) {
+                return b.open_now - a.open_now;
+            });
+            sortedData = sort;
+            showResults(sortedData, resultLimit);
+        });
+    }
+
+    function showResults(data, limit) {
+        $(".target").html("");
+        removeMarkers(myMap);
+        console.log(`Limit: ${limit}`);
+        for (let i = 0; i < limit; i++) {
+            var item = data[i];
+
+                markers.push(createMarker(item));
+                console.log(markers[i]);
+                markers[i].setIcon('https://maps.google.com/mapfiles/ms/icons/red-dot.png');
+                markers[i].setMap(myMap);
+                bounds.extend(item.geometry.location);
+                console.log(`Price: ${data[i].price_level}`)
+
+                $('.target').append('<div class="result" id="listing' + i + '"><a href="https://www.google.com/maps/dir/' + data[i].name + '">' + data[i].name + '</a><br>');
+
+                if (item.vicinity) {
+                    $('#listing' + i).append('<span class="addy">' + data[i].vicinity + '</span><br>');
+                }
+                if (item.rating) {
+                    $('#listing' + i).append('Rating: <span>' + data[i].rating + '</span><br>');
+                }
+                if (item.price_level) {
+                    $('#listing' + i).append('Price: <span>' + data[i].price_level + '</span><br>');
+                }
+                if (item.opening_hours) {
+                    var isOpen = data[i].opening_hours.open_now;
+                    if (isOpen) {
+                        $('#listing' + i).append('Open now? <span> Yes </span><br>');
+                    } else {
+                        $('#listing' + i).append('Open now? <span> No </span><br>');
+                    }
+                }
+                $('#listing' + i).append('</div>');
+            
+        }
+
+        myMap.fitBounds(bounds);
+
+    }
+
+    function createMarker(result) {
 
         function limitZoom(map) {
-        	var z;
-            map.zoom <= 16 ? z = map.zoom + 2: z = 12;
+            var z;
+            map.zoom <= 16 ? z = map.zoom + 2 : z = 12;
             return z;
         }
 
-        var pos = hit.geometry.location;
+        var pos = result.geometry.location;
         var marker = new google.maps.Marker({
             clickable: true,
             position: pos,
             map: myMap,
-            title: hit.name + '\n' + hit.vicinity
+            title: result.name + '\n' + result.vicinity
         });
 
         marker.addListener("click", function() {
@@ -123,55 +192,13 @@ function initMap() {
         return marker;
     }
 
-
-    //This is a mess...
-    function sortData(response, status) {
-        $(".target").html("");
-        dataObj = response;
-        var y = dataObj.sort(function(a,b) {
-        	return b.rating - a.rating;
-        });
-
-        var textBlock = "";
-
-        var resultLimit = 5;
-
-        for (var i = 0; i < resultLimit; i++) {
-            var x = response[i];
-            if (x["types"].includes("restaurant")) {
-                markers.push(createMarker(x));
-                bounds.extend(x.geometry.location);
-
-                $('.target').append('<div class="result" id="listing' + i + '"><a href="https://www.google.com/maps/dir/' + response[i].name + '">' + response[i].name + '</a><br>');
-
-                if (x.vicinity) {
-                    $('#listing' + i).append('<span class="addy">' + response[i].vicinity + '</span><br>');
-                }
-                if (x.rating) {
-                    $('#listing' + i).append('Rating: <span>' + response[i].rating + '</span><br>');
-                }
-                if (x.price_level) {
-                    $('#listing' + i).append('Price: <span>' + response[i].price_level + '</span><br>');
-                }
-                if (x.opening_hours) {
-                    var isOpen = response[i].opening_hours.open_now;
-                    if (isOpen) {
-                        $('#listing' + i).append('Open now? <span> Yes </span><br>');
-                    } else {
-                        $('#listing' + i).append('Open now? <span> No </span><br>');
-                    }
-                }
-                $('#listing' + i).append('</div>');
-            }
-
+    function removeMarkers(map) {
+        var max = markers.length;
+        for (let i = 0; i < max; i++) {
+            markers[i].setMap(null);
         }
-    
-
-        $(".target").slideUp(0);
-        slideItems($(".target"));
-        myMap.fitBounds(bounds);
+        markers = [];
     }
-    //getDirections();
 
     $('#findRestaurants').on('click', function(e) {
         e.preventDefault();
@@ -194,11 +221,19 @@ function initMap() {
                 markers = [];
                 $('.target').html("");
             }
+
+            var marker = new google.maps.Marker({
+                position: coords,
+                map: myMap,
+                title: 'You Are Here'
+            }).setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+
             myMap.setCenter(newCoords);
             bounds = new google.maps.LatLngBounds(newCoords);
             getSushi(newCoords, myMap);
         });
     });
+
 
     function slideItems(obj) {
         $(obj).toggleClass("show");
@@ -218,22 +253,13 @@ function initMap() {
         slideItems(formFields);
     });
 
-     slideItems($(".target"));
+    slideItems($(".target"));
     $("#results").on("click", function() {
         slideItems($(".target, .submenu"));
     });
 
-    /*  Debugging function and variables for constructing driving direction GETs
+    $(".target").slideUp(0);
+    slideItems($(".target"));
 
-    $("*").on('click', function() {
-      alert(this + "clicked");
-    });
-
-      var directionsURL1 = "https://maps.googleapis.com/maps/api/directions/json?origin=";
-      var directionsURL2 = coords.lat + "," + coords.lng;
-      var destination = response[i].place_id;
-      var directionsURL3 = "&destination=" + response[i].geometry.location.lat + "," + response[i].geometry.location.lng;
-              
-    */
 
 }

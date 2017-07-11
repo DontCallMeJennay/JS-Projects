@@ -95,6 +95,7 @@ legend {
 
 legend span {
   cursor: pointer;
+  box-shadow: 1px 1px 2px black;
 }
 
 .right {
@@ -176,13 +177,17 @@ a:visited {
     padding: 5px 8px;
 }
 
+span:active {
+  background-color: #060;
+}
+
 
 @media screen and (max-width: 768px) {
     header {
         max-height: 15vh;
     }
     .hide-small {
-        display: none;
+        display: none !important;
     }
     h1 {
         font-size: 1.5em;
