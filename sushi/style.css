@@ -66,48 +66,43 @@ input {
 }
 
 section {
-  margin: 0 auto;
+    margin: 0 auto;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 auto;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
 }
 
 legend {
-  background-color: #030;
-  background: linear-gradient(to right, #030, #010, #030);
-  box-shadow: 1px 2px 3px #040;
-  color: white;
-  display: table-cell;
-  
-  font-family: 'Merienda', cursive;
-  font-size: 1.25em;
-  font-weight: bold;
-  margin: 5px auto;
-  padding: 1em;
-  text-align: left;
-  width: 50vw;
+    background-color: #030;
+    background: linear-gradient(to right, #030, #010, #030);
+    box-shadow: 1px 2px 3px #040;
+    color: white;
+    display: table-cell;
+    font-family: 'Merienda', cursive;
+    font-size: 1.25em;
+    font-weight: bold;
+    margin: 10px auto;
+    padding: 1em;
+    text-align: left;
+    width: 50vw;
+    z-index: 3;
 }
 
-legend span {
-    background-color: #040;
-  box-shadow: 2px 2px 5px black;
-  cursor: pointer;
 
-  margin: 0 5px;
-  padding: 5px;
+.right {
+  float: right;
 }
+
 
 .sort {
-  border-radius: 50px;
-  box-shadow: 2px 2px 5px black;
-  padding: 5px 9px;
-  vertical-align: middle;
-  float: right;
+    border-radius: 50px;
+    box-shadow: 2px 2px 5px black;
+    padding: 5px 9px;
 }
 
 footer {
@@ -118,11 +113,10 @@ footer {
     margin: 0 -5%;
     margin-top: 5%;
     text-align: center;
-
 }
 
 footer a {
-  color: white;
+    color: white;
 }
 
 a {
@@ -154,35 +148,64 @@ a:visited {
     padding: .5em;
 }
 
-@media screen and (max-width: 768px) {
-	header {
-		max-height: 15vh;
-	}
-	.hide-small {
-		display: none;
-	}
+.submenu {
+    background-color: #040;
+    background: rgba(0, 40, 0, .5);
+    box-shadow: 1px 1px 2px #040;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    margin-top: -11px;
+    padding: 5px 10px;
+    text-align: center;
+    vertical-align: middle;
+    width: 40vw;
+    z-index: -1;
+}
 
-	h1 {
-		font-size: 1.5em;
-		margin-bottom: 0;
-	}
-
-	legend {
-		font-size: 1em;
-	}
-
-  legend span {
+.submenu span {
+    background-color: #040;
+    box-shadow: 1px 1px 2px black;
+    cursor: pointer;
+    flex: 1;
     margin: 0 5px;
-  }
+    padding: 5px 8px;
+}
 
-	input,
-	legend,
-	button,
-  .results,
-	.target,
-	#map {
-		width: 80vw;	
-    line-height: 1.15;
-  }
 
+@media screen and (max-width: 768px) {
+    header {
+        max-height: 15vh;
+    }
+    .hide-small {
+        display: none;
+    }
+    h1 {
+        font-size: 1.5em;
+        margin-bottom: 0;
+    }
+    legend {
+        font-size: 1em;
+    }
+    legend span {
+        margin: 0 5px;
+    }
+    input,
+    legend,
+    button,
+    .results,
+    .target,
+    #map {
+        width: 80vw;
+        line-height: 1.15;
+    }
+    .submenu {
+        width: 70vw;
+    }
+
+    .submenu > span {
+      border-radius: 50px;
+      flex: 0;
+      }
 }

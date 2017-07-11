@@ -21,38 +21,35 @@
             <p>powered by Google Places API</p>
         </div>
     </header>
-
     <main>
         <section id="msg">
             <div id="map">
             </div>
         </section>
-
         <section>
             <form id="searchForm">
-                <legend class="show">                
-                <span>&#x25BC</span>
-                Enter a location</legend>
+                <legend class="show">
+                    Enter a location <span class="right">&#x25BC</span> </legend>
                 <input type='text' id='address' placeholder=' address or place name'></input>
                 <input type='text' id='city' placeholder=' search by city, state'></input>
                 <input type='text' id='zip' placeholder=' search by zip code'></input>
                 <button type="submit" id='findRestaurants'>Search</button>
             </form>
         </section>
-
         <section>
             <legend class="show" id="results">
-            <span>&#x25BC</span>
-            Results
-            <span class="sort"><i class="fa fa-usd" aria-hidden="true"></i></span>
-            <span class="sort"><i class="fa fa-star" aria-hidden="true"></i></span>
-            <span class="sort"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                Results <span class="right">&#x25BC</span> 
             </legend>
-            
+            <div class="submenu">
+                <span><i class="fa fa-plus" aria-hidden="true"></i></span>
+                <span><i class="fa fa-minus" aria-hidden="true"></i></span>
+                <span><i class="fa fa-star" aria-hidden="true"></i></span>
+                <span><i class="fa fa-usd" aria-hidden="true"></i></span>
+                <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+            </div>
             <div class='target'>
             </div>
         </section>
-
     </main>
     <footer>
         <p> Last updated June 2017.</p>
@@ -66,7 +63,6 @@
     <script src="index.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCin3wtZK_eAJLwgvXL1QZeH6LTtVLMsGo&libraries=places&callback=initMap"></script>
     </script>
-
 </body>
 
 </html>

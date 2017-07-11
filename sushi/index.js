@@ -136,7 +136,7 @@ function initMap() {
         var textBlock = "";
 
         var resultLimit = 5;
-
+        function printResults(data, limit) {
         for (var i = 0; i < resultLimit; i++) {
             var x = response[i];
             if (x["types"].includes("restaurant")) {
@@ -166,8 +166,10 @@ function initMap() {
             }
 
         }
+    }
 
         $(".target").slideUp(1);
+        slideItems($(".target"));
         myMap.fitBounds(bounds);
     }
     //getDirections();
