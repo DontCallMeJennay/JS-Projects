@@ -72,7 +72,7 @@ function initMap() {
         var service = new google.maps.places.PlacesService(map);
         var request = {
             location: coords,
-            radius: '2000',
+            radius: '1500',
             keyword: 'sushi'
         };
         service.nearbySearch(request, sortData);
@@ -80,7 +80,7 @@ function initMap() {
 
 
     function sortData(response, status) {
-        //make the Results bar flash when it's ready
+        $("#more, #less, #price, #rating, #open").off();
         $(".target").html("");
 
         dataObj = response;
@@ -90,18 +90,25 @@ function initMap() {
         showResults(response, resultLimit);
 
         $("#more").click(function() {
-            resultLimit < response.length ? resultLimit++ : resultLimit = result.length;
+            $("#count").html(` showing ${resultLimit} results `);
+            resultLimit < response.length ? resultLimit++ : resultLimit = response.length;
             showResults(sortedData, resultLimit);
         });
 
         $("#less").click(function() {
+            $("#count").html(` showing ${resultLimit} results `);
             resultLimit > 1 ? resultLimit-- : resultLimit = 1;
             removeMarkers(myMap);
             showResults(sortedData, resultLimit);
         });
 
         $("#price").click(function() {
-            console.log("$");
+            $("#sortBy").html(" | sorting by Price ");
+            dataObj.forEach(function(item) {
+                if (!(item.price_level)) {
+                    item.price_level = -1;
+                }
+            });
             let sort = dataObj.sort(function(a, b) {
                 return b.price_level - a.price_level;
             });
@@ -110,6 +117,7 @@ function initMap() {
         });
 
         $("#rating").click(function() {
+            $("#sortBy").html(" | sorting by Rating ");
             let sort = dataObj.sort(function(a, b) {
                 return b.rating - a.rating;
             });
@@ -118,8 +126,16 @@ function initMap() {
         });
 
         $("#open").click(function() {
+            $("#sortBy").html(" | sorting by Hours ");
+            dataObj.forEach(function(item) {
+                if (!(item.opening_hours.open_now)) {
+                    item.opening_hours.open_now = 0;
+                } else {
+                    item.opening_hours.open_now = 1;
+                }
+            });
             let sort = dataObj.sort(function(a, b) {
-                return b.open_now - a.open_now;
+                return b.opening_hours.open_now - a.opening_hours.open_now;
             });
             sortedData = sort;
             showResults(sortedData, resultLimit);
@@ -129,42 +145,28 @@ function initMap() {
     function showResults(data, limit) {
         $(".target").html("");
         removeMarkers(myMap);
-        console.log(`Limit: ${limit}`);
+        $("#count").html(`showing ${limit} results`);
         for (let i = 0; i < limit; i++) {
             var item = data[i];
+            markers.push(createMarker(item));
+            markers[i].setIcon('https://maps.google.com/mapfiles/ms/icons/red-dot.png');
+            markers[i].setMap(myMap);
+            bounds.extend(item.geometry.location);
 
-                markers.push(createMarker(item));
-                console.log(markers[i]);
-                markers[i].setIcon('https://maps.google.com/mapfiles/ms/icons/red-dot.png');
-                markers[i].setMap(myMap);
-                bounds.extend(item.geometry.location);
-                console.log(`Price: ${data[i].price_level}`)
+            $('.target').append(`<div class="result" id="listing${i}"><a href="https://www.google.com/maps/dir/${data[i].name}">${data[i].name}</a><br>`);
 
-                $('.target').append('<div class="result" id="listing' + i + '"><a href="https://www.google.com/maps/dir/' + data[i].name + '">' + data[i].name + '</a><br>');
+            item.vicinity ? $('#listing' + i).append(`<span class="addy">${data[i].vicinity}</span><br>`) : $('#listing' + i).append(`<span class="addy grey">no data</span><br>`);
+            item.rating ? $('#listing' + i).append(`Rating: <span>${data[i].rating}</span><br>`) : $('#listing' + i).append(`Rating: <span class="grey">no data</span><br>`);
+            item.price_level > 0 ? $('#listing' + i).append(`Price: <span>${data[i].price_level}</span><br>`) : $('#listing' + i).append(`Price: <span class="grey">no data</span><br>`);
+            item.opening_hours ? writeHours(item) : $('#listing' + i).append(`<span class="grey">Hours not listed</span>`);
 
-                if (item.vicinity) {
-                    $('#listing' + i).append('<span class="addy">' + data[i].vicinity + '</span><br>');
-                }
-                if (item.rating) {
-                    $('#listing' + i).append('Rating: <span>' + data[i].rating + '</span><br>');
-                }
-                if (item.price_level) {
-                    $('#listing' + i).append('Price: <span>' + data[i].price_level + '</span><br>');
-                }
-                if (item.opening_hours) {
-                    var isOpen = data[i].opening_hours.open_now;
-                    if (isOpen) {
-                        $('#listing' + i).append('Open now? <span> Yes </span><br>');
-                    } else {
-                        $('#listing' + i).append('Open now? <span> No </span><br>');
-                    }
-                }
+            function writeHours(item) {
+                var isOpen = data[i].opening_hours.open_now;
+                isOpen ? $('#listing' + i).append('Open now? <span> Yes </span><br>') : $('#listing' + i).append('Open now? <span> No </span><br>');
                 $('#listing' + i).append('</div>');
-            
+            }
         }
-
         myMap.fitBounds(bounds);
-
     }
 
     function createMarker(result) {
@@ -210,27 +212,14 @@ function initMap() {
         var zipcode = $('#zip').val();
         var str = (address + city + zipcode).replace(/ /gm, '+');
         $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + str, function(data) {
-            var newCoords = {
+            coords = {
                 lat: data.results[0].geometry.location.lat,
                 lng: data.results[0].geometry.location.lng
             };
-            if (markers[0]) {
-                for (i = 0; i < markers.length; i++) {
-                    markers[i].setMap(null);
-                }
-                markers = [];
-                $('.target').html("");
-            }
-
-            var marker = new google.maps.Marker({
-                position: coords,
-                map: myMap,
-                title: 'You Are Here'
-            }).setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-
-            myMap.setCenter(newCoords);
-            bounds = new google.maps.LatLngBounds(newCoords);
-            getSushi(newCoords, myMap);
+            resultLimit = data.results.length;
+            myMap.setCenter(coords);
+            bounds = new google.maps.LatLngBounds(coords);
+            getSushi(coords, myMap);
         });
     });
 

@@ -83,6 +83,7 @@ legend {
     box-shadow: 1px 2px 3px #040;
     color: white;
     display: table-cell;
+
     font-family: 'Merienda', cursive;
     font-size: 1.25em;
     font-weight: bold;
@@ -94,14 +95,10 @@ legend {
 }
 
 legend span {
-  cursor: pointer;
-  box-shadow: 1px 1px 2px black;
+    box-shadow: 1px 1px 2px black;
+    cursor: pointer;
+    padding: 3px;
 }
-
-.right {
-  float: right;
-}
-
 
 .sort {
     border-radius: 50px;
@@ -178,7 +175,20 @@ a:visited {
 }
 
 span:active {
-  background-color: #060;
+    background-color: #060;
+}
+
+.grey {
+    color: #888;
+}
+
+.small {
+    font-size: .75rem;
+    margin: 1em;
+}
+
+.right {
+    float: right;
 }
 
 
@@ -211,9 +221,13 @@ span:active {
     .submenu {
         width: 70vw;
     }
-
-    .submenu > span {
-      border-radius: 50px;
-      flex: 0;
-      }
+    .submenu>span {
+        border-radius: 50px;
+        flex: 0;
+    }
+    .small {
+        text-align: center;
+        font-size: .75em;
+        margin: 0;
+    }
 }
