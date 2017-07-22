@@ -14,31 +14,55 @@ $('document').ready(function() {
         var m = $("#month").val();
         var d = $('#day').val();
         var y = $('#year').val();
-        var dueDate = moment(y + '-' + m + '-' + d).format('YYYY-MM-DD');
+        var dueDate = "";
+        y.length === 2 ? dueDate += "20" + y : dueDate += y;
+        m.length === 1 ? dueDate += "0" + m : dueDate += m;
+        d.length === 1 ? dueDate += "0" + d : dueDate += d;
+        dueDate = moment(dueDate).format('YYYY-MM-DD');
         if (checkInput(y) && checkInput(m) && checkInput(d)) {
             if (moment().month() !== moment(dueDate).month()) {
                 dueDate = adjustDate(dueDate);
-            }            
+            }
+
             return dueDate;
         }
     }
 
     function adjustDate(date) {
         var thisMonth = moment().month();
-        var endMonth = moment(date).month()
+        var thisYear = moment().year();
+        var endMonth = moment(date).month();
+        var endYear = moment(date).year();
+        var months = endMonth - thisMonth;
+        var years = endYear - thisYear;
+        while (months < 0) {
+            months += 12;
+            years--;
+        }
+        while (months > 11) {
+            months -= 12;
+            years++;
+        }
+        console.log(`${years} years and ${months} months`);
+        var diff = 0;
+
         //Default month length is 31.
-        for (var i = thisMonth; i < endMonth; i++) {
-            if (i === 1) {
-                moment(date).subtract(3, "days");
+        for (var i = 0; i < months; i++) {
+            var month = i + thisMonth;
+            if (month > 11) {
+                month -= 12;
+            }
+            if (month == 1) {
+                diff += 3;
             }
             //thirty days has September...
-            if (i === 8 || i === 3 || i === 5 || i === 10) {
-                moment(date).subtract(1, "days");
+            if (month === 8 || month === 3 || month === 5 || month === 10) {
+                diff += 1;
             }
         }
+        date = moment(date).subtract(diff, "days").format("YYYY-MM-DD");
         return date;
     }
-
 
     function calculateDueTime() {
         var dueTime = $('#dueByH').val() + $("#dueByM").val();
@@ -142,11 +166,22 @@ $('document').ready(function() {
         if ($('#noTime').is(':checked')) {
             $('.rectangle:not(#rect6)').slideUp(400);
             $('#rect6').delay(500).slideDown();
-            $("#limit").html(final[1] + " months and " + final[2] + " days");
+            var str = "";
+            if (final[0]) { str += `${final[0]} years `; }
+            if (final[1]) { str += `${final[1]} months `; }
+            if (final[2]) { str += `${final[2]} days `; }
+            $("#limit").html(str);
             checkIfValidAnswer(final);
         } else {
             $('.rectangle:not(#rect6)').slideUp(400);
             $('#rect6').delay(500).slideDown();
+            var str = "";
+            if (final[0]) { str += `${final[0]} years `; }
+            if (final[1]) { str += `${final[1]} months `; }
+            if (final[2]) { str += `${final[2]} days `; }
+            if (final[3]) { str += `${final[3]} hours `; }
+            if (final[4]) { str += `${final[4]} minutes`; }
+            $("#limit").html(str);
             $("#limit").html(final[1] + " months, " + final[2] + " days, " + final[3] + " hours, and " + final[4] + " minutes");
             checkIfValidAnswer(final);
         }
