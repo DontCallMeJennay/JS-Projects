@@ -146,7 +146,7 @@ function initMap() {
     function showResults(data, limit) {
         $(".target").html("");
         removeMarkers(myMap);
-        $("#count").html(`Found ${limit} results`);
+        $("#count").html(`Found ${limit} results, `);
         for (let i = 0; i < limit; i++) {
             var item = data[i];
             markers.push(createMarker(item));

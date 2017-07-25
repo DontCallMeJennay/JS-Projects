@@ -82,8 +82,6 @@ legend {
     background: linear-gradient(to right, #030, #010, #030);
     box-shadow: 1px 2px 3px #040;
     color: white;
-    display: table-cell;
-
     font-family: 'Merienda', cursive;
     font-size: 1.25em;
     font-weight: bold;
@@ -209,7 +207,6 @@ span:active {
         margin-bottom: 0;
     }
     legend {
-        display: table-cell;
         font-size: 1em;
     }
 
