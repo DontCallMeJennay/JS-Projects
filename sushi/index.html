@@ -29,7 +29,7 @@
         <section>
             <form id="searchForm">
                 <legend class="show">
-                    Enter a location<span>&#x25BC</span> </legend>
+                    Enter a location<span class="right">&#x25BC</span> </legend>
                 <input type='text' id='address' placeholder=' address or place name'></input>
                 <input type='text' id='city' placeholder=' search by city, state'></input>
                 <input type='text' id='zip' placeholder=' search by zip code'></input>
@@ -37,8 +37,13 @@
             </form>
         </section>
         <section>
-            <legend class="show flex" id="results">
-                Results <span>&#x25BC</span> <span class="small right" id="sortBy"></span><span class="small right" id="count"></span>
+            <legend class="show flex notReady" id="results">
+                <span>Results<br></span>
+                <span>
+                <span class="right" id="indicator">&#x25BC</span>
+                <span id="count"></span><br>
+                <span id="sortBy"></span>
+                </span>
             </legend>
             <div class="submenu">
                 <span id="more"> </i><i class="fa fa-plus" aria-hidden="true"></i></span>

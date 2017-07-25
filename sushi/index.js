@@ -1,9 +1,3 @@
-/* TODO
-
-1. Rewrite showResults() with template literals and make the output more sort-friendly
-
-*/
-
 function initMap() {
     var bounds;
     var coords = getLocation();
@@ -41,7 +35,7 @@ function initMap() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(success, error, options);
         } else {
-            $("#msg").html("Geolocation unavailable. Manual search required.");
+            $("#results").html("Geolocation unavailable. Manual search required.");
             slideItems(formFields);
         }
     }
@@ -71,81 +65,88 @@ function initMap() {
     function getSushi(coords, map) {
         var service = new google.maps.places.PlacesService(map);
         var request = {
+            keyword: 'sushi',
+            limit: 10,
             location: coords,
-            radius: '1500',
-            keyword: 'sushi'
+            rankBy: google.maps.places.RankBy.DISTANCE,
+            type: 'restaurant'
         };
         service.nearbySearch(request, sortData);
     }
 
-
     function sortData(response, status) {
         $("#more, #less, #price, #rating, #open").off();
         $(".target").html("");
+        $("#sortBy").html(" sorting by Distance ");
 
         dataObj = response;
         var sortedData = response;
         var resultLimit = response.length;
 
-        showResults(response, resultLimit);
+        if (dataObj.length > 0) {
+            console.log(dataObj.length);
+            $("#results").removeClass('notReady');
+            $('#indicator').addClass('bright');
+            showResults(response, resultLimit);
 
-        $("#more").click(function() {
-            $("#count").html(` showing ${resultLimit} results `);
-            resultLimit < response.length ? resultLimit++ : resultLimit = response.length;
-            showResults(sortedData, resultLimit);
-        });
+            $("#more").click(function() {
+                $("#count").html(` showing ${resultLimit} results `);
+                Math.floor(resultLimit * 2) < response.length ? resultLimit = Math.floor(resultLimit * 2) : resultLimit = response.length;
+                showResults(sortedData, resultLimit);
+            });
 
-        $("#less").click(function() {
-            $("#count").html(` showing ${resultLimit} results `);
-            resultLimit > 1 ? resultLimit-- : resultLimit = 1;
-            removeMarkers(myMap);
-            showResults(sortedData, resultLimit);
-        });
+            $("#less").click(function() {
+                $("#count").html(` showing ${resultLimit} results `);
+                Math.floor(resultLimit / 2) > 1 ? resultLimit = Math.floor(resultLimit / 2) : resultLimit = 1;
+                removeMarkers(myMap);
+                showResults(sortedData, resultLimit);
+            });
 
-        $("#price").click(function() {
-            $("#sortBy").html(" | sorting by Price ");
-            dataObj.forEach(function(item) {
-                if (!(item.price_level)) {
-                    item.price_level = -1;
-                }
+            $("#price").click(function() {
+                $("#sortBy").html(" sorting by Price ");
+                dataObj.forEach(function(item) {
+                    if (!(item.price_level)) {
+                        item.price_level = -1;
+                    }
+                });
+                let sort = dataObj.sort(function(a, b) {
+                    return b.price_level - a.price_level;
+                });
+                sortedData = sort;
+                showResults(sortedData, resultLimit);
             });
-            let sort = dataObj.sort(function(a, b) {
-                return b.price_level - a.price_level;
-            });
-            sortedData = sort;
-            showResults(sortedData, resultLimit);
-        });
 
-        $("#rating").click(function() {
-            $("#sortBy").html(" | sorting by Rating ");
-            let sort = dataObj.sort(function(a, b) {
-                return b.rating - a.rating;
+            $("#rating").click(function() {
+                $("#sortBy").html(" sorting by Rating ");
+                let sort = dataObj.sort(function(a, b) {
+                    return b.rating - a.rating;
+                });
+                sortedData = sort;
+                showResults(sortedData, resultLimit);
             });
-            sortedData = sort;
-            showResults(sortedData, resultLimit);
-        });
 
-        $("#open").click(function() {
-            $("#sortBy").html(" | sorting by Hours ");
-            dataObj.forEach(function(item) {
-                if (!(item.opening_hours.open_now)) {
-                    item.opening_hours.open_now = 0;
-                } else {
-                    item.opening_hours.open_now = 1;
-                }
+            $("#open").click(function() {
+                $("#sortBy").html(" sorting by Hours ");
+                dataObj.forEach(function(item) {
+                    if (!(item.opening_hours.open_now)) {
+                        item.opening_hours.open_now = 0;
+                    } else {
+                        item.opening_hours.open_now = 1;
+                    }
+                });
+                let sort = dataObj.sort(function(a, b) {
+                    return b.opening_hours.open_now - a.opening_hours.open_now;
+                });
+                sortedData = sort;
+                showResults(sortedData, resultLimit);
             });
-            let sort = dataObj.sort(function(a, b) {
-                return b.opening_hours.open_now - a.opening_hours.open_now;
-            });
-            sortedData = sort;
-            showResults(sortedData, resultLimit);
-        });
+        }
     }
 
     function showResults(data, limit) {
         $(".target").html("");
         removeMarkers(myMap);
-        $("#count").html(`showing ${limit} results`);
+        $("#count").html(`Found ${limit} results`);
         for (let i = 0; i < limit; i++) {
             var item = data[i];
             markers.push(createMarker(item));
@@ -203,6 +204,8 @@ function initMap() {
     }
 
     $('#findRestaurants').on('click', function(e) {
+        $('#results').addClass('notReady');
+        $('#indicator').removeClass('bright');
         e.preventDefault();
         $(formFields).slideUp(300);
         bounds = "";
@@ -244,6 +247,7 @@ function initMap() {
 
     slideItems($(".target"));
     $("#results").on("click", function() {
+        $('#indicator').toggleClass("bright");
         slideItems($(".target, .submenu"));
     });
 

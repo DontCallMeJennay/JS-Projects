@@ -94,12 +94,6 @@ legend {
     z-index: 3;
 }
 
-legend span {
-    box-shadow: 1px 1px 2px black;
-    cursor: pointer;
-    padding: 3px;
-}
-
 .sort {
     border-radius: 50px;
     box-shadow: 2px 2px 5px black;
@@ -183,14 +177,25 @@ span:active {
 }
 
 .small {
-    font-size: .75rem;
+    font-size: .8rem;
     margin: 1em;
 }
 
 .right {
+    box-shadow: 1px 1px 2px black;
+    cursor: pointer;
+    padding: 3px;
     float: right;
 }
 
+.notReady {
+    color: #777;
+}
+
+.bright {
+    font-size: 1.5rem;
+    background-color: #060;
+}
 
 @media screen and (max-width: 768px) {
     header {
@@ -204,11 +209,10 @@ span:active {
         margin-bottom: 0;
     }
     legend {
+        display: table-cell;
         font-size: 1em;
     }
-    legend span {
-        margin: 0 5px;
-    }
+
     input,
     legend,
     button,
@@ -226,7 +230,6 @@ span:active {
         flex: 0;
     }
     .small {
-        text-align: center;
         font-size: .75em;
         margin: 0;
     }
