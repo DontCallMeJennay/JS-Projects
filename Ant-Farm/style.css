@@ -1,0 +1,28 @@
+* {
+    border: 1px solid black;
+}
+
+table {
+	margin: 0 auto;
+}
+
+td {
+    height: 2vw;
+    width: 2vw;
+}
+
+.food {
+	background-color: green !important;
+}
+
+.nest {
+	background-color: brown !important;
+}
+
+.ant {
+	background: url('ant.jpg');
+}
+
+.pheromone {
+	background-color: #FFD;
+}
