@@ -1,10 +1,7 @@
 $('document').ready(function() {
 
-    function checkInput(input) {
-        var reg = /\D/g;
-        if (!(input.toString())) { return false; }
-        if (input.toString().search(reg) >= 0) {
-            //alert(input + " is not a valid input.");
+    function checkInput(input, min, max) {
+        if(input < min || input > max) {
             return false;
         }
         return true;
@@ -19,55 +16,18 @@ $('document').ready(function() {
         m.length === 1 ? dueDate += "0" + m : dueDate += m;
         d.length === 1 ? dueDate += "0" + d : dueDate += d;
         dueDate = moment(dueDate).format('YYYY-MM-DD');
-        if (checkInput(y) && checkInput(m) && checkInput(d)) {
-            if (moment().month() !== moment(dueDate).month()) {
-                dueDate = adjustDate(dueDate);
-            }
-
+        if (checkInput(y, 2017, 2020) && checkInput(m, 1, 11) && checkInput(d, 1, 31)) {
             return dueDate;
         }
-    }
-
-    function adjustDate(date) {
-        var thisMonth = moment().month();
-        var thisYear = moment().year();
-        var endMonth = moment(date).month();
-        var endYear = moment(date).year();
-        var months = endMonth - thisMonth;
-        var years = endYear - thisYear;
-        while (months < 0) {
-            months += 12;
-            years--;
-        }
-        while (months > 11) {
-            months -= 12;
-            years++;
-        }
-        console.log(`${years} years and ${months} months`);
-        var diff = 0;
-
-        //Default month length is 31.
-        for (var i = 0; i < months; i++) {
-            var month = i + thisMonth;
-            if (month > 11) {
-                month -= 12;
-            }
-            if (month == 1) {
-                diff += 3;
-            }
-            //thirty days has September...
-            if (month === 8 || month === 3 || month === 5 || month === 10) {
-                diff += 1;
-            }
-        }
-        date = moment(date).subtract(diff, "days").format("YYYY-MM-DD");
-        return date;
+        
     }
 
     function calculateDueTime() {
-        var dueTime = $('#dueByH').val() + $("#dueByM").val();
-        if (!(dueTime)) { dueTime = "1200"; }
-        $('#PM').is(':checked') ? dueTime += "p" : dueTime += "a";
+        var h = $('#dueByH').val(), mm = $("#dueByM").val();
+        h ? h = h : h = "12";
+        mm ? mm = mm : mm = "00";
+        var dueTime = h + mm;
+        $('#PM').is(':checked') ? dueTime += " p" : dueTime += " a";
         dueTime = moment(dueTime, "hmm A").format("HH:mm");
         return dueTime;
     }
@@ -114,10 +74,16 @@ $('document').ready(function() {
     }
 
     function calcDateRange(min, max) {
-        min = moment().add(min, "days").format("MMMM Do YYYY");
-        max = moment().add(max, "days").format("MMMM Do YYYY");
-        $("#low").html(min);
-        $("#high").html(max);
+        min = moment().add(min, "days");
+        max = moment().add(max, "days");
+        while(moment(min).day() === 0 || moment(min).day() === 6) {
+            min = moment(min).add(1, "days");
+        }
+        while(moment(max).day() === 0 || moment(max).day() === 6) {
+            max = moment(max).add(1, "days");
+        }
+        $("#low").html(min.format("MMMM Do YYYY"));
+        $("#high").html(max.format("MMMM Do YYYY"));
     }
 
     function addBusinessDays(num) {
@@ -161,30 +127,35 @@ $('document').ready(function() {
 
     $("#step3").on("click", function(event) {
         var dueDate = calculateDueDate();
+        if(dueDate) {
         var dueTime = calculateDueTime();
         var final = calculateTimeLeft(dueDate, dueTime);
         if ($('#noTime').is(':checked')) {
             $('.rectangle:not(#rect6)').slideUp(400);
             $('#rect6').delay(500).slideDown();
             var str = "";
-            if (final[0]) { str += `${final[0]} years `; }
-            if (final[1]) { str += `${final[1]} months `; }
-            if (final[2]) { str += `${final[2]} days `; }
+            if (final[0]) { str += `${final[0]} years <br />`; }
+            if (final[1]) { str += `${final[1]} months <br />`; }
+            if (final[2]) { str += `${final[2]} days <br />`; }
             $("#limit").html(str);
             checkIfValidAnswer(final);
         } else {
             $('.rectangle:not(#rect6)').slideUp(400);
             $('#rect6').delay(500).slideDown();
             var str = "";
-            if (final[0]) { str += `${final[0]} years `; }
-            if (final[1]) { str += `${final[1]} months `; }
-            if (final[2]) { str += `${final[2]} days `; }
-            if (final[3]) { str += `${final[3]} hours `; }
-            if (final[4]) { str += `${final[4]} minutes`; }
-            $("#limit").html(str);
-            $("#limit").html(final[1] + " months, " + final[2] + " days, " + final[3] + " hours, and " + final[4] + " minutes");
+            if (final[0]) { str += `${final[0]} years <br />`; }
+            if (final[1]) { str += `${final[1]} months <br />`; }
+            if (final[2]) { str += `${final[2]} days <br />`; }
+            if (final[3]) { str += `${final[3]} hours <br />`; }
+            if (final[4]) { str += `${final[4]} minutes<br />`; }
+            $("#limit").html(str);            
             checkIfValidAnswer(final);
         }
+    } else {
+        alert("Please enter a valid date.");
+        $("#rect2").show();
+        $(".rectangle:not(#rect2)").hide();
+    }
     });
 
     $("#step4").on("click", function(event) {

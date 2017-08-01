@@ -1,0 +1,17 @@
+{
+  "name": "duewhen",
+  "version": "1.0.0",
+  "description": "Due date/time estimator",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silverrain64/js-projects/duewhen/"
+  },
+  "keywords": [
+    "due",
+    "delivery",
+    "date"
+  ],
+  "author": "Jenni Corbus",
+  "license": "MIT"
+}
