@@ -35,15 +35,15 @@
             <table>
               <tr>
                 <td><label for="month">MM</label></td>
-                <td><input class="date" type="number" id="month" placeholder="07"></td>
+                <td><input class="date" type="number" id="month"></td>
               </tr>
               <tr>
                 <td><label for="day">DD</label></td>
-                <td><input class="date" type="number" id="day" placeholder="04"></td>
+                <td><input class="date" type="number" id="day"></td>
               </tr>
               <tr>
                 <td><label for="year">YYYY</label></td>
-                <td><input class="date" type="number" id="year" value="2017"></td>
+                <td><input class="date" type="number" id="year"></td>
               </tr>
             </table>
             <br>
@@ -83,8 +83,8 @@
             <tr>
               <td><input type="radio" name="time1" id="yesTime"></td>
               <td><label for="yesTime">Yes, it's due by</label></td>
-               <td><input type="number" class="date" id="dueByH" placeholder="12"> :
-                  <input type="number" class="date" id="dueByM" placeholder="00">
+               <td><input type="number" class="date" id="dueByH"> :
+                  <input type="number" class="date" id="dueByM">
                   <input type="radio" name="AMPM" id="AM"> <label for="AM">AM</label>
                   <input type="radio" name="AMPM" id="PM" checked="checked"> <label for="PM">PM</label>
                 </td>
@@ -97,12 +97,12 @@
             <p class="range" id="rangeResults">You can expect the <span class="emph results">[issue]</span> to be resolved between
                 <br><span class="emph" id="low">[minDate]</span>
                 <br>and
-                <br><span class="emph" id="high">[maxDate]</span>.</p>
+                <br><span class="emph" id="high">[maxDate]</span></p>
             <button class="btn reset">Reset</button>
         </div>
         <div class="rectangle" id="rect6">
             <p id="dueResults"> Your <span class="results emph">[issue]</span> is due in 
-                <span class="emph" id="limit">[time]</span>.</p>
+                <span class="emph" id="limit">[time]</span></p>
             <br>
             <button class="btn reset">Reset</button>
         </div>
@@ -118,7 +118,7 @@
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous">
     </script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js'></script>
     <script src="index.js"></script>
 </body>
 
