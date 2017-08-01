@@ -1,0 +1,25 @@
+{
+  "name": "ant-farm",
+  "version": "1.0.0",
+  "description": "A simulation for exploring algorithms.",
+  "main": "main.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silverrain64/js-projects/ant-farm"
+  },
+  "keywords": [
+    "ant",
+    "farm",
+    "colony",
+    "simulation",
+    "algorithms"
+  ],
+  "author": "Jenni Corbus",
+  "license": "MIT"
+}

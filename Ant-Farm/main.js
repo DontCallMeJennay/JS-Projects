@@ -1,5 +1,7 @@
 $(document).ready(function() {
     var num = 20;
+    var pop = 1;
+    //var pop = Math.ceil(num / 3);
     var food = Math.ceil(num / 3);
 
     var coordinates = [];
@@ -12,30 +14,13 @@ $(document).ready(function() {
             coordinates.push([]);
 
             for (var j = 0; j < num; j++) {
-                grid += `<td class='square' id=${i}${j}></td>`;
+                grid += `<td class='square' id=${i}-${j}></td>`;
                 coordinates[i].push([i, j]);
             }
             grid += `</tr>`;
         }
         grid += `</table>`
-        return grid;
-    }
-
-    function drawGrid(grid) {
-        var table = `<table>`;
-        var g = grid.length;
-        for (var i = 0; i < g; i++) {
-            grid += `<tr class='row' id=r${i}>`;
-
-            var h = grid[i].length;
-            for (var j = 0; j < h; j++) {
-                grid += `<td class='square' id=${i}${j}></td>`;
-
-            }
-            grid += `</tr>`;
-        }
-        grid += `</table>`
-        return grid;
+        $('#grid').html(grid);
     }
 
     function initFood(grid) {
@@ -43,7 +28,7 @@ $(document).ready(function() {
             var r = Math.floor((Math.random()) * num);
             var s = Math.floor((Math.random()) * num);
             var position = [r, s];
-            $(`#${r}${s}`).addClass('food');
+            $(`#${r}-${s}`).addClass('food');
             console.log("Food position: ", position)
         }
     }
@@ -59,7 +44,7 @@ $(document).ready(function() {
         var r = Math.round((Math.random()) * num);
         var s = Math.round((Math.random()) * num);
         var position = [r, s];
-        $(`#${r}${s}`).addClass('nest');
+        $(`#${r}-${s}`).addClass('nest');
         return position;
     }
 
@@ -83,7 +68,7 @@ $(document).ready(function() {
 
     function initAnt(grid, nest) {
         var position = nest.position;
-        for (var i = 0; i < Math.floor(num / 4); i++) {
+        for (var i = 0; i < pop; i++) {
             ants[i] = new Ant(position)
             ants[i].name = `Ant ${i}`;
             console.log(ants[i].name);
@@ -92,22 +77,30 @@ $(document).ready(function() {
 
     function moveAnts(grid) {
         ants.forEach(function(ant) {
+
+            if(ant.goingHome) {
+                goHome(ant, antNest);
+            } else {
             var x = ant.position[0],
                 y = ant.position[1],
                 a = ant.distanceFromHome[0],
                 b = ant.distanceFromHome[1];
 
-            $(`#${x}${y}`).removeClass('ant').addClass('pheromone');
+            $(`#${x}-${y}`).removeClass('ant').addClass('pheromone');
             var r = Math.floor(Math.random() * 6);
             var move = ant.moves[r];
-
+            console.log("move: ", move);
             x += move[0];
             y += move[1];
 
-            if (x < 0) { x = 0; move[0] = 0; }
-            if (x >= num) { x = num - 1; move[0] = 0; }
-            if (y < 0) { y = 0; move[0] = 0; }
-            if (y >= num) { y = num - 1; move[1] = 0; }
+            if (x < 0) { x = 0;
+                move[0] = 0; }
+            if (x >= num) { x = num - 1;
+                move[0] = 0; }
+            if (y < 0) { y = 0;
+                move[0] = 0; }
+            if (y >= num) { y = num - 1;
+                move[1] = 0; }
 
             a += move[0];
             b += move[1];
@@ -115,23 +108,26 @@ $(document).ready(function() {
             ant.position = [x, y];
             ant.distanceFromHome = [a, b];
 
-            $(`#${x}${y}`).addClass('ant');
-            console.log(ant.name, ant.position);
-            if ($(`#${x}${y}`).hasClass('food')) {
+            $(`#${x}-${y}`).addClass('ant');
+
+            if ($(`#${x}-${y}`).hasClass('food')) {
                 console.log(`${ant.name} has found FOOD at ${ant.position}!`);
                 ant.knowsWhereFoodIs = ant.position;
                 ant.goingHome = true;
                 ant.hasFood = true;
-                console.log(ant);
-                //goHome();
             }
-            if ($(`#${x}${y}`).hasClass('nest')) {
+            if ($(`#${x}-${y}`).hasClass('nest')) {
                 console.log(`${ant.name} has come home to ${ant.position}.`);
-                console.log(`${ant.name} hasFood: `, ant.hasFood, 'goingHome: ', ant.goingHome, 'distance: ', ant.distanceFromHome);
-
             }
-
+            }
         });
+
+        function goHome(ant, nest) {
+            var home = nest.position;
+            var x = home[0] - ant.position[0], y = home[1] - ant.position[1];
+            console.log(home.toString(), ant.position.toString(), x, y);
+
+        }
     }
 
     function updatePheromone() {
@@ -141,8 +137,6 @@ $(document).ready(function() {
 
 
     var grid = setGrid(num);
-    $('#grid').html(drawGrid(grid));
-    console.log(coordinates);
 
     var squares = $('.square');
 
@@ -150,10 +144,10 @@ $(document).ready(function() {
     var antNest = new Nest(grid);
     initAnt(grid, antNest);
 
+
     $("#move").click(function() {
         moveAnts(grid);
     });
-
 
 });
 

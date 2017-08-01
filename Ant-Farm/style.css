@@ -21,6 +21,7 @@ td {
 
 .ant {
 	background: url('ant.jpg');
+	background-size: contain;
 }
 
 .pheromone {
