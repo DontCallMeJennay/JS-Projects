@@ -9,7 +9,7 @@ body {
     background-repeat: no-repeat;
     background-size: 75%;
     font-family: 'Lato', sans-serif;
-    margin: 5% auto;
+    margin: 2% auto;
 }
 
 h1,
@@ -21,14 +21,18 @@ button {
 }
 
 hr {
-    border: 2px outset green;
+    border: 2px outset #AA1F18;
     width: 75%;
 }
 
 footer {
+    background: rgba(0, 0, 0, .5);
     bottom: 0;
-    color: green;
+    color: white;
+    padding: 1em;
     position: fixed;
+    width: 100%;
+    z-index: 2;
 }
 
 h1 {
@@ -36,12 +40,8 @@ h1 {
 }
 
 h2 {
-    padding-top: 5%;
-    margin-bottom: 5px;
-}
-
-span {
-    color: #AA1F18;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 button {
@@ -49,41 +49,109 @@ button {
     cursor: pointer;
 }
 
-.flex {
+ul {
+    list-style: none;
+}
+
+.row {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+    flex-direction: row;
+}
+
+.col {
+    display: flex;
+    flex-flow: column;
 }
 
 .quadrant {
-    //border: 5px solid green;
-    height: 40vh;
-    justify-content: center;
+    margin: 1% auto;
+    padding: 5px;
     text-align: center;
     width: 55vw;
 }
 
-.tall {
-    height: 50vh;
-    margin: -10vh 0;
+.info {
+    background-color: black;
+    background: rgba(0, 0, 0, .5);
+    box-shadow: 2px 2px 5px #46321F;
+    color: white;
+    line-height: 1;
+}
+
+.ToDo {
+    background-color: white;
+    background: rgba(255,255,255,.5);
+    border: 1px solid #050;
+    box-shadow: 1px 1px 3px #050;
+    color: black;
+    overflow-y: scroll;
+    text-align: center;
+}
+
+.ToDo button {
+    background-color: white;
+    font-size: 1em;
+    font-family: "Fresca", sans-serif;
+    padding: 5px;
+}
+
+.ToDo input {
+    border: none;
+    font-family: 'Lato', sans-serif;
+    padding: 5px;
+}
+
+.ToDo input[type='checkbox'] {
+    background-color: white;
+    height: 1em;
+    width: 1em;
+    padding: 0.5em;    
+}
+
+.finished {
+    color: #999;
+    text-decoration: line-through;
+}
+
+.noedit {
+    border: none;
+    cursor: pointer;
 }
 
 .cpanel {
-    background-color: rgb(230, 255, 230);
-    background: rgba(230, 255, 230, .7);
-    border: 2px inset #CFC;
-    flex-flow: column;
-    flex: 1;
-    vertical-align: middle;
+    background-color: gray;
+    background: rgba(80, 80, 80, .5);
+    border: 1px solid black;
+    justify-content: space-around;
     margin: 0 auto;
     min-width: 40%;
 }
 
+.cpanel h2 {
+    color: white;
+}
+
+.controls {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.controls button {
+    border-radius: 0 40px 0 40px;
+    box-shadow: 2px 2px 5px #2D1A08;
+    color: white;
+    flex: 1;
+    margin: 5px;
+}
+
 .time {
     background-color: white;
-    font-size: 2em;
-    padding: 0px 5px;
     border: 1px inset #CFC;
+    color: #AA1F18;
+    font-size: 1.5em;
+    padding: 0px 5px;
 }
 
 .add-time {
@@ -104,47 +172,16 @@ button {
     max-width: 25vw;
 }
 
-.center {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    padding: 1em;
-}
-
-.center button {
-    border-radius: 0 40px 0 40px;
-    box-shadow: 2px 2px 5px #2D1A08;
-    color: white;
-    flex: 1;
-    margin: 5px;
-}
-
-.info {
-    background-color: #FCFCFF;
-}
-
 .clock {
     background-color: white;
     background: rgba(255, 255, 255, .8);
-    box-shadow: 1px 1px 5px #050;
+    box-shadow: 1px 1px 3px #050;
     font-size: 2em;
-    height: 75%;
-    margin: 5% auto;
-    width: 75%;
+    padding: 1em;
 }
 
-.clock h3 {
+.clock h2 {
     margin: 0;
-}
-
-.ToDo {
-    background-color: #080;
-    background: rgba(0, 80, 0, .9);
-    box-shadow: 2px 2px 5px #46321F;
-    color: white;
-    height: 75%;
-    margin: 5% auto;
-    width: 75%;
 }
 
 .green {
@@ -193,29 +230,43 @@ button {
     background-color: gray;
 }
 
+
+
+
+
+
+/*
 @media screen and (max-width: 800px) {
+    .quadrant {
+        margin: 0 auto;
+    }
     h1 {
         font-size: 1.5em;
     }
     .info p {
-        display: none;
+        font-size: 0.8rem;
     }
     .time {
         font-size: 1.5em;
     }
 }
+*/
 
 @media screen and (max-width: 450px) {
-  body {
-    margin: 2% auto;
-  }
+    body {
+        margin: 2% auto;
+    }
 
-  .flex {
-    flex-flow: column;
-    margin: 0 auto;
-  }
-  .quadrant {
-    width: 75vw;
-  }
-
+    h1,
+    h2,
+    h3 {
+        margin: 5px;
+    }
+    .cpanel {
+        flex-direction: column;
+    }
+    .quadrant {
+        width: 75vw;
+    }
+    .time {}
 }

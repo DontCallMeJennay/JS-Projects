@@ -9,62 +9,83 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Fresca|Lato" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue"></script>
     </script>
 </head>
 
 <body>
-    <main class="flex">
-        <section class="quadrant left info">
-            <div class="center" id="info">
-                <h1>Productivity Clock</h1>
-                <p>Maximize your productivity by alternating short breaks with longer working periods.</p>
-                <hr>
-                <p>Right now you should be</p>
-                <h2><span id="activity">Setting the timer</span></h2>
-            </div>
+    <main class="col">
+        <section class="quadrant col info" id="info">
+            <h1>Productivity Clock</h1>
+            <p>Maximize your productivity by alternating short breaks with longer working periods.</p>
+            <hr>
+            <p>Right now you should be</p>
+            <h2><span id="activity">Setting the timer</span></h2>
         </section>
-        <section class="quadrant right">
-            <div class="ToDo" id="todo">
-                <h2>Future site of ToDo app</h2>
-                <h4>(Vue or React?)</h4>
-            </div>
-        </section>
-        <section class="quadrant flex left">
-            <div class="cpanel ">
-                <h2>Work time</h2>
-                <span class="time" id="workTime"> [25] </span>
-                <br>
-                <button class="brown sub-time" id="subW"> - </button>                
-                <button class="green add-time" id="addW"> + </button>
-            </div>
-            <div class="cpanel">
-                <h2>Break time</h2>
-                <span class="time" id="breakTime"> [5] </span>
-                <br>
-                <button class="brown sub-time" id="subB"> - </button>                
-                <button class="green add-time" id="addB"> + </button>
-            </div>
-            <div class="cpanel center">
-                <button class="green" id="start">Start</button>
-                <button class="red" id="stop">Stop</button>
-                <button class="brown" id="reset">Reset</button>
-            </div>
-        </section>
-        <section class="quadrant right">
+        <section class="quadrant col">
             <div class="clock">
                 <h2><span id="session">Task</span></h2>
                 <h3>Time Left:</h3>
                 <h1 class="" id="clockTime">00:00 </h1>
             </div>
         </section>
+        <section class="quadrant">
+            <div class="cpanel row">
+                <div>
+                    <h2>Work time</h2>
+                    <button class="brown sub-time" id="subW"> - </button>
+                    <span class="time" id="workTime"> [25] </span>
+                    <button class="green add-time" id="addW"> + </button>
+                </div>
+                <div>
+                    <h2>Break time</h2>
+                    <button class="brown sub-time" id="subB"> - </button>
+                    <span class="time" id="breakTime"> [5] </span>
+                    <button class="green add-time" id="addB"> + </button>
+                </div>
+            </div>
+            <div class="cpanel controls">
+                <button class="green" id="start">Start</button>
+                <button class="red" id="stop">Stop</button>
+                <button class="brown" id="reset">Reset</button>
+            </div>
+        </section>
+
+        <section class="quadrant ToDo" id='todo'>
+            <div>
+                <h1>To Do</h1>
+                <input type='text' v-model='newItem' />
+                <button @click='add()'>+</button> <span></span>
+                <hr />
+                <template v-for='(item, index) in tasks'>
+                    <p v-show='!item.done'>
+                        <input type='checkbox' @click='item.done=!item.done' unchecked />
+                        <input type='text' v-bind:class='noedit' class='noedit' v-model='item.task' v-on:click='item.edit=!item.edit'>
+                        <button @click='remove(item, index)'>x</button>
+                    </p>
+                </template>
+            </div>
+            <hr />
+            <div>
+                <h1>Done</h1>
+                <ul>
+                    <template v-for='item in tasks'>
+                        <li class='finished' v-show='item.done'>
+                            <input type='checkbox' @click='item.done=!item.done' />{{ item.task }} </li>
+                    </template>
+                </ul>
+            </div>
+        </section>
     </main>
     <footer>
         <audio id="soundW" src="snd/isteak_bell.mp3" type="audio/mp3"></audio>
         <audio id="soundB" src="snd/herbertboland_piano3.mp3" type="audio/mp3"></audio>
-        Last updated June 2017.
+        Last updated August 2017.
     </footer>
+    <script src="list.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous">
+    </script>
     <script src="index.js"></script>
 </body>
 
