@@ -5,5 +5,5 @@ sushi/test.json
 *.jpg
 *.zip
 DueWhen/test/moment.js
-pomodoro-clock-new/node-modules/*
-pomodoro-clock-new/build/*
+pomodoro-clock-new/node_modules
+pomodoro-clock-new/build

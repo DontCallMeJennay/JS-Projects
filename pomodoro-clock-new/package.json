@@ -1,0 +1,28 @@
+{
+  "name": "pomodoro-clock-new",
+  "version": "1.0.0",
+  "description": "A productivity tool with a todo list and work/break timers",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silverrain64/js-projects/pomodoro-clock-new"
+  },
+  "keywords": [
+    "productivity",
+    "timer",
+    "tasklist"
+  ],
+  "author": "Jenni Corbus",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-cache": "^0.4.6",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-ruby-sass": "^2.1.1",
+    "gulp-uglify": "^3.0.0"
+  }
+}
