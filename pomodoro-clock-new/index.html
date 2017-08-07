@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Fresca|Lato" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
     </script>
 </head>
 
@@ -20,17 +20,17 @@
             <p>Maximize your productivity by alternating short breaks with longer working periods.</p>
             <hr>
             <p>Right now you should be</p>
-            <h2><span id="activity">Setting the timer</span></h2>
+            <h2><span id="activity">Setting your timers</span></h2>
         </section>
-        <section class="quadrant col">
+        <section class="quadrant col" id="clock">
             <div class="clock">
                 <h2><span id="session">Task</span></h2>
                 <h3>Time Left:</h3>
                 <h1 class="" id="clockTime">00:00 </h1>
             </div>
         </section>
-        <section class="quadrant">
-            <div class="cpanel row">
+        <section class="quadrant" id="cpanel">
+            <div class="cpanel row" id="cpanel-top">
                 <div>
                     <h2>Work time</h2>
                     <button class="brown sub-time" id="subW"> - </button>
@@ -53,25 +53,28 @@
 
         <section class="quadrant ToDo" id='todo'>
             <div>
-                <h1>To Do</h1>
-                <input type='text' v-model='newItem' />
-                <button @click='add()'>+</button> <span></span>
+                <h2>To Do</h2>
                 <hr />
+                <input type='text' v-model='newItem' />
+                <button class='brown' @click='add()'>Add</button> <span></span>
+                <hr />                
+                <ul>
                 <template v-for='(item, index) in tasks'>
-                    <p v-show='!item.done'>
+                    <li v-show='!item.done'>
                         <input type='checkbox' @click='item.done=!item.done' unchecked />
-                        <input type='text' v-bind:class='noedit' class='noedit' v-model='item.task' v-on:click='item.edit=!item.edit'>
-                        <button @click='remove(item, index)'>x</button>
-                    </p>
+                        <input type='text' class='seethru' v-bind:class='noedit' class='noedit' v-model='item.task'>
+                        <button class='brown add-time' @click='remove(item, index)'>x</button>
+                    </li>
                 </template>
+                </ul>
             </div>
             <hr />
             <div>
-                <h1>Done</h1>
                 <ul>
                     <template v-for='item in tasks'>
-                        <li class='finished' v-show='item.done'>
-                            <input type='checkbox' @click='item.done=!item.done' />{{ item.task }} </li>
+                        <li v-show='item.done'>
+                            <input type='checkbox' @click='item.done=!item.done' checked />
+                            <input class='finished' type='text' v-bind:class='noedit' v-model='item.task' disabled='disabled' /></li>
                     </template>
                 </ul>
             </div>
@@ -80,13 +83,13 @@
     <footer>
         <audio id="soundW" src="snd/isteak_bell.mp3" type="audio/mp3"></audio>
         <audio id="soundB" src="snd/herbertboland_piano3.mp3" type="audio/mp3"></audio>
-        Last updated August 2017.
+        <p><a href='https://github.com/silverrain64/JS-Projects/tree/master/pomodoro-clock-new'>View on GitHub.</a>  Last updated August 2017.</p>
     </footer>
-    <script src="list.js"></script>
+    <script src='js/list.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous">
     </script>
-    <script src="index.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
