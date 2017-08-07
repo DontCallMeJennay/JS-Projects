@@ -31,9 +31,18 @@ $(document).ready(function() {
     var working = true;
     var worksnd = document.getElementById("soundW");
     var breaksnd = document.getElementById("soundB");
+    var smallScreen;
+
+    if ($(window).width() < 450) {
+        $('#clock').slideUp(0);
+        smallScreen = true;
+    }
 
     function setUpTimers() {
-
+        $('#addW, #subW, #addB, #subB, #start, #stop, #reset').off();
+        working = true;
+        $('#activity').html('Setting your timers');
+        if(tickTock) { clearInterval(tickTock); }
         $("#workTime").html(workTimer);
         $("#breakTime").html(breakTimer);
         $("#clockTime").html("--:--");
@@ -61,7 +70,7 @@ $(document).ready(function() {
         });
 
         $("#start").one("click", () => {
-            console.log("Start clicked");
+            animateStart();
             $(".timeBtn").prop("disabled", true);
             mainTimer = workTimer;
             workTime(mainTimer);
@@ -85,11 +94,12 @@ $(document).ready(function() {
         }, 1000);
 
         $("#stop").one("click", function() {
-            console.log("Stop clicked");
+            animateStop();
             clearInterval(tickTock);
             $(".timeBtn").prop("disabled", false);
             $("#activity").html("Paused");
             $("#start").one("click", () => {
+                animateStart();
                 $(".timeBtn").prop("disabled", true);
                 working === true ? workTime(mainTimer) : breakTime(mainTimer);
             });
@@ -97,8 +107,22 @@ $(document).ready(function() {
 
 
         $("#reset").click(() => {
-            location.reload();
+            setUpTimers();
         });
+    }
+
+    function animateStop() {
+        if (smallScreen) {
+            $('#cpanel-top').slideDown(300);
+            $('#clock').slideUp(300);
+        }
+    }
+
+    function animateStart() {
+        if (smallScreen) {
+            $('#cpanel-top').slideUp(300);
+            $('#clock').slideDown(300);
+        }
     }
 
     function breakTime(timer) {
@@ -118,10 +142,12 @@ $(document).ready(function() {
 
         $("#stop").one("click", function() {
             $("#start").off();
+            animateStop();
             clearInterval(tickTock);
             $(".timeBtn").prop("disabled", false);
             $("#activity").html("Paused");
             $("#start").one("click", () => {
+                animateStart();
                 $(".timeBtn").prop("disabled", true);
                 console.log("Start clicked");
                 console.log("Working? " + working);

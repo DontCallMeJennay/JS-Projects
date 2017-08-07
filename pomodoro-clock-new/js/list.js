@@ -3,10 +3,9 @@ var list = new Vue({
     data: {
         newItem: "",
         tasks: [
-            { task: 'Take a shower', done: false, edit: true },
-            { task: 'Do the dishes', done: false, edit: true },
+            { task: 'Eat a healthy lunch', done: false, edit: true },
             { task: 'Do the laundry', done: false, edit: true },
-            { task: 'Learn Vue', done: false, edit: true }
+            { task: 'Complete first Vue project', done: true, edit: false }
         ]
     },
     methods: {
@@ -18,7 +17,7 @@ var list = new Vue({
             });
         },
         save: function() {
-        	//I had planned on saving to local storage, but now I know I need to read up more on security issues first...
+        	//TODO
         },
         remove: function(item, index) {
             this.tasks.splice(index, 1);
