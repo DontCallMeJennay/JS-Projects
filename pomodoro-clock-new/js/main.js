@@ -1,27 +1,3 @@
-/*
-I can't even look. New plan:
-
-{Setup time}
-{Working time}
-{Break time}
-
-{Setup}
-Set directions to indicate "Setup time."
-Display a period of time. Default 25 min working, 5 min breaks. Display with 00s.
-User can change time settings. Min 5 min, max 60.
-
-{Working}
-Adjustment buttons disabled; time ticks down from set time.
-At zero, timer stops, resets to user setting, and switches to
-
-{Break}
-At zero, timer stops, resets to user setting, and switches to ...
-
-Reset button returns to setup state. All buttons enabled, times reset to 25 and 5.
-
-*/
-
-
 $(document).ready(function() {
 
     var tickTock;
