@@ -1,0 +1,120 @@
+a:link {
+color: #F7CB5B;
+}
+
+a:active,
+a:hover {
+  color: #EDC152;
+}
+
+a:visited {
+  color: #E2B134;
+}
+
+body {
+  background-color: gray;
+  color: #F7CB5B;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 3rem;
+  margin: 0 auto;
+  max-width: 1000px;
+  overflow-y: scroll;
+}
+
+h1 {
+  font-family: 'Poller One', sans-serif;
+  font-size: 2em;
+  text-shadow: 2px 2px black;
+  }
+
+.twitch,
+.yt {
+  display: flex;
+  justify-content: center;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1%;
+  vertical-align: middle;
+}
+
+img {
+  border-radius: 50px;
+  height: 3em;
+  margin: 10px;
+  width: 3em;
+}
+
+footer {
+  font-size: 1rem;
+  margin: 1% auto;
+  text-align: center;
+}
+
+.col {
+  align-items: center;
+  color: #E2B134;
+  font-size: 2rem;
+  justify-content: center;
+}
+
+.col div {
+  align-items: center;
+  border: 2px outset #F7CB5B;
+  display: flex;
+  height: 4em;
+  padding: 10px;
+}
+
+.twitch .col div:nth-child(even) {
+  background-color:#542F98;
+  background: linear-gradient(#542F98, #3E1A7F);
+}
+
+.twitch .col div:nth-child(odd) {
+  background-color: #290963;
+  background: linear-gradient(#290963, #1D044A);
+}
+
+.yt .col:not(.red) {
+  background-color: white;
+}
+
+hr {
+border: 3px double #F7CB5B;
+}
+
+
+
+.btn-filter {
+  background-color: #145673;
+  background: linear-gradient(#276B88, #07445E);
+  border-radius: 40px;
+  border-style: none;
+  color: #D79736;
+  padding: 10px;
+  text-align: center;
+  float: right;
+}
+
+.btn-filter:focus {
+  outline: 0;
+}
+
+.litUp {
+  border-color: #0C5;
+  box-shadow: 3px 3px 20px #070;
+  color: #0C5;
+  text-shadow: 3px 3px 20px #070;
+}
+
+.names {
+  font-family: "Poller One", sans-serif;
+}
+
+.red {
+  background-color: red;
+  background: linear-gradient(to bottom, #F00, #B00);
+}

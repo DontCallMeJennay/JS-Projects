@@ -1,0 +1,14 @@
+{
+  "name": "now-playing",
+  "version": "1.0.0",
+  "description": "Dashboard for streams and videos",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Jenni Corbus",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^0.10.0"
+  }
+}
