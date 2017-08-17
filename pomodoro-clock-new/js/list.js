@@ -10,14 +10,16 @@ var list = new Vue({
     },
     methods: {
         add: function() {
-            list.tasks.push({
-                task: this.newItem,
-                done: false,
-               
-            });
+            if (this.newItem !== '') {
+                list.tasks.push({
+                    task: this.newItem.trim(),
+                    done: false,
+                }),
+                this.newItem = '';
+            }
         },
         save: function() {
-        	//TODO
+            //TODO
         },
         remove: function(item, index) {
             this.tasks.splice(index, 1);
