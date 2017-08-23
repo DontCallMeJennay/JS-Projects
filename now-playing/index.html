@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Exo+2:400,800|Libre+Baskerville:400,400italic|Poller+One:400'>
-    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
     <script src="https://use.fontawesome.com/59c976fd61.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -16,33 +15,26 @@
 <body>
     <header>
         <h1>Now Playing!</h1>
+        <span>
+        <button id='games'><i class="fa fa-2x fa-twitch" aria-hidden="true"></i></button>
+        <button id='videos'><i class="fa fa-2x fa-youtube-play" aria-hidden="true"></i></button>
+        </span>
     </header>
     <hr />
-    <h2>Live video game streams</h2>
     <main>
-        <div class='twitch'>
-            <div class="col logo">
-            </div>
-            <div class="col streamer">
-            </div>
-            <div class="col game">
-            </div>
-            <div class="col status">
-            </div>
-        </div>
-        <h2>Videos
+        <section id='tList'>
+            <table class='twitch'>
+            </table>
+        </section>
+        <section id='yList'>
             <button class='btn-filter' id="authorize-button" style="display: none;">Authorize</button>
             <button class='btn-filter' id="signout-button" style="display: none;">Sign Out</button>
             </h2>
-        <hr />
-        <div class='yt'>
-            <div class='col' id='ylogo'>
-            </div>
-            <div class='col' id='ytuber'>
-            </div>
-            <div class='col' id='ydesc'>
-            </div>
-        </div>
+            <table class='you'>
+                <tbody id='yt'>
+                </tbody>
+            </table>
+        </section>
     </main>
     <footer>
     </footer>

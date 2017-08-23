@@ -8,3 +8,4 @@ DueWhen/test/moment.js
 
 */node_modules/*
 */build/*
+*.scssc

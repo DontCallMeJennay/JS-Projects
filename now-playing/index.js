@@ -1,12 +1,14 @@
 $("document").ready(function() {
 
+    $("#tList, #yList").hide();
+
     function checkTwitch() {
         function getStreamList(user) {
             $.ajax({
                 type: "GET",
                 dataType: "json",
                 url: `https://api.twitch.tv/kraken/users/${user}/follows/channels?limit=100&sortby=last_broadcast`,
-                headers: { 'Client-ID': '[YOUR_ID]' },
+                headers: { 'Client-ID': 'kjuxb8d6m4k8sek7vqnfvr3y1694077' },
                 success: function(data) {
                     var len = data.follows.length;
                     //console.log(data);
@@ -23,28 +25,46 @@ $("document").ready(function() {
                 type: "GET",
                 dataType: "json",
                 url: 'https://api.twitch.tv/kraken/streams/' + name,
-                headers: { 'Client-ID': '[YOUR_ID]' },
+                headers: { 'Client-ID': 'kjuxb8d6m4k8sek7vqnfvr3y1694077' },
                 success: function(data) {
                     if (data.stream) {
                         var logo = data.stream.channel.logo;
-
                         var chan = data.stream.channel.display_name;
                         var game = data.stream.channel.game;
                         var url = data.stream.channel.url;
                         var status = data.stream.channel.status;
                         //console.log(streamer + " is online");
-                        $('.logo').append(`<div><img src="${logo}" alt="${chan}'s stream logo"></div>`);
-                        $('.streamer').append(`<div class="names"><a href="${url}">${chan}</a></div>`);
-                        $('.game').append(`<div>${game}</div>`)
-                        $('.status').append(`<div><a href="${url}">${status}</a></div>`);
+                        $('.twitch').append(
+                            `<tr>
+                        	<td><img src="${logo}" alt="${chan}'s stream logo"></td>
+                        	<td class="names"><a href="${url}">${chan}</a></td>
+                        	<td>${game}</td>
+                        	<td class='sm-hide'><a href="${url}">${status}</a></td>
+                        	</tr>`);
                         //console.log(data);
                     }
+                    $('#games').css({'color': '#4B367C'});
                 }
             });
         }
+
         getStreamList('silverrain64');
     }
+
     checkTwitch();
+
+    $('#games').on('click', function() {
+        $('#tList').slideToggle(500);
+        $('#yList').slideUp(500);
+        $(this).addClass('btn-lit');
+        $('#videos').removeClass('btn-lit');
+    });
+    $('#videos').on('click', function() {
+        $('#yList').slideToggle(500);
+        $('#tList').slideUp(500);
+        $(this).addClass('btn-lit');
+        $('#games').removeClass('btn-lit');
+    });
 });
 
 /*
@@ -52,7 +72,7 @@ The following code is from the YouTube Data API quickstart guide, with some slig
 See https://developers.google.com/youtube/v3/quickstart/js.
 */
 
-var CLIENT_ID = '[YOUR_ID]';
+var CLIENT_ID = '372774319049-v8c698o1ntn42gctbgm8semjcsgapg3o.apps.googleusercontent.com';
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest"];
 var SCOPES = 'https://www.googleapis.com/auth/youtube.readonly';
 
@@ -93,7 +113,7 @@ function initClient() {
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
         authorizeButton.style.display = 'none';
-        signoutButton.style.display = 'block';
+        signoutButton.style.display = 'none';
         getSubscriptions();
     } else {
         authorizeButton.style.display = 'block';
@@ -112,33 +132,28 @@ function handleSignoutClick(event) {
 function getSubscriptions() {
     gapi.client.youtube.subscriptions.list({
         'part': 'snippet,contentDetails',
-        'mine': 'true'
+        'mine': 'true',
+        'maxResults': 20
     }).then(function(response) {
-        var ylogo = document.getElementById('ylogo');
-        var ytuber = document.getElementById('ytuber');
-        var ydesc = document.getElementById('ydesc');
-
-        ylogo.innerHTML = '';
-        ytuber.innerHTML = '';
-        ydesc.innerHTML = '';
-
+        var yt = document.getElementById('yt');
         var subs = response.result.items;
-        //console.log(subs);
         var len = subs.length;
-
         for (var i = 0; i < len; i++) {
             var name = subs[i].snippet.title;
             var id = subs[i].snippet.resourceId.channelId;
             var count = subs[i].contentDetails.newItemCount;
             var descr = (subs[i].snippet.description).substring(0, 100) + '...';
             var icon = subs[i].snippet.thumbnails.default.url;
-            var a = `<div class='red'><img src=${icon}>${count}</div>`;
-            var b = `<div><img src=${icon}></div>`;
-            count > 0 ? ylogo.innerHTML += a : ylogo.innerHTML += b;
-            ytuber.innerHTML += `<div class='names'><a href='https://www.youtube.com/channel/${id}'>${name}</a></div>`;
-            ydesc.innerHTML += `<div>${descr}</div>`;
-
+            var a = `<tr><td class='red'><img src=${icon}>${count}</td>`;
+            var b = `<tr><td><img src=${icon}></td>`;
+            var str;
+            count > 0 ? str = a : str = b;
+            str += `<td class='names'><a href='https://www.youtube.com/channel/${id}'>${name}</a></td>
+            				<td class='sm-hide'>${descr}</td>
+            				</tr>`;
+            yt.innerHTML += str;
         }
-
+    }).then(function() {
+    	$('#videos').css({'color': '#900'});
     });
 }
