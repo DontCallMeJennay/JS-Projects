@@ -68,6 +68,8 @@ $("document").ready(function() {
 });
 
 /*
+
+/*
 The following code is from the YouTube Data API quickstart guide, with some slight modifications.
 See https://developers.google.com/youtube/v3/quickstart/js.
 */
@@ -156,4 +158,5 @@ function getSubscriptions() {
     }).then(function() {
     	$('#videos').css({'color': '#900'});
     });
+    */
 }
