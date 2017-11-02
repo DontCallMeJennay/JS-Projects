@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     var tickTock;
-    var workTimer = initTimer(1);
+    var workTimer = initTimer(25);
     var breakTimer = initTimer(5);
     var mainTimer;
     var working = true;

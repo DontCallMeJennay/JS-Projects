@@ -9,3 +9,4 @@ DueWhen/test/moment.js
 */node_modules/*
 */build/*
 *.scssc
+pomodoro-clock-new/package-lock.json

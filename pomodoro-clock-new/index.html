@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="etf-8">
-    <title> </title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <meta charset="utf-8">
+    <title>Productivity Timer and To-do List</title>
+    <meta name="description" content="Productivity timer and to-do list">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Fresca|Lato" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
     </script>
 </head>
@@ -50,22 +50,21 @@
                 <button class="brown" id="reset">Reset</button>
             </div>
         </section>
-
         <section class="quadrant ToDo" id='todo'>
             <div>
                 <h2>To Do</h2>
                 <hr />
-                <input type='text' v-model='newItem' />
-                <button class='brown' @click='add()'>Add</button> <span></span>
-                <hr />                
+                <input type='text' v-model='newItem' aria-label="Input for new to-do task"/>
+                <button class='brown' aria-label="Add item to to-do list" @click='add()'>Add ToDo</button>
+                <hr />
                 <ul>
-                <template v-for='(item, index) in tasks'>
-                    <li v-show='!item.done'>
-                        <input type='checkbox' @click='item.done=!item.done' unchecked />
-                        <input type='text' class='seethru' v-bind:class='noedit' class='noedit' v-model='item.task'>
-                        <button class='brown add-time' @click='remove(item, index)'>x</button>
-                    </li>
-                </template>
+                    <template v-for='(item, index) in tasks'>
+                        <li v-show='!item.done'>
+                            <input type='checkbox' @click='item.done=!item.done' unchecked aria-label="selector for item on to-do list"/>
+                            <input type='text' class='seethru' v-bind:class='noedit' class='noedit' v-model='item.task' aria-label="To-do list item">
+                            <button class='brown add-time' @click='remove(item, index)' aria-label="Remove this item from to-do list">x</button>
+                        </li>
+                    </template>
                 </ul>
             </div>
             <hr />
@@ -73,8 +72,9 @@
                 <ul>
                     <template v-for='item in tasks'>
                         <li v-show='item.done'>
-                            <input type='checkbox' @click='item.done=!item.done' checked />
-                            <input class='finished' type='text' v-bind:class='noedit' v-model='item.task' disabled='disabled' /></li>
+                            <input type='checkbox' @click='item.done=!item.done' checked aria-label="Mark to-do list item as unfinished"/>
+                            <input class='finished' type='text' v-bind:class='noedit' v-model='item.task' disabled='disabled' aria-label="completed to-do list item"/>
+                        </li>
                     </template>
                 </ul>
             </div>
@@ -83,13 +83,11 @@
     <footer>
         <audio id="soundW" src="snd/isteak_bell.mp3" type="audio/mp3"></audio>
         <audio id="soundB" src="snd/herbertboland_piano3.mp3" type="audio/mp3"></audio>
-        <p><a href='https://github.com/silverrain64/JS-Projects/tree/master/pomodoro-clock-new'>View on GitHub.</a>  Last updated August 2017.</p>
     </footer>
-    <script src='js/list.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous">
     </script>
-    <script src="js/main.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>
